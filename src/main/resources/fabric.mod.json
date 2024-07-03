@@ -1,0 +1,55 @@
+{
+    "schemaVersion": 1,
+    "id": "imagicthud",
+    "version": "${version}",
+    "name": "ImagictHud",
+    "description": "Displays player head, nickname, coordinates, and biome on in-game HUD",
+    "authors": [
+        {
+            "name": "@Shihyeon",
+            "contact": {
+                "sources": "https://github.com/Shihyeon"
+            }
+        }
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/imagict-hud",
+        "sources": "https://github.com/Shihyeon/ImagictHud",
+        "issues": "https://github.com/Shihyeon/ImagictHud/issues"
+    },
+    "license": "GNU LGPLv3",
+    "icon": "assets/imagicthud/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "kr.shihyeon.imagicthud.client.ImagictHudClient"
+        ],
+        "main": [
+            "kr.shihyeon.imagicthud.ImagictHud"
+        ],
+        "modmenu": [
+            "kr.shihyeon.imagicthud.config.ModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "imagicthud.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.11",
+        "fabric": ">=0.100.4+1.21",
+        "minecraft": ">=1.21",
+        "java": ">=21",
+        "fabric-key-binding-api-v1": "*",
+        "yet_another_config_lib_v3": "*"
+    },
+    "suggests": {
+        "modmenu": "*"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.modrinth": "https://modrinth.com/mod/imagict-hud"
+            }
+        }
+    }
+}
