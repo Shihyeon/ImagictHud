@@ -1,12 +1,12 @@
 object Constants {
     // https://fabricmc.net/develop/
-    const val MINECRAFT_VERSION: String = "1.21"
-    const val YARN_MAPPINGS: String = "1.21+build.2"
+    const val MINECRAFT_VERSION: String = "1.20.1"
+    const val YARN_MAPPINGS: String = "1.20.1+build.3"
     const val FABRIC_LOADER_VERSION: String = "0.15.11"
-    const val FABRIC_API_VERSION: String = "0.100.4+1.21"
+    const val FABRIC_API_VERSION: String = "0.92.2+1.20.1"
 
-    const val MODMENU_VERSION: String = "11.0.1"
-    const val YACL_VERSION: String = "3.5.0+1.21-fabric"
+    const val MODMENU_VERSION: String = "7.2.2"
+    const val YACL_VERSION: String = "3.5.0+1.20.1-fabric"
 
     // https://semver.org/
     const val MOD_VERSION: String = "1.2.0"
@@ -27,8 +27,8 @@ base {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -88,7 +88,7 @@ tasks {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.release = 21
+    options.release = 17
     //options.compilerArgs.add("-Xlint:deprecation")
 }
 

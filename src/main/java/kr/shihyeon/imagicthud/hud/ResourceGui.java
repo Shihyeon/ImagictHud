@@ -29,7 +29,7 @@ public class ResourceGui {
     }
 
     public static void renderHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
-        Identifier skinLocation = playerListEntry.getSkinTextures().texture();
+        Identifier skinLocation = playerListEntry.getSkinTexture();
 
         int offset = 6;
         int initPosX = offset * 8;
