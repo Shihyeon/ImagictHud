@@ -6,6 +6,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,9 +45,9 @@ public class TextGui {
 
         if (config.enableCoordinatesHud) {
             assert client.player != null;
-            long playerPosX = (long) client.player.getX();
-            long playerPosY = (long) client.player.getY();
-            long playerPosZ = (long) client.player.getZ();
+            final int playerPosX = MathHelper.floor(client.player.getX());
+            final int playerPosY = MathHelper.floor(client.player.getBoundingBox().minY);
+            final int playerPosZ = MathHelper.floor(client.player.getZ());
             textLines.add(playerPosX + ", " + playerPosY + ", " + playerPosZ);
         }
 
