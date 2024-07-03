@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +21,7 @@ public class InGameHudMixin {
     private MinecraftClient client;
 
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
-    public void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
         Hud.renderHud(context, client);
     }
 }
