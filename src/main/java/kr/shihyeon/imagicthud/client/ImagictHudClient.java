@@ -27,10 +27,10 @@ public class ImagictHudClient implements ClientModInitializer {
         CONFIG = ImagictHudConfig.HANDLER.instance();
 
         imagictHudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.imagicthud.enableHud",
+                "imagicthud.key.toggle_hud",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_GRAVE_ACCENT,
-                "key.categories.imagicthud"
+                "imagicthud.key.categories"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

@@ -1,6 +1,6 @@
 {
-  "key.categories.imagicthud": "Imagict Hud",
-  "key.imagicthud.enableHud": "Hud 보이기 / 숨기기",
+  "imagicthud.key.categories": "Imagict Hud",
+  "imagicthud.key.toggle_hud": "Hud 보이기 / 숨기기",
 
   "imagicthud.config.title": "Imagict Hud 구성 설정",
 
