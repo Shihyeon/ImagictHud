@@ -39,9 +39,9 @@
   "imagicthud.config.hud.custom_label.title": "Custom Label",
   "imagicthud.config.hud.custom_label.description": "Custom labels. When Top or Bottom Custom Labels are enabled, you can edit the text to display custom labels.",
   "imagicthud.config.hud.custom_label.top_custom_label_text.title": "Top Custom Label Text",
-  "imagicthud.config.hud.custom_label.top_custom_label_text.description": "Write the text to be displayed in the Top Custom Label. Placeholders can be used.",
+  "imagicthud.config.hud.custom_label.top_custom_label_text.description": "Write the text to be displayed in the Top Custom Label.",
   "imagicthud.config.hud.custom_label.bottom_custom_label_text.title": "Bottom Custom Label Text",
-  "imagicthud.config.hud.custom_label.bottom_custom_label_text.description": "Write the text to be displayed in the Bottom Custom Label. Placeholders can be used.",
+  "imagicthud.config.hud.custom_label.bottom_custom_label_text.description": "Write the text to be displayed in the Bottom Custom Label.",
 
   "imagicthud.config.hud.label_text.title": "Label Text",
   "imagicthud.config.hud.label_text.description": "Label text settings.",
