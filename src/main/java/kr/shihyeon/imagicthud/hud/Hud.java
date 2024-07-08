@@ -7,6 +7,7 @@ import kr.shihyeon.imagicthud.util.LayoutUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.util.math.MatrixStack;
 
 public class Hud {
     private static PlayerListEntry playerListEntry;
@@ -27,9 +28,15 @@ public class Hud {
             boolean shadow = config.enableLabelTextShadows;
             boolean center = config.enableLabelCenteredText;
 
+            float scale = config.scale;
+
             if (playerListEntry == null) {
                 playerListEntry = client.player.networkHandler.getPlayerListEntry(client.player.getUuid());
             }
+
+            MatrixStack matrixStack = context.getMatrices();
+            matrixStack.push();
+            matrixStack.scale(scale, scale, 1.0f);
 
             if (config.enableHeadHud) {
                 ResourceGui.renderHead(context, playerListEntry, posX, posY);
@@ -37,6 +44,8 @@ public class Hud {
             }
 
             Label.renderLabel(context, client, playerListEntry, posX, posY, width, height, lineSpacing, frameColor, backgroundColor, textColor, shadow, center);
+
+            matrixStack.pop();
         }
     }
 }

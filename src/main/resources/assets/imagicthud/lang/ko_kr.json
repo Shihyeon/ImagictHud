@@ -60,6 +60,8 @@
   "imagicthud.config.hud.layout.label_width.description": "라벨의 너비를 설정합니다.",
   "imagicthud.config.hud.layout.label_text_line_spacing.title": "라벨 줄간격",
   "imagicthud.config.hud.layout.label_text_line_spacing.description": "라벨의 줄 간격을 설정합니다.",
+  "imagicthud.config.hud.layout.scale.title": "Hud 비율",
+  "imagicthud.config.hud.layout.scale.description": "Hud의 비율을 설정합니다.",
   "imagicthud.config.hud.layout.x_position.title": "Hud X-위치",
   "imagicthud.config.hud.layout.x_position.description": "Hud의 X-위치를 설정합니다. (+)는 오른쪽, (-)는 왼쪽을 나타냅니다.",
   "imagicthud.config.hud.layout.y_position.title": "Hud Y-위치",
