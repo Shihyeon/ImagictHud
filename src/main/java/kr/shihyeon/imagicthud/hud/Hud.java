@@ -8,6 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 public class Hud {
     private static PlayerListEntry playerListEntry;
@@ -15,14 +16,14 @@ public class Hud {
 
     public static void renderHud(DrawContext context, MinecraftClient client) {
         if (!client.options.hudHidden && config.enableHud && client.player != null) {
-            int posX = LayoutUtil.getPosX(client);
-            int posY = LayoutUtil.getPosY(client);
+            float scale = config.scale;
+
+            int posX = MathHelper.floor(LayoutUtil.getPosX(client) / scale);
+            int posY = MathHelper.floor(LayoutUtil.getPosY(client) / scale);
 
             int width = config.labelWidth;
             int height = 13;
             int lineSpacing = config.lebelTextLineSpacing;
-
-            float scale = config.scale;
 
             int frameColor = ColorHelper.getLabelFrameColor();
             int backgroundColor = ColorHelper.getLabelBackgroundColor();
