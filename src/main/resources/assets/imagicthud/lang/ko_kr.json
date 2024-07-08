@@ -39,9 +39,9 @@
   "imagicthud.config.hud.custom_label.title": "커스텀 라벨",
   "imagicthud.config.hud.custom_label.description": "커스텀 라벨 설정입니다. 상단 또는 하단 커스텀 라벨을 활성화한 후 텍스트를 수정하여 커스텀 라벨을 표시할 수 있습니다.",
   "imagicthud.config.hud.custom_label.top_custom_label_text.title": "상단 커스텀 라벨 텍스트",
-  "imagicthud.config.hud.custom_label.top_custom_label_text.description": "상단 커스텀 라벨에 표시할 텍스트를 작성하세요. Placeholder를 사용할 수 있습니다.",
+  "imagicthud.config.hud.custom_label.top_custom_label_text.description": "상단 커스텀 라벨에 표시할 텍스트를 작성하세요.",
   "imagicthud.config.hud.custom_label.bottom_custom_label_text.title": "하단 커스텀 라벨 텍스트",
-  "imagicthud.config.hud.custom_label.bottom_custom_label_text.description": "하단 커스텀 라벨에 표시할 텍스트를 작성하세요. Placeholder를 사용할 수 있습니다.",
+  "imagicthud.config.hud.custom_label.bottom_custom_label_text.description": "하단 커스텀 라벨에 표시할 텍스트를 작성하세요.",
 
   "imagicthud.config.hud.label_text.title": "라벨 텍스트",
   "imagicthud.config.hud.label_text.description": "라벨 텍스트 설정입니다.",
