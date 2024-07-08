@@ -60,6 +60,8 @@
   "imagicthud.config.hud.layout.label_width.description": "Set the Label Width.",
   "imagicthud.config.hud.layout.label_text_line_spacing.title": "Label Text Line Spacing",
   "imagicthud.config.hud.layout.label_text_line_spacing.description": "Set the Label Text Line Spacing.",
+  "imagicthud.config.hud.layout.scale.title": "Hud Scale",
+  "imagicthud.config.hud.layout.scale.description": "Set the Hud Scale.",
   "imagicthud.config.hud.layout.x_position.title": "Hud X-position",
   "imagicthud.config.hud.layout.x_position.description": "Set the Hud X-position. (+) direction is to the right, (-) direction is to the left.",
   "imagicthud.config.hud.layout.y_position.title": "Hud Y-position",
