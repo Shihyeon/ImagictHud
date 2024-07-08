@@ -1,1 +1,1 @@
-- 1.2.1: fix: Player coordinates bug
+- Add hud scale config
