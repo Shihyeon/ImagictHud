@@ -54,6 +54,7 @@ public class ImagictHudConfig {
     // ----- Hud: Layout ----- //
     @SerialEntry public int labelWidth = 100;
     @SerialEntry public int lebelTextLineSpacing = 0;
+    @SerialEntry public float scale = 1.0f;
     @SerialEntry public int xPosition = 0;
     @SerialEntry public int yPosition = 0;
     @SerialEntry public int offset = 10;
@@ -348,6 +349,20 @@ public class ImagictHudConfig {
                             .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
+            var scaleOption = Option.<Float>createBuilder()
+                    .name(Text.translatable(defaults.setOption("hud", "layout", "scale")))
+                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "scale", true))))
+                    .binding(
+                            defaults.scale,
+                            () -> config.scale,
+                            newValue -> config.scale = newValue
+                    )
+                    .controller(option -> FloatSliderControllerBuilder.create(option)
+                            .range(.5f, 2.f)
+                            .step(.1f)
+                            .formatValue(value -> Text.literal(String.format("%.1fx", value)))
+                    )
+                    .build();
             var xPositionOption = Option.<Integer>createBuilder()
                     .name(Text.translatable(defaults.setOption("hud", "layout", "x_position")))
                     .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "x_position", true))))
@@ -392,6 +407,7 @@ public class ImagictHudConfig {
                     .build();
             hudLayoutGroup.option(labelWidthOption);
             hudLayoutGroup.option(lebelTextLineSpacingOption);
+            hudLayoutGroup.option(scaleOption);
             hudLayoutGroup.option(xPositionOption);
             hudLayoutGroup.option(yPositionOption);
             hudLayoutGroup.option(offsetOption);
