@@ -27,7 +27,7 @@ public class TextGui {
             nickname = PlayerUtil.getName(client, playerListEntry);
         }
 
-        if (config.enableBottomCustomHud) {
+        if (config.enableTopCustomHud) {
             String topCustomLabelText = config.topCustomLabelText;
             textLines.add(topCustomLabelText);
         }
@@ -67,7 +67,7 @@ public class TextGui {
             }
         }
 
-        if (config.enableTopCustomHud) {
+        if (config.enableBottomCustomHud) {
             String bottomCustomLabelText = config.bottomCustomLabelText;
             textLines.add(bottomCustomLabelText);
         }
