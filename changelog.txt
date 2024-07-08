@@ -1,1 +1,1 @@
-- Add hud scale config
+- Fixed: Issue causing position shift when scaling
