@@ -35,9 +35,9 @@
         "imagicthud.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.15.11",
-        "fabric": ">=0.100.4+1.21",
-        "minecraft": ">=1.21",
+        "fabricloader": ">=${loader_version}",
+        "fabric": ">=${fabric}",
+        "minecraft": ">=${minecraft_version}",
         "java": ">=21",
         "fabric-key-binding-api-v1": "*",
         "yet_another_config_lib_v3": "*"

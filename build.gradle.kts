@@ -11,6 +11,8 @@ object Constants {
     // https://semver.org/
     const val MOD_VERSION: String = "1.2.3"
     const val MOD_TYPE: String = "release" // release/beta/alpha
+
+    const val IS_DEV: Boolean = false
 }
 
 plugins {
@@ -23,7 +25,7 @@ base {
     archivesName = "imagicthud"
 
     group = "kr.shihyeon"
-    version = Constants.MOD_VERSION + "+mc" + Constants.MINECRAFT_VERSION
+    version = createVersionString()
 }
 
 java {
@@ -109,31 +111,32 @@ modrinth {
     }
 }
 
-// Temp: create version builder
-// (createVersionString() code reference: sodium)
-//
-//fun createVersionString(): String {
-//    val builder = StringBuilder()
-//
-//    val isReleaseBuild = project.hasProperty("build.release")
-//    val buildId = System.getenv("GITHUB_RUN_NUMBER")
-//
-//    if (isReleaseBuild) {
-//        builder.append(Constants.MOD_VERSION)
-//    } else {
-//        builder.append(Constants.MOD_VERSION.substringBefore('-'))
-//        builder.append("-snapshot")
-//    }
-//
-//    builder.append("+mc").append(Constants.MINECRAFT_VERSION)
-//
-//    if (!isReleaseBuild) {
-//        if (buildId != null) {
-//            builder.append("-build.${buildId}")
-//        } else {
-//            builder.append("-local")
-//        }
-//    }
-//
-//    return builder.toString()
-//}
+fun createVersionString(): String {
+    val builder = StringBuilder()
+
+    val isReleaseBuild = project.hasProperty("publishing.modrinth")
+    val isDevBuild = if (isReleaseBuild) false else Constants.IS_DEV
+    val buildId = System.getenv("GITHUB_RUN_NUMBER")
+
+    if (isReleaseBuild) {
+        builder.append(Constants.MOD_VERSION)
+    } else if (isDevBuild) {
+        builder.append(Constants.MOD_VERSION.substringBefore('-'))
+        builder.append("-dev")
+    } else {
+        builder.append(Constants.MOD_VERSION.substringBefore('-'))
+        builder.append("-snapshot")
+    }
+
+    builder.append("+mc").append(Constants.MINECRAFT_VERSION)
+
+    if (!isReleaseBuild) {
+        if (buildId != null) {
+            builder.append("-build.${buildId}")
+        } else {
+            builder.append("-local")
+        }
+    }
+
+    return builder.toString()
+}
