@@ -14,7 +14,7 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class ImagictHudClient implements ClientModInitializer {
 
-    public static KeyBinding imagictHudKeyBinding;
+    public static KeyBinding hudKeyBinding;
     public static ImagictHudConfig CONFIG;
 
     private long lastKeyPressTime = 0;
@@ -26,18 +26,18 @@ public class ImagictHudClient implements ClientModInitializer {
         ImagictHudConfig.HANDLER.load();
         CONFIG = ImagictHudConfig.HANDLER.instance();
 
-        imagictHudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "imagicthud.key.toggle_hud",
+        hudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.imagicthud.toggle_hud",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_GRAVE_ACCENT,
-                "imagicthud.key.categories"
+                "key.categories.imagicthud"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
 
             long currentTime = System.currentTimeMillis();
 
-            if (imagictHudKeyBinding.isPressed() && (currentTime - lastKeyPressTime) >= KEY_PRESS_DELAY) {
+            if (hudKeyBinding.isPressed() && (currentTime - lastKeyPressTime) >= KEY_PRESS_DELAY) {
                 CONFIG.enableHud = !CONFIG.enableHud;
                 lastKeyPressTime = currentTime;
             }

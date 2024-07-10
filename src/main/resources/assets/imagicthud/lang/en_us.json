@@ -1,6 +1,6 @@
 {
-  "imagicthud.key.categories": "Imagict Hud",
-  "imagicthud.key.toggle_hud": "Show / Hide Hud",
+  "key.categories.imagicthud": "Imagict Hud",
+  "key.imagicthud.toggle_hud": "Show / Hide Hud",
 
   "imagicthud.config.title": "Imagict Hud Config Setting",
 
