@@ -80,8 +80,16 @@ tasks {
             ))
         }
     }
+
     jar {
         from("${rootProject.projectDir}/LICENSE")
+    }
+
+    // Preventing modrinth build malfunctions during development
+    named("modrinth") {
+        onlyIf {
+            !Constants.IS_DEV
+        }
     }
 }
 
