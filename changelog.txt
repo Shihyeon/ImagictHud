@@ -1,1 +1,1 @@
-- Fixed: Issue causing position shift when scaling
+- Fixed: Issue with swapped enableBottomCustomHud and enableTopCustomHud config options
