@@ -9,7 +9,7 @@ object Constants {
     const val YACL_VERSION: String = "3.5.0+1.20.1-fabric"
 
     // https://semver.org/
-    const val MOD_VERSION: String = "1.2.3"
+    const val MOD_VERSION: String = "1.2.4"
     const val MOD_TYPE: String = "release" // release/beta/alpha
 }
 
