@@ -44,5 +44,6 @@ public class ImagictHudClient implements ClientModInitializer {
         });
 
         LimitedConfigValue.setValueWithLimit(CONFIG);
+        ImagictHudConfig.HANDLER.save();
     }
 }
