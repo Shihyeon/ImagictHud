@@ -9,6 +9,7 @@ import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.config.enums.HeadMode;
+import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -53,11 +54,11 @@ public class ImagictHudConfig {
     @SerialEntry public Color labelTextColor = new Color(0xFFFFFF);
     @SerialEntry public boolean enableLabelTextShadows = false;
     @SerialEntry public int labelTextOpacity = 90;
-    @SerialEntry public boolean enableLabelCenteredText = true;
+    @SerialEntry public LabelTextAlignMode labelTextAlignMode = LabelTextAlignMode.CENTER;
     // ----- Hud: Layout ----- //
     @SerialEntry public int labelWidth = 100;
     @SerialEntry public int lebelTextLineSpacing = 0;
-    @SerialEntry public float scale = 1.0f;
+    @SerialEntry public float hudScale = 1.0f;
     @SerialEntry public int xPosition = 0;
     @SerialEntry public int yPosition = 0;
     @SerialEntry public int offset = 10;
@@ -72,19 +73,19 @@ public class ImagictHudConfig {
              * Category: Hud
              */
             var hudCategory = ConfigCategory.createBuilder()
-                    .name(Text.translatable(defaults.setCategory("hud")));
+                    .name(Text.translatable(setCategory("hud")));
 
             /*
              * Category: Hud
              * Group: Component
              */
             var hudComponentGroup = OptionGroup.createBuilder()
-                    .name(Text.translatable(defaults.setGroup("hud", "component")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setGroup("hud", "component", true))));
+                    .name(Text.translatable(setGroup("hud", "component")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "component", true))));
 
             var enableHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_hud", true))))
                     .binding(
                             defaults.enableHud,
                             () -> config.enableHud,
@@ -93,8 +94,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableHeadHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_head_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_head_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_head_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_head_hud", true))))
                     .binding(
                             defaults.enableHeadHud,
                             () -> config.enableHeadHud,
@@ -103,8 +104,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableTopCustomHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_top_custom_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_top_custom_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_top_custom_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_top_custom_hud", true))))
                     .binding(
                             defaults.enableTopCustomHud,
                             () -> config.enableTopCustomHud,
@@ -113,8 +114,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableLocalDateTimeHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_local_date_time_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_local_date_time_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_local_date_time_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_local_date_time_hud", true))))
                     .binding(
                             defaults.enableLocalDateTimeHud,
                             () -> config.enableLocalDateTimeHud,
@@ -123,8 +124,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableNicknameHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_nickname_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_nickname_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_nickname_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_nickname_hud", true))))
                     .binding(
                             defaults.enableNicknameHud,
                             () -> config.enableNicknameHud,
@@ -133,8 +134,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableCoordinatesHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_coordinates_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_coordinates_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_coordinates_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_coordinates_hud", true))))
                     .binding(
                             defaults.enableCoordinatesHud,
                             () -> config.enableCoordinatesHud,
@@ -143,8 +144,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableBiomeHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_biome_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_biome_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_biome_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_biome_hud", true))))
                     .binding(
                             defaults.enableBiomeHud,
                             () -> config.enableBiomeHud,
@@ -153,8 +154,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var enableBottomCustomHudOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "component", "enable_bottom_custom_hud")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "component", "enable_bottom_custom_hud", true))))
+                    .name(Text.translatable(setOption("hud", "component", "enable_bottom_custom_hud")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "component", "enable_bottom_custom_hud", true))))
                     .binding(
                             defaults.enableBottomCustomHud,
                             () -> config.enableBottomCustomHud,
@@ -198,12 +199,12 @@ public class ImagictHudConfig {
              * Group: Label
              */
             var hudLabelGroup = OptionGroup.createBuilder()
-                    .name(Text.translatable(defaults.setGroup("hud", "label")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setGroup("hud", "label", true))));
+                    .name(Text.translatable(setGroup("hud", "label")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "label", true))));
 
             var enableLabelFrameOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label", "enable_label_frame")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label", "enable_label_frame", true))))
+                    .name(Text.translatable(setOption("hud", "label", "enable_frame")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label", "enable_frame", true))))
                     .binding(
                             defaults.enableLabelFrame,
                             () -> config.enableLabelFrame,
@@ -212,8 +213,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var labelFrameColorOption = Option.<Color>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label", "label_frame_color")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label", "label_frame_color", true))))
+                    .name(Text.translatable(setOption("hud", "label", "frame_color")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label", "frame_color", true))))
                     .binding(
                             defaults.labelFrameColor,
                             () -> config.labelFrameColor,
@@ -222,8 +223,8 @@ public class ImagictHudConfig {
                     .controller(ColorControllerBuilder::create)
                     .build();
             var labelBackgroundColorOption = Option.<Color>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label", "label_background_color")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label", "label_background_color", true))))
+                    .name(Text.translatable(setOption("hud", "label", "background_color")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label", "background_color", true))))
                     .binding(
                             defaults.labelBackgroundColor,
                             () -> config.labelBackgroundColor,
@@ -232,8 +233,8 @@ public class ImagictHudConfig {
                     .controller(ColorControllerBuilder::create)
                     .build();
             var labelBackgoundOpacityOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label", "label_background_opacity")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label", "label_background_opacity", true))))
+                    .name(Text.translatable(setOption("hud", "label", "background_opacity")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label", "background_opacity", true))))
                     .binding(
                             defaults.labelBackgoundOpacity,
                             () -> config.labelBackgoundOpacity,
@@ -255,12 +256,12 @@ public class ImagictHudConfig {
              * Group: CustomLabel
              */
             var hudCustomLabelGroup = OptionGroup.createBuilder()
-                    .name(Text.translatable(defaults.setGroup("hud", "custom_label")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setGroup("hud", "custom_label", true))));
+                    .name(Text.translatable(setGroup("hud", "custom_label")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "custom_label", true))));
 
             var topCustomLabelTextOption = Option.<String>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "custom_label", "top_custom_label_text")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "custom_label", "top_custom_label_text", true))))
+                    .name(Text.translatable(setOption("hud", "custom_label", "top_text")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "custom_label", "top_text", true))))
                     .binding(
                             defaults.topCustomLabelText,
                             () -> config.topCustomLabelText,
@@ -269,8 +270,8 @@ public class ImagictHudConfig {
                     .controller(StringControllerBuilder::create)
                     .build();
             var bottomCustomLabelTextOption = Option.<String>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "custom_label", "bottom_custom_label_text")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "custom_label", "bottom_custom_label_text", true))))
+                    .name(Text.translatable(setOption("hud", "custom_label", "bottom_text")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "custom_label", "bottom_text", true))))
                     .binding(
                             defaults.bottomCustomLabelText,
                             () -> config.bottomCustomLabelText,
@@ -286,12 +287,12 @@ public class ImagictHudConfig {
              * Group: LabelText
              */
             var hudLabelTextGroup = OptionGroup.createBuilder()
-                    .name(Text.translatable(defaults.setGroup("hud", "label_text")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setGroup("hud", "label_text", true))));
+                    .name(Text.translatable(setGroup("hud", "label_text")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "label_text", true))));
 
             var labelTextColorOption = Option.<Color>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label_text", "label_text_color")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label_text", "label_text_color", true))))
+                    .name(Text.translatable(setOption("hud", "label_text", "color")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label_text", "color", true))))
                     .binding(
                             defaults.labelTextColor,
                             () -> config.labelTextColor,
@@ -300,8 +301,8 @@ public class ImagictHudConfig {
                     .controller(ColorControllerBuilder::create)
                     .build();
             var enableLabelTextShadowsOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label_text", "enable_label_text_shadows")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label_text", "enable_label_text_shadows", true))))
+                    .name(Text.translatable(setOption("hud", "label_text", "enable_shadows")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label_text", "enable_shadows", true))))
                     .binding(
                             defaults.enableLabelTextShadows,
                             () -> config.enableLabelTextShadows,
@@ -310,8 +311,8 @@ public class ImagictHudConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .build();
             var labelTextOpacityOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label_text", "label_text_opacity")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label_text", "label_text_opacity", true))))
+                    .name(Text.translatable(setOption("hud", "label_text", "opacity")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label_text", "opacity", true))))
                     .binding(
                             defaults.labelTextOpacity,
                             () -> config.labelTextOpacity,
@@ -323,32 +324,34 @@ public class ImagictHudConfig {
                             .formatValue(value -> Text.literal(String.format("%d%%", value)))
                     )
                     .build();
-            var enableLabelCenteredTextOption = Option.<Boolean>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "label_text", "label_centered_text")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "label_text", "label_centered_text", true))))
+            var labelTextAlignModeOption = Option.<LabelTextAlignMode>createBuilder()
+                    .name(Text.translatable(setOption("hud", "label_text", "align_mode")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label_text", "align_mode", true))))
                     .binding(
-                            defaults.enableLabelCenteredText,
-                            () -> config.enableLabelCenteredText,
-                            newValue -> config.enableLabelCenteredText = newValue
+                            defaults.labelTextAlignMode,
+                            () -> config.labelTextAlignMode,
+                            newValue -> config.labelTextAlignMode = newValue
                     )
-                    .controller(TickBoxControllerBuilder::create)
+                    .controller(option -> EnumControllerBuilder.create(option)
+                            .enumClass(LabelTextAlignMode.class)
+                            .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "label_text", "align_mode") + value.name().toLowerCase(), value)))
                     .build();
             hudLabelTextGroup.option(labelTextColorOption);
             hudLabelTextGroup.option(enableLabelTextShadowsOption);
             hudLabelTextGroup.option(labelTextOpacityOption);
-            hudLabelTextGroup.option(enableLabelCenteredTextOption);
+            hudLabelTextGroup.option(labelTextAlignModeOption);
 
             /*
              * Category: Hud
              * Group: Layout
              */
             var hudLayoutGroup = OptionGroup.createBuilder()
-                    .name(Text.translatable(defaults.setGroup("hud", "layout")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setGroup("hud", "layout", true))));
+                    .name(Text.translatable(setGroup("hud", "layout")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "layout", true))));
 
             var labelWidthOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "label_width")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "label_width", true))))
+                    .name(Text.translatable(setOption("hud", "layout", "label_width")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "label_width", true))))
                     .binding(
                             defaults.labelWidth,
                             () -> config.labelWidth,
@@ -361,8 +364,8 @@ public class ImagictHudConfig {
                     )
                     .build();
             var lebelTextLineSpacingOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "label_text_line_spacing")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "label_text_line_spacing", true))))
+                    .name(Text.translatable(setOption("hud", "layout", "label_text_line_spacing")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "label_text_line_spacing", true))))
                     .binding(
                             defaults.lebelTextLineSpacing,
                             () -> config.lebelTextLineSpacing,
@@ -374,13 +377,13 @@ public class ImagictHudConfig {
                             .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
-            var scaleOption = Option.<Float>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "scale")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "scale", true))))
+            var hudScaleOption = Option.<Float>createBuilder()
+                    .name(Text.translatable(setOption("hud", "layout", "scale")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "scale", true))))
                     .binding(
-                            defaults.scale,
-                            () -> config.scale,
-                            newValue -> config.scale = newValue
+                            defaults.hudScale,
+                            () -> config.hudScale,
+                            newValue -> config.hudScale = newValue
                     )
                     .controller(option -> FloatSliderControllerBuilder.create(option)
                             .range(.5f, 2.f)
@@ -389,8 +392,8 @@ public class ImagictHudConfig {
                     )
                     .build();
             var xPositionOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "x_position")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "x_position", true))))
+                    .name(Text.translatable(setOption("hud", "layout", "x_position")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "x_position", true))))
                     .binding(
                             defaults.xPosition,
                             () -> config.xPosition,
@@ -403,8 +406,8 @@ public class ImagictHudConfig {
                     )
                     .build();
             var yPositionOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "y_position")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "y_position", true))))
+                    .name(Text.translatable(setOption("hud", "layout", "y_position")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "y_position", true))))
                     .binding(
                             defaults.yPosition,
                             () -> config.yPosition,
@@ -417,8 +420,8 @@ public class ImagictHudConfig {
                     )
                     .build();
             var offsetOption = Option.<Integer>createBuilder()
-                    .name(Text.translatable(defaults.setOption("hud", "layout", "offset")))
-                    .description(OptionDescription.of(Text.translatable(defaults.setOption("hud", "layout", "offset", true))))
+                    .name(Text.translatable(setOption("hud", "layout", "offset")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "offset", true))))
                     .binding(
                             defaults.offset,
                             () -> config.offset,
@@ -432,7 +435,7 @@ public class ImagictHudConfig {
                     .build();
             hudLayoutGroup.option(labelWidthOption);
             hudLayoutGroup.option(lebelTextLineSpacingOption);
-            hudLayoutGroup.option(scaleOption);
+            hudLayoutGroup.option(hudScaleOption);
             hudLayoutGroup.option(xPositionOption);
             hudLayoutGroup.option(yPositionOption);
             hudLayoutGroup.option(offsetOption);
@@ -448,7 +451,7 @@ public class ImagictHudConfig {
              * Category: Hotbar
              */
             var indicatorCategory = ConfigCategory.createBuilder()
-                    .name(Text.translatable(defaults.setCategory("indicator")));
+                    .name(Text.translatable(setCategory("indicator")));
 
 
 
@@ -456,7 +459,7 @@ public class ImagictHudConfig {
              * Category: Hotbar
              */
             var hotbarCategory = ConfigCategory.createBuilder()
-                    .name(Text.translatable(defaults.setCategory("hotbar")));
+                    .name(Text.translatable(setCategory("hotbar")));
 
 
 
@@ -474,11 +477,11 @@ public class ImagictHudConfig {
     }
 
     // Translate Key
-    private String setCategory(String category) {
+    private static String setCategory(String category) {
         return setCategory(category, false);
     }
 
-    private String setCategory(String category, boolean useDescription) {
+    private static String setCategory(String category, boolean useDescription) {
         String categoryDesc;
         if (useDescription) {
             categoryDesc = category + ".description";
@@ -488,11 +491,11 @@ public class ImagictHudConfig {
         return "imagicthud.config." + categoryDesc;
     }
 
-    private String setGroup(String category, String group) {
+    private static String setGroup(String category, String group) {
         return setGroup(category, group, false);
     }
 
-    private String setGroup(String category, String group, boolean useDescription) {
+    private static String setGroup(String category, String group, boolean useDescription) {
         String groupDesc;
         if (useDescription) {
             groupDesc = group + ".description";
@@ -502,11 +505,11 @@ public class ImagictHudConfig {
         return "imagicthud.config." + category + "." + groupDesc;
     }
 
-    private String setOption(String category, String group, String option) {
+    private static String setOption(String category, String group, String option) {
         return setOption(category, group, option, false);
     }
 
-    private String setOption(String category, String group, String option, boolean useDescription) {
+    private static String setOption(String category, String group, String option, boolean useDescription) {
         String optionDesc;
         if (useDescription) {
             optionDesc = option + ".description";

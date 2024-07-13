@@ -56,10 +56,10 @@ public class LimitedConfigValue {
             config.lebelTextLineSpacing = -5;
         }
 
-        if (config.scale > 2.f) {
-            config.scale = 2.f;
-        } else if (config.scale < .5f) {
-            config.scale = .5f;
+        if (config.hudScale > 2.f) {
+            config.hudScale = 2.f;
+        } else if (config.hudScale < .5f) {
+            config.hudScale = .5f;
         }
 
         if (config.xPosition > 50) {

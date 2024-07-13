@@ -3,6 +3,7 @@ package kr.shihyeon.imagicthud.hud;
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.config.enums.HeadMode;
+import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
 import net.minecraft.client.MinecraftClient;
@@ -17,7 +18,7 @@ public class Hud {
 
     public static void renderHud(DrawContext context, MinecraftClient client) {
         if (!client.options.hudHidden && config.enableHud && client.player != null) {
-            float scale = config.scale;
+            float scale = config.hudScale;
 
             int posX = MathHelper.floor(LayoutUtil.getPosX(client) / scale);
             int posY = MathHelper.floor(LayoutUtil.getPosY(client) / scale);
@@ -30,7 +31,7 @@ public class Hud {
             int backgroundColor = ColorHelper.getLabelBackgroundColor();
             int textColor = ColorHelper.getLabelTextColor();
             boolean shadow = config.enableLabelTextShadows;
-            boolean center = config.enableLabelCenteredText;
+            boolean center = config.labelTextAlignMode == LabelTextAlignMode.CENTER;
 
             if (playerListEntry == null) {
                 playerListEntry = client.player.networkHandler.getPlayerListEntry(client.player.getUuid());
