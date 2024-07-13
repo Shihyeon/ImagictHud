@@ -8,6 +8,7 @@ import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
 import kr.shihyeon.imagicthud.ImagictHud;
+import kr.shihyeon.imagicthud.config.enums.HeadMode;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -38,6 +39,8 @@ public class ImagictHudConfig {
     @SerialEntry public boolean enableCoordinatesHud = true;
     @SerialEntry public boolean enableBiomeHud = true;
     @SerialEntry public boolean enableBottomCustomHud = false;
+    // ----- Hud: Head ----- //
+    @SerialEntry public HeadMode headMode = HeadMode.BOLD;
     // ----- Hud: Label ----- //
     @SerialEntry public boolean enableLabelFrame = true;
     @SerialEntry public Color labelFrameColor = new Color(0x000000);
@@ -167,6 +170,28 @@ public class ImagictHudConfig {
             hudComponentGroup.option(enableCoordinatesHudOption);
             hudComponentGroup.option(enableBiomeHudOption);
             hudComponentGroup.option(enableBottomCustomHudOption);
+
+            /*
+             * Category: Hud
+             * Group: Head
+             */
+            var hudHeadGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable(setGroup("hud", "head")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("hud", "head", true))));
+
+            var headModeOption = Option.<HeadMode>createBuilder()
+                    .name(Text.translatable(setOption("hud", "head", "head_mode")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "head", "head_mode", true))))
+                    .binding(
+                            defaults.headMode,
+                            () -> config.headMode,
+                            newValue -> config.headMode = newValue
+                    )
+                    .controller(option -> EnumControllerBuilder.create(option)
+                            .enumClass(HeadMode.class)
+                            .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "head", "head_mode") + value.name().toLowerCase(), value)))
+                    .build();
+            hudHeadGroup.option(headModeOption);
 
             /*
              * Category: Hud
@@ -413,6 +438,7 @@ public class ImagictHudConfig {
             hudLayoutGroup.option(offsetOption);
 
             hudCategory.group(hudComponentGroup.build());
+            hudCategory.group(hudHeadGroup.build());
             hudCategory.group(hudLabelGroup.build());
             hudCategory.group(hudCustomLabelGroup.build());
             hudCategory.group(hudLabelTextGroup.build());
@@ -490,7 +516,11 @@ public class ImagictHudConfig {
         return "imagicthud.config." + category + "." + group + "." + optionDesc;
     }
 
-    private String setOptionFormatKey(String typeAndUnit) {
+    private static String setEnumOptionFormatKey(String category, String group, String option) {
+        return "imagicthud.config." + category + "." + group + "." + option + ".";
+    }
+
+    private static String setOptionFormatKey(String typeAndUnit) {
         return "imagicthud.config.format_key." + typeAndUnit;
     }
 }

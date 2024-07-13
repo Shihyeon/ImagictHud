@@ -8,6 +8,7 @@ public class LimitedConfigValue {
 
     private static void setHudLimit(ImagictHudConfig config) {
         setHudComponentLimit(config);
+        setHudHeadLimit(config);
         setHudLabelLimit(config);
         setHudCustomLabel(config);
         setHudLabelText(config);
@@ -15,6 +16,10 @@ public class LimitedConfigValue {
     }
 
     private static void setHudComponentLimit(ImagictHudConfig config) {
+
+    }
+
+    private static void setHudHeadLimit(ImagictHudConfig config) {
 
     }
 

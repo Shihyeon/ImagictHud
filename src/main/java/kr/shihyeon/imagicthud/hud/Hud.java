@@ -2,6 +2,7 @@ package kr.shihyeon.imagicthud.hud;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
+import kr.shihyeon.imagicthud.config.enums.HeadMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
 import net.minecraft.client.MinecraftClient;
@@ -40,7 +41,11 @@ public class Hud {
             matrixStack.scale(scale, scale, 1.0f);
 
             if (config.enableHeadHud) {
-                ResourceGui.renderHead(context, playerListEntry, posX, posY);
+                if (config.headMode == HeadMode.BOLD) {
+                    ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
+                } else if (config.headMode == HeadMode.FLAT) {
+                    ResourceGui.renderHead(context, playerListEntry, posX, posY);
+                }
                 posX = LayoutUtil.getLabelPosX(client);
             }
 

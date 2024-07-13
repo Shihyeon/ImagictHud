@@ -25,6 +25,13 @@
   "imagicthud.config.hud.component.enable_bottom_custom_hud.title": "하단 커스텀 Hud",
   "imagicthud.config.hud.component.enable_bottom_custom_hud.description": "하단 커스텀 Hud를 활성화/비활성화합니다.",
 
+  "imagicthud.config.hud.head.title": "머리",
+  "imagicthud.config.hud.head.description": "Head...",
+  "imagicthud.config.hud.head.head_mode.title": "머리 렌더링 모드",
+  "imagicthud.config.hud.head.head_mode.description": "Head Rendering Mode...",
+  "imagicthud.config.hud.head.head_mode.bold": "볼드",
+  "imagicthud.config.hud.head.head_mode.flat": "플랫",
+
   "imagicthud.config.hud.label.title": "라벨",
   "imagicthud.config.hud.label.description": "정보를 표시하는 Hud 라벨입니다.",
   "imagicthud.config.hud.label.enable_label_frame.title": "라벨 프레임",

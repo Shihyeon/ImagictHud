@@ -48,4 +48,25 @@ public class ResourceGui {
         }
     }
 
+    public static void renderBoldHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
+        Identifier skinLocation = playerListEntry.getSkinTextures().texture();
+
+        int offset = 6;
+        int initPosX = offset * 8;
+        int initPosY = initPosX;
+        int initHeadPosX = initPosX * 14/16;
+        int initHeadPosY = initPosY * 14/16;
+        float u = offset * 8.0f;
+        float v = offset * 8;
+        float uh = u * 5;
+        int regionSize = offset * 8;
+        int textureSize = regionSize * 8;
+
+        if (blendedHeadTextures.contains(skinLocation)) {
+            context.drawTexture(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+        } else {
+            context.drawTexture(skinLocation, x + offset/2, y + offset/2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
+            context.drawTexture(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+        }
+    }
 }

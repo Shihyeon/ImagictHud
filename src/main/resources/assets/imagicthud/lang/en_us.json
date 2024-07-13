@@ -25,6 +25,13 @@
   "imagicthud.config.hud.component.enable_bottom_custom_hud.title": "Enable Bottom Custom Hud",
   "imagicthud.config.hud.component.enable_bottom_custom_hud.description": "Enable/disable Bottom Custom Hud.",
 
+  "imagicthud.config.hud.head.title": "Head",
+  "imagicthud.config.hud.head.description": "Head...",
+  "imagicthud.config.hud.head.head_mode.title": "Head Rendering Mode",
+  "imagicthud.config.hud.head.head_mode.description": "Head Rendering Mode...",
+  "imagicthud.config.hud.head.head_mode.bold": "Bold",
+  "imagicthud.config.hud.head.head_mode.flat": "Flat",
+
   "imagicthud.config.hud.label.title": "Label",
   "imagicthud.config.hud.label.description": "Hud that displays information.",
   "imagicthud.config.hud.label.enable_label_frame.title": "Enable Label Frame",
