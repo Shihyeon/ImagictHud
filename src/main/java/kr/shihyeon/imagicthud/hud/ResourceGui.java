@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ResourceGui {
-    public static final Set<Identifier> blendedHeadTextures = new HashSet<>();
+    protected static final Set<Identifier> blendedHeadTextures = new HashSet<>();
 
     public static Identifier getBlendedLocation(Identifier TextureLocation) {
         return Identifier.of(ImagictHud.MODID, TextureLocation.getPath());
@@ -34,8 +34,8 @@ public class ResourceGui {
         int offset = 6;
         int initPosX = offset * 8;
         int initPosY = initPosX;
-        float u = offset * 8.0f;
-        float v = offset * 8;
+        float u = offset * 8.f;
+        float v = offset * 8.f;
         float uh = u * 5;
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;
@@ -56,8 +56,8 @@ public class ResourceGui {
         int initPosY = initPosX;
         int initHeadPosX = initPosX * 14/16;
         int initHeadPosY = initPosY * 14/16;
-        float u = offset * 8.0f;
-        float v = offset * 8;
+        float u = offset * 8.f;
+        float v = offset * 8.f;
         float uh = u * 5;
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;

@@ -360,7 +360,7 @@ public class ImagictHudConfig {
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(50, 150)
                             .step(1)
-                            .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
             var labelTextLineSpacingOption = Option.<Integer>createBuilder()
@@ -374,7 +374,7 @@ public class ImagictHudConfig {
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(-5, 5)
                             .step(1)
-                            .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
             var hudScaleOption = Option.<Float>createBuilder()
@@ -402,7 +402,7 @@ public class ImagictHudConfig {
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(0, 50)
                             .step(1)
-                            .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
             var yPositionOption = Option.<Integer>createBuilder()
@@ -416,7 +416,7 @@ public class ImagictHudConfig {
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(0, 50)
                             .step(1)
-                            .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
             var offsetOption = Option.<Integer>createBuilder()
@@ -430,7 +430,7 @@ public class ImagictHudConfig {
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(0, 50)
                             .step(1)
-                            .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_rate"), value))
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_rate"), value))
                     )
                     .build();
             hudLayoutGroup.option(labelWidthOption);
