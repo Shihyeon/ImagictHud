@@ -26,11 +26,11 @@
   "imagicthud.config.hud.component.enable_bottom_custom_hud.description": "하단 커스텀 Hud를 활성화/비활성화합니다.",
 
   "imagicthud.config.hud.head.title": "머리",
-  "imagicthud.config.hud.head.description": "Head...",
-  "imagicthud.config.hud.head.head_mode.title": "머리 렌더링 모드",
-  "imagicthud.config.hud.head.head_mode.description": "Head Rendering Mode...",
-  "imagicthud.config.hud.head.head_mode.bold": "볼드",
-  "imagicthud.config.hud.head.head_mode.flat": "플랫",
+  "imagicthud.config.hud.head.description": "머리를 표시하는 Hud 설정입니다.",
+  "imagicthud.config.hud.head.render_mode.title": "머리 렌더링 모드",
+  "imagicthud.config.hud.head.render_mode.description": "머리 렌더링을 볼드/플랫으로 설정합니다.",
+  "imagicthud.config.hud.head.render_mode.bold": "볼드",
+  "imagicthud.config.hud.head.render_mode.flat": "플랫",
 
   "imagicthud.config.hud.label.title": "라벨",
   "imagicthud.config.hud.label.description": "정보를 표시하는 Hud 라벨입니다.",
@@ -59,7 +59,7 @@
   "imagicthud.config.hud.label_text.opacity.title": "라벨 텍스트 불투명도",
   "imagicthud.config.hud.label_text.opacity.description": "라벨 텍스트의 불투명도를 설정합니다. 0%부터 100%까지 가능합니다.",
   "imagicthud.config.hud.label_text.align_mode.title": "라벨 텍스트 정렬 모드",
-  "imagicthud.config.hud.label_text.align_mode.description": "Label Centered Text Mode...",
+  "imagicthud.config.hud.label_text.align_mode.description": "라벨 텍스트 정렬을 좌측/가운데 정렬로 설정합니다.",
   "imagicthud.config.hud.label_text.align_mode.left": "좌측 정렬",
   "imagicthud.config.hud.label_text.align_mode.center": "가운데 정렬",
 

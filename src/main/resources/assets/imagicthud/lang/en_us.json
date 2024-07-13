@@ -26,11 +26,11 @@
   "imagicthud.config.hud.component.enable_bottom_custom_hud.description": "Enable/disable Bottom Custom Hud.",
 
   "imagicthud.config.hud.head.title": "Head",
-  "imagicthud.config.hud.head.description": "Head...",
-  "imagicthud.config.hud.head.head_mode.title": "Head Rendering Mode",
-  "imagicthud.config.hud.head.head_mode.description": "Head Rendering Mode...",
-  "imagicthud.config.hud.head.head_mode.bold": "Bold",
-  "imagicthud.config.hud.head.head_mode.flat": "Flat",
+  "imagicthud.config.hud.head.description": "Hud that displays head.",
+  "imagicthud.config.hud.head.render_mode.title": "Head Rendering Mode",
+  "imagicthud.config.hud.head.render_mode.description": "Sets the head rendering mode to bold or flat.",
+  "imagicthud.config.hud.head.render_mode.bold": "Bold",
+  "imagicthud.config.hud.head.render_mode.flat": "Flat",
 
   "imagicthud.config.hud.label.title": "Label",
   "imagicthud.config.hud.label.description": "Hud that displays information.",
@@ -58,8 +58,8 @@
   "imagicthud.config.hud.label_text.enable_shadows.description": "Enable/disable Label Text Shadows.",
   "imagicthud.config.hud.label_text.opacity.title": "Label Text Opacity",
   "imagicthud.config.hud.label_text.opacity.description": "Set the Label Text Opacity. Can be set from 0-100%.",
-  "imagicthud.config.hud.label_text.align_mode.title": "Label Text Align Mode",
-  "imagicthud.config.hud.label_text.align_mode.description": "Label Text Align Mode...",
+  "imagicthud.config.hud.label_text.align_mode.title": "Label Text Alignment Mode",
+  "imagicthud.config.hud.label_text.align_mode.description": "Sets the label text alignment to either left or center.",
   "imagicthud.config.hud.label_text.align_mode.left": "Left",
   "imagicthud.config.hud.label_text.align_mode.center": "Center",
 

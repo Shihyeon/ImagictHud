@@ -2,7 +2,7 @@ package kr.shihyeon.imagicthud.hud;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.enums.HeadMode;
+import kr.shihyeon.imagicthud.config.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
@@ -42,9 +42,9 @@ public class Hud {
             matrixStack.scale(scale, scale, 1.0f);
 
             if (config.enableHeadHud) {
-                if (config.headMode == HeadMode.BOLD) {
+                if (config.headRenderMode == HeadRenderMode.BOLD) {
                     ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
-                } else if (config.headMode == HeadMode.FLAT) {
+                } else if (config.headRenderMode == HeadRenderMode.FLAT) {
                     ResourceGui.renderHead(context, playerListEntry, posX, posY);
                 }
                 posX = LayoutUtil.getLabelPosX(client);

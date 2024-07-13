@@ -8,7 +8,7 @@ import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
 import kr.shihyeon.imagicthud.ImagictHud;
-import kr.shihyeon.imagicthud.config.enums.HeadMode;
+import kr.shihyeon.imagicthud.config.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -41,7 +41,7 @@ public class ImagictHudConfig {
     @SerialEntry public boolean enableBiomeHud = true;
     @SerialEntry public boolean enableBottomCustomHud = false;
     // ----- Hud: Head ----- //
-    @SerialEntry public HeadMode headMode = HeadMode.BOLD;
+    @SerialEntry public HeadRenderMode headRenderMode = HeadRenderMode.BOLD;
     // ----- Hud: Label ----- //
     @SerialEntry public boolean enableLabelFrame = true;
     @SerialEntry public Color labelFrameColor = new Color(0x000000);
@@ -180,19 +180,19 @@ public class ImagictHudConfig {
                     .name(Text.translatable(setGroup("hud", "head")))
                     .description(OptionDescription.of(Text.translatable(setGroup("hud", "head", true))));
 
-            var headModeOption = Option.<HeadMode>createBuilder()
-                    .name(Text.translatable(setOption("hud", "head", "head_mode")))
-                    .description(OptionDescription.of(Text.translatable(setOption("hud", "head", "head_mode", true))))
+            var headRenderModeOption = Option.<HeadRenderMode>createBuilder()
+                    .name(Text.translatable(setOption("hud", "head", "render_mode")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "head", "render_mode", true))))
                     .binding(
-                            defaults.headMode,
-                            () -> config.headMode,
-                            newValue -> config.headMode = newValue
+                            defaults.headRenderMode,
+                            () -> config.headRenderMode,
+                            newValue -> config.headRenderMode = newValue
                     )
                     .controller(option -> EnumControllerBuilder.create(option)
-                            .enumClass(HeadMode.class)
-                            .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "head", "head_mode") + value.name().toLowerCase(), value)))
+                            .enumClass(HeadRenderMode.class)
+                            .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "head", "render_mode") + value.name().toLowerCase(), value)))
                     .build();
-            hudHeadGroup.option(headModeOption);
+            hudHeadGroup.option(headRenderModeOption);
 
             /*
              * Category: Hud
