@@ -25,7 +25,7 @@ public class Hud {
 
             int width = config.labelWidth;
             int height = 13;
-            int lineSpacing = config.lebelTextLineSpacing;
+            int lineSpacing = config.labelTextLineSpacing;
 
             int frameColor = ColorHelper.getLabelFrameColor();
             int backgroundColor = ColorHelper.getLabelBackgroundColor();

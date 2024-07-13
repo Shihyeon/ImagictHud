@@ -57,7 +57,7 @@ public class ImagictHudConfig {
     @SerialEntry public LabelTextAlignMode labelTextAlignMode = LabelTextAlignMode.CENTER;
     // ----- Hud: Layout ----- //
     @SerialEntry public int labelWidth = 100;
-    @SerialEntry public int lebelTextLineSpacing = 0;
+    @SerialEntry public int labelTextLineSpacing = 0;
     @SerialEntry public float hudScale = 1.0f;
     @SerialEntry public int xPosition = 0;
     @SerialEntry public int yPosition = 0;
@@ -363,13 +363,13 @@ public class ImagictHudConfig {
                             .formatValue(value -> Text.translatable(config.setOptionFormatKey("int_pixels"), value))
                     )
                     .build();
-            var lebelTextLineSpacingOption = Option.<Integer>createBuilder()
+            var labelTextLineSpacingOption = Option.<Integer>createBuilder()
                     .name(Text.translatable(setOption("hud", "layout", "label_text_line_spacing")))
                     .description(OptionDescription.of(Text.translatable(setOption("hud", "layout", "label_text_line_spacing", true))))
                     .binding(
-                            defaults.lebelTextLineSpacing,
-                            () -> config.lebelTextLineSpacing,
-                            newValue -> config.lebelTextLineSpacing = newValue
+                            defaults.labelTextLineSpacing,
+                            () -> config.labelTextLineSpacing,
+                            newValue -> config.labelTextLineSpacing = newValue
                     )
                     .controller(option -> IntegerSliderControllerBuilder.create(option)
                             .range(-5, 5)
@@ -434,7 +434,7 @@ public class ImagictHudConfig {
                     )
                     .build();
             hudLayoutGroup.option(labelWidthOption);
-            hudLayoutGroup.option(lebelTextLineSpacingOption);
+            hudLayoutGroup.option(labelTextLineSpacingOption);
             hudLayoutGroup.option(hudScaleOption);
             hudLayoutGroup.option(xPositionOption);
             hudLayoutGroup.option(yPositionOption);

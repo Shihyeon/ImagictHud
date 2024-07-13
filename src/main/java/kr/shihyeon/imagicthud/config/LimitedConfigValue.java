@@ -50,10 +50,10 @@ public class LimitedConfigValue {
             config.labelWidth = 0;
         }
 
-        if (config.lebelTextLineSpacing > 5) {
-            config.lebelTextLineSpacing = 5;
-        } else if (config.lebelTextLineSpacing < -5) {
-            config.lebelTextLineSpacing = -5;
+        if (config.labelTextLineSpacing > 5) {
+            config.labelTextLineSpacing = 5;
+        } else if (config.labelTextLineSpacing < -5) {
+            config.labelTextLineSpacing = -5;
         }
 
         if (config.hudScale > 2.f) {

@@ -21,11 +21,8 @@ public class Label {
             String text = textLines.get(i);
             int lineSpacingOffset = 8;
             int lineSpacingCenter = lineSpacingOffset / 2 - 1;
-            int textCenteredX = 2;
-            if (center) {
-                textCenteredX = (width - client.textRenderer.getWidth(text)) / 2;
-            }
-            int lineY = y + i * (int) (client.textRenderer.fontHeight + (lineSpacing + lineSpacingOffset));
+            int textCenteredX = center ? (width - client.textRenderer.getWidth(text))/2 : 4;
+            int lineY = y + i * (client.textRenderer.fontHeight + (lineSpacing + lineSpacingOffset));
             ResourceGui.renderLabelBackground(context, x, lineY, width, height, backgroundColor);
             if (config.enableLabelFrame) {
                 ResourceGui.renderLabelFrame(context, x, lineY, width, height, frameColor);
