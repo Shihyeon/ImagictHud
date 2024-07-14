@@ -1,1 +1,4 @@
-- Fixed: Issue with swapped enableBottomCustomHud and enableTopCustomHud config options
+- Bump version
+- Added bolding head rendering mode
+- Changed label text shadow boolean to enum mode
+- Fixed issue with saving value limit settings
