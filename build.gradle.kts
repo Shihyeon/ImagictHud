@@ -3,7 +3,7 @@ object Constants {
     const val MINECRAFT_VERSION: String = "1.21"
     const val YARN_MAPPINGS: String = "1.21+build.9"
     const val FABRIC_LOADER_VERSION: String = "0.15.11"
-    const val FABRIC_API_VERSION: String = "0.100.6+1.21"
+    const val FABRIC_API_VERSION: String = "0.100.7+1.21"
 
     const val MODMENU_VERSION: String = "11.0.1"
     const val YACL_VERSION: String = "3.5.0+1.21-fabric"
