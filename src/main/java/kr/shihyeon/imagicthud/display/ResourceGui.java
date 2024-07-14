@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.hud;
+package kr.shihyeon.imagicthud.display;
 
 import kr.shihyeon.imagicthud.ImagictHud;
 import net.minecraft.client.gui.DrawContext;

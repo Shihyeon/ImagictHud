@@ -1,6 +1,6 @@
 package kr.shihyeon.imagicthud.mixin;
 
-import kr.shihyeon.imagicthud.hud.Hud;
+import kr.shihyeon.imagicthud.display.Hud;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
