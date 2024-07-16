@@ -5,6 +5,7 @@ import kr.shihyeon.imagicthud.util.PlayerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
@@ -59,7 +60,7 @@ public class TextGui {
                 var biomeKey = biomeEntry.getKey().orElseThrow(() -> new IllegalStateException("Biome key not found"));
 
                 String biomeTranslationKey = "biome.minecraft." + biomeKey.getValue().getPath();
-                String biomeName = net.minecraft.text.Text.translatable(biomeTranslationKey).getString();
+                String biomeName = Text.translatable(biomeTranslationKey).getString();
 
                 textLines.add(biomeName);
             } else {
