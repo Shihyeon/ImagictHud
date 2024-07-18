@@ -121,7 +121,7 @@ modrinth {
 fun createVersionString(): String {
     val builder = StringBuilder()
 
-    val isReleaseBuild = project.hasProperty("publishing.modrinth")
+    val isReleaseBuild = project.hasProperty("modrinth")
     val isDevBuild = if (isReleaseBuild) false else Constants.IS_DEV
     val buildId = System.getenv("GITHUB_RUN_NUMBER")
 
