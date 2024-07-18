@@ -66,18 +66,17 @@ dependencies {
 
 tasks {
     processResources {
-        inputs.property("version", project.version)
-        inputs.property("minecraft_version", Constants.MINECRAFT_VERSION)
-        inputs.property("loader_version", Constants.FABRIC_LOADER_VERSION)
-        inputs.property("fabric", Constants.FABRIC_API_VERSION)
+        val propertiesMap = mapOf(
+            "version" to project.version,
+            "minecraft_version" to Constants.MINECRAFT_VERSION,
+            "loader_version" to Constants.FABRIC_LOADER_VERSION,
+            "fabric" to Constants.FABRIC_API_VERSION
+        )
+
+        inputs.properties(propertiesMap)
 
         filesMatching("fabric.mod.json") {
-            expand(mapOf(
-                "version" to project.version,
-                "minecraft_version" to Constants.MINECRAFT_VERSION,
-                "loader_version" to Constants.FABRIC_LOADER_VERSION,
-                "fabric" to Constants.FABRIC_API_VERSION
-            ))
+            expand(propertiesMap)
         }
     }
 
