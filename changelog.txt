@@ -1,4 +1,4 @@
 - Bump version
-- Added bolding head rendering mode
-- Changed label text shadow boolean to enum mode
-- Fixed issue with saving value limit settings
+- Update fabric-api
+- Fixed release version of modrinth
+- Update fabric-loader
