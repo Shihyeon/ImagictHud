@@ -5,7 +5,6 @@ import kr.shihyeon.imagicthud.config.LimitedConfigValue;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -16,9 +15,6 @@ public class ImagictHudClient implements ClientModInitializer {
 
     public static KeyBinding hudKeyBinding;
     public static ImagictHudConfig CONFIG;
-
-    private long lastKeyPressTime = 0;
-    private static final long KEY_PRESS_DELAY = 300;
 
     @Override
     public void onInitializeClient() {
@@ -33,17 +29,11 @@ public class ImagictHudClient implements ClientModInitializer {
                 "key.categories.imagicthud"
         ));
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-
-            long currentTime = System.currentTimeMillis();
-
-            if (hudKeyBinding.isPressed() && (currentTime - lastKeyPressTime) >= KEY_PRESS_DELAY) {
-                CONFIG.enableHud = !CONFIG.enableHud;
-                lastKeyPressTime = currentTime;
-            }
-        });
-
         LimitedConfigValue.setValueWithLimit(CONFIG);
         ImagictHudConfig.HANDLER.save();
+    }
+
+    public static void toggleHud() {
+        CONFIG.enableHud = !CONFIG.enableHud;
     }
 }
