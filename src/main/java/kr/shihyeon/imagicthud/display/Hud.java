@@ -42,10 +42,10 @@ public class Hud {
             matrixStack.scale(scale, scale, 1.0f);
 
             if (config.enableHeadHud) {
-                if (config.headRenderMode == HeadRenderMode.BOLD) {
-                    ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
-                } else if (config.headRenderMode == HeadRenderMode.FLAT) {
-                    ResourceGui.renderHead(context, playerListEntry, posX, posY);
+                switch (config.headRenderMode) {
+                    case BOLD -> ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
+                    case FLAT -> ResourceGui.renderHead(context, playerListEntry, posX, posY);
+                    case null, default -> ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
                 }
                 posX = LayoutUtil.getLabelPosX(client);
             }
