@@ -1,0 +1,51 @@
+# This workflow will build a Java project with Brachyra
+# For more information see: docs/development/brachyura.md
+
+name: build-release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Make gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
+
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew build remapJar -Dbuild.release=true
+
+      - name: Upload artifacts to Modrinth and GitHub
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: uWeqs5CX
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+          files: build/libs/!(*-@(dev|sources|all)).jar
+
+          version-type: release
+
+          loaders: fabric
+
+          dependencies: |
+            fabric-api
+            yacl
+            modmenu(optional)

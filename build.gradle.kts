@@ -11,8 +11,6 @@ object Constants {
     // https://semver.org/
     const val MOD_VERSION: String = "1.3.1"
     const val MOD_TYPE: String = "release" // release/beta/alpha
-
-    const val IS_DEV: Boolean = false
 }
 
 plugins {
@@ -83,13 +81,6 @@ tasks {
     jar {
         from("${rootProject.projectDir}/LICENSE")
     }
-
-    // Preventing modrinth build malfunctions during development
-    named("modrinth") {
-        onlyIf {
-            !Constants.IS_DEV
-        }
-    }
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -121,15 +112,11 @@ modrinth {
 fun createVersionString(): String {
     val builder = StringBuilder()
 
-    val isReleaseBuild = project.hasProperty("modrinth")
-    val isDevBuild = if (isReleaseBuild) false else Constants.IS_DEV
+    val isReleaseBuild = System.getProperty("build.release") != null
     val buildId = System.getenv("GITHUB_RUN_NUMBER")
 
     if (isReleaseBuild) {
         builder.append(Constants.MOD_VERSION)
-    } else if (isDevBuild) {
-        builder.append(Constants.MOD_VERSION.substringBefore('-'))
-        builder.append("-dev")
     } else {
         builder.append(Constants.MOD_VERSION.substringBefore('-'))
         builder.append("-snapshot")
