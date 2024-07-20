@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.display;
 
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
+import kr.shihyeon.imagicthud.config.enums.LocalDateTimeMode;
 import kr.shihyeon.imagicthud.util.PlayerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -11,6 +12,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,13 @@ public class TextGui {
 
         if (config.enableLocalDateTimeHud) {
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+            DateTimeFormatter formatter;
+            switch (config.localDateTimeMode) {
+                case DATE_AND_TIME -> formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+                case DATE -> formatter = DateTimeFormatter.ofPattern("MM/dd");
+                case TIME -> formatter = DateTimeFormatter.ofPattern("HH:mm");
+                case null, default -> formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+            }
             String currentLocalDateTime = currentDateTime.format(formatter);
             textLines.add(currentLocalDateTime);
         }

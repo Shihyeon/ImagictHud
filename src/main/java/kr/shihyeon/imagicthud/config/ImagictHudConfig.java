@@ -10,6 +10,7 @@ import dev.isxander.yacl3.platform.YACLPlatform;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.config.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
+import kr.shihyeon.imagicthud.config.enums.LocalDateTimeMode;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -55,6 +56,7 @@ public class ImagictHudConfig {
     @SerialEntry public boolean enableLabelTextShadows = false;
     @SerialEntry public int labelTextOpacity = 90;
     @SerialEntry public LabelTextAlignMode labelTextAlignMode = LabelTextAlignMode.CENTER;
+    @SerialEntry public LocalDateTimeMode localDateTimeMode = LocalDateTimeMode.DATE_AND_TIME;
     // ----- Hud: Layout ----- //
     @SerialEntry public int labelWidth = 100;
     @SerialEntry public int labelTextLineSpacing = 0;
@@ -336,10 +338,23 @@ public class ImagictHudConfig {
                             .enumClass(LabelTextAlignMode.class)
                             .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "label_text", "align_mode") + value.name().toLowerCase(), value)))
                     .build();
+            var localDateTimeModeOption = Option.<LocalDateTimeMode>createBuilder()
+                    .name(Text.translatable(setOption("hud", "label_text", "local_date_time_mode")))
+                    .description(OptionDescription.of(Text.translatable(setOption("hud", "label_text", "local_date_time_mode", true))))
+                    .binding(
+                            defaults.localDateTimeMode,
+                            () -> config.localDateTimeMode,
+                            newValue -> config.localDateTimeMode = newValue
+                    )
+                    .controller(option -> EnumControllerBuilder.create(option)
+                            .enumClass(LocalDateTimeMode.class)
+                            .formatValue(value -> Text.translatable(setEnumOptionFormatKey("hud", "label_text", "local_date_time_mode") + value.name().toLowerCase(), value)))
+                    .build();
             hudLabelTextGroup.option(labelTextColorOption);
             hudLabelTextGroup.option(enableLabelTextShadowsOption);
             hudLabelTextGroup.option(labelTextOpacityOption);
             hudLabelTextGroup.option(labelTextAlignModeOption);
+            hudLabelTextGroup.option(localDateTimeModeOption);
 
             /*
              * Category: Hud

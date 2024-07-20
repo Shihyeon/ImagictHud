@@ -62,6 +62,11 @@
   "imagicthud.config.hud.label_text.align_mode.description": "Sets the label text alignment to either left or center.",
   "imagicthud.config.hud.label_text.align_mode.left": "Left",
   "imagicthud.config.hud.label_text.align_mode.center": "Center",
+  "imagicthud.config.hud.label_text.local_date_time_mode.title": "Local Date and Time Mode",
+  "imagicthud.config.hud.label_text.local_date_time_mode.description": "Sets the mode for displaying local date and time.",
+  "imagicthud.config.hud.label_text.local_date_time_mode.date_and_time": "MM/dd HH:mm",
+  "imagicthud.config.hud.label_text.local_date_time_mode.date": "MM/dd",
+  "imagicthud.config.hud.label_text.local_date_time_mode.time": "HH:mm",
 
   "imagicthud.config.hud.layout.title": "Layout",
   "imagicthud.config.hud.layout.description": "Layout settings.",

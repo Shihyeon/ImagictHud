@@ -62,6 +62,11 @@
   "imagicthud.config.hud.label_text.align_mode.description": "라벨 텍스트 정렬을 좌측/가운데 정렬로 설정합니다.",
   "imagicthud.config.hud.label_text.align_mode.left": "좌측 정렬",
   "imagicthud.config.hud.label_text.align_mode.center": "가운데 정렬",
+  "imagicthud.config.hud.label_text.local_date_time_mode.title": "로컬 날짜 및 시간 모드",
+  "imagicthud.config.hud.label_text.local_date_time_mode.description": "로컬 날짜 및 시간을 표시하는 모드를 설정합니다.",
+  "imagicthud.config.hud.label_text.local_date_time_mode.date_and_time": "MM/dd HH:mm",
+  "imagicthud.config.hud.label_text.local_date_time_mode.date": "MM/dd",
+  "imagicthud.config.hud.label_text.local_date_time_mode.time": "HH:mm",
 
   "imagicthud.config.hud.layout.title": "레이아웃",
   "imagicthud.config.hud.layout.description": "레이아웃 설정입니다.",
