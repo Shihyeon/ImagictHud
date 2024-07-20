@@ -521,13 +521,21 @@ public class ImagictHudConfig {
     }
 
     private static String setOption(String category, String group, String option) {
-        return setOption(category, group, option, false);
+        return setOption(category, group, option, false, -1);
     }
 
     private static String setOption(String category, String group, String option, boolean useDescription) {
+        return setOption(category, group, option, useDescription, -1);
+    }
+
+    private static String setOption(String category, String group, String option, boolean useDescription, int line) {
         String optionDesc;
         if (useDescription) {
-            optionDesc = option + ".description";
+            if (line == -1) {
+                optionDesc = option + ".description";
+            } else {
+                optionDesc = option + ".description." + line;
+            }
         } else {
             optionDesc = option + ".title";
         }
