@@ -1,4 +1,11 @@
-- Bump version
-- Update fabric-api
-- Fixed release version of modrinth
-- Update fabric-loader
+### Requirements
+- Java 21
+- Minecraft 1.21
+- Fabric loader 0.16.0
+- Fabric API 0.100.7
+
+### Change
+- Added local-date-time mode
+- Fixed typo in lang file
+- Fixed toggle key press
+- Added publishing build-script for modrinth uploading
