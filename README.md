@@ -32,12 +32,12 @@ Please contribute to the translation in one of two ways:
 
    1. Fork ImagictHud on GitHub
    2. Clone your forked repository (`git clone`)
-   3. Create your feature branch from main (`git checkout -b my-feature`)
+   3. Create your feature branch from `main` branch (`git checkout -b my-feature`)
    4. Create translation file (`en_us.json`, `ko_kr.json`, `etc.json`)
    5. Translate en_us
    6. Commit your changes (`git commit -am 'Add my feature'`)
    7. Push to the branch (`git push origin my-feature`)
-   8. Pull request to `dev` branch
+   8. Pull request to `main` branch
 
 2. Local translation and Upload to discord server
 
@@ -45,6 +45,10 @@ Please contribute to the translation in one of two ways:
    2. Create translation file (en_us, ko_kr, etc)
    3. Translate en_us
    4. Upload file to discord server
+
+## License
+
+- [LGPL-3.0-only](https://github.com/Shihyeon/ImagictHud/blob/main/LICENSE)
 
 ## Screenshot
 
