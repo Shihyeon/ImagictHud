@@ -1,7 +1,6 @@
 package kr.shihyeon.imagicthud.display;
 
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.enums.LocalDateTimeMode;
 import kr.shihyeon.imagicthud.util.PlayerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -12,7 +11,6 @@ import net.minecraft.util.math.MathHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +51,6 @@ public class TextGui {
         }
 
         if (config.enableCoordinatesHud) {
-            assert client.player != null;
             final int playerPosX = MathHelper.floor(client.player.getX());
             final int playerPosY = MathHelper.floor(client.player.getBoundingBox().minY);
             final int playerPosZ = MathHelper.floor(client.player.getZ());
@@ -61,7 +58,6 @@ public class TextGui {
         }
 
         if (config.enableBiomeHud) {
-            assert client.player != null;
             BlockPos playerPos = client.player.getBlockPos();
             if (client.world != null) {
                 var biomeEntry = client.world.getBiome(playerPos);
