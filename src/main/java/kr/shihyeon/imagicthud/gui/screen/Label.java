@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.display;
+package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;

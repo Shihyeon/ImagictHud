@@ -1,8 +1,7 @@
-package kr.shihyeon.imagicthud.display;
+package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.enums.LabelTextAlignMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
