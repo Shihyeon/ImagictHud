@@ -50,4 +50,24 @@ public class RenderUtil {
         vertexConsumer.vertex(matrix, x2, y1, 0f).color(color);
         context.draw();
     }
+
+    public static void fill(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float y1, float x2, float y2, int color) {
+        float i;
+        if (x1 < x2) {
+            i = x1;
+            x1 = x2;
+            x2 = i;
+        }
+
+        if (y1 < y2) {
+            i = y1;
+            y1 = y2;
+            y2 = i;
+        }
+
+        vertexConsumer.vertex(matrix, x1, y1, 0f).color(color);
+        vertexConsumer.vertex(matrix, x1, y2, 0f).color(color);
+        vertexConsumer.vertex(matrix, x2, y2, 0f).color(color);
+        vertexConsumer.vertex(matrix, x2, y1, 0f).color(color);
+    }
 }

@@ -26,6 +26,10 @@ base {
     version = createVersionString()
 }
 
+loom {
+    accessWidenerPath = file("${rootProject.projectDir}/src/main/resources/imagicthud.accesswidener")
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21

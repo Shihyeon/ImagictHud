@@ -65,19 +65,33 @@ public class ImagictHudConfig {
     @SerialEntry public int yPosition = 0;
     @SerialEntry public int offset = 10;
 
-    /*
+    // ----- Indicator: Component ----- //
+    @SerialEntry public boolean enableIndicator = true;
+    // ----- Indicator: Display ----- //
+    @SerialEntry public boolean attackingAt = false;
+    @SerialEntry public boolean lookingAt = true;
+    @SerialEntry public boolean damagedOnly = false;
+    @SerialEntry public int duration = 10;
+    @SerialEntry public int reach = 3;
+    // ----- Indicator: Entities ----- //
+    @SerialEntry public boolean playerEntities = true;
+    @SerialEntry public boolean selfPlayerEntity = false;
+    @SerialEntry public boolean passiveEntities = true;
+    @SerialEntry public boolean hostileEntities = true;
+
+    /**
      * Screen
      */
     public static Screen createScreen(Screen parent) {
         return YetAnotherConfigLib.create(HANDLER, (defaults, config, builder) -> {
 
-            /*
+            /**
              * Category: Hud
              */
             var hudCategory = ConfigCategory.createBuilder()
                     .name(Text.translatable(setCategory("hud")));
 
-            /*
+            /**
              * Category: Hud
              * Group: Component
              */
@@ -174,7 +188,7 @@ public class ImagictHudConfig {
             hudComponentGroup.option(enableBiomeHudOption);
             hudComponentGroup.option(enableBottomCustomHudOption);
 
-            /*
+            /**
              * Category: Hud
              * Group: Head
              */
@@ -196,7 +210,7 @@ public class ImagictHudConfig {
                     .build();
             hudHeadGroup.option(headRenderModeOption);
 
-            /*
+            /**
              * Category: Hud
              * Group: Label
              */
@@ -253,7 +267,7 @@ public class ImagictHudConfig {
             hudLabelGroup.option(labelBackgroundColorOption);
             hudLabelGroup.option(labelBackgoundOpacityOption);
 
-            /*
+            /**
              * Category: Hud
              * Group: CustomLabel
              */
@@ -284,7 +298,7 @@ public class ImagictHudConfig {
             hudCustomLabelGroup.option(topCustomLabelTextOption);
             hudCustomLabelGroup.option(bottomCustomLabelTextOption);
 
-            /*
+            /**
              * Category: Hud
              * Group: LabelText
              */
@@ -356,7 +370,7 @@ public class ImagictHudConfig {
             hudLabelTextGroup.option(labelTextAlignModeOption);
             hudLabelTextGroup.option(localDateTimeModeOption);
 
-            /*
+            /**
              * Category: Hud
              * Group: Layout
              */
@@ -462,15 +476,162 @@ public class ImagictHudConfig {
             hudCategory.group(hudLabelTextGroup.build());
             hudCategory.group(hudLayoutGroup.build());
 
-            /*
-             * Category: Hotbar
+            /**
+             * Category: Indicator
              */
             var indicatorCategory = ConfigCategory.createBuilder()
                     .name(Text.translatable(setCategory("indicator")));
 
+            /**
+             * Category: Indicator
+             * Group: Component
+             */
+            var indicatorComponentGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable(setGroup("indicator", "component")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("indicator", "component", true))));
 
+            var enableIndicatorOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "component", "enable_indicator")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "component", "enable_indicator", true))))
+                    .binding(
+                            defaults.enableIndicator,
+                            () -> config.enableIndicator,
+                            newValue -> config.enableIndicator = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            indicatorComponentGroup.option(enableIndicatorOption);
 
-            /*
+            /**
+             * Category: Indicator
+             * Group: Display
+             */
+            var indicatorDisplayGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable(setGroup("indicator", "display")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("indicator", "display", true))));
+
+            var attackingAtOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "display", "attacking_at")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "display", "attacking_at", true))))
+                    .binding(
+                            defaults.attackingAt,
+                            () -> config.attackingAt,
+                            newValue -> config.attackingAt = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var lookingAtOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "display", "looking_at")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "display", "looking_at", true))))
+                    .binding(
+                            defaults.lookingAt,
+                            () -> config.lookingAt,
+                            newValue -> config.lookingAt = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var damagedOnlyOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "display", "damaged_only")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "display", "damaged_only", true))))
+                    .binding(
+                            defaults.damagedOnly,
+                            () -> config.damagedOnly,
+                            newValue -> config.damagedOnly = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var durationOption = Option.<Integer>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "display", "duration")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "display", "duration", true))))
+                    .binding(
+                            defaults.duration,
+                            () -> config.duration,
+                            newValue -> config.duration = newValue
+                    )
+                    .controller(option -> IntegerSliderControllerBuilder.create(option)
+                            .range(0, 120)
+                            .step(1)
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_seconds"), value))
+                    )
+                    .build();
+            var reachOption = Option.<Integer>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "display", "reach")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "display", "reach", true))))
+                    .binding(
+                            defaults.reach,
+                            () -> config.reach,
+                            newValue -> config.reach = newValue
+                    )
+                    .controller(option -> IntegerSliderControllerBuilder.create(option)
+                            .range(3, 50)
+                            .step(1)
+                            .formatValue(value -> Text.translatable(setOptionFormatKey("int_meter"), value))
+                    )
+                    .build();
+            indicatorDisplayGroup.option(attackingAtOption);
+            indicatorDisplayGroup.option(lookingAtOption);
+            indicatorDisplayGroup.option(damagedOnlyOption);
+            indicatorDisplayGroup.option(durationOption);
+            indicatorDisplayGroup.option(reachOption);
+
+            /**
+             * Category: Indicator
+             * Group: Entities
+             */
+            var indicatorEntitiesGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable(setGroup("indicator", "entities")))
+                    .description(OptionDescription.of(Text.translatable(setGroup("indicator", "entities", true))));
+
+            var playerEntitiesOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "entities", "player_entities")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "entities", "player_entities", true))))
+                    .binding(
+                            defaults.playerEntities,
+                            () -> config.playerEntities,
+                            newValue -> config.playerEntities = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var selfPlayerEntityOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "entities", "self_player_entity")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "entities", "self_player_entity", true))))
+                    .binding(
+                            defaults.selfPlayerEntity,
+                            () -> config.selfPlayerEntity,
+                            newValue -> config.selfPlayerEntity = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var passiveEntitiesOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "entities", "passive_entities")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "entities", "passive_entities", true))))
+                    .binding(
+                            defaults.passiveEntities,
+                            () -> config.passiveEntities,
+                            newValue -> config.passiveEntities = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            var hostileEntitiesOption = Option.<Boolean>createBuilder()
+                    .name(Text.translatable(setOption("indicator", "entities", "hostile_entities")))
+                    .description(OptionDescription.of(Text.translatable(setOption("indicator", "entities", "hostile_entities", true))))
+                    .binding(
+                            defaults.hostileEntities,
+                            () -> config.hostileEntities,
+                            newValue -> config.hostileEntities = newValue
+                    )
+                    .controller(TickBoxControllerBuilder::create)
+                    .build();
+            indicatorEntitiesGroup.option(playerEntitiesOption);
+            indicatorEntitiesGroup.option(selfPlayerEntityOption);
+            indicatorEntitiesGroup.option(passiveEntitiesOption);
+            indicatorEntitiesGroup.option(hostileEntitiesOption);
+
+            indicatorCategory.group(indicatorComponentGroup.build());
+            indicatorCategory.group(indicatorDisplayGroup.build());
+            indicatorCategory.group(indicatorEntitiesGroup.build());
+
+            /**
              * Category: Hotbar
              */
             var hotbarCategory = ConfigCategory.createBuilder()
@@ -478,13 +639,14 @@ public class ImagictHudConfig {
 
 
 
-            /*
+            /**
              * Builder: HudCategory, ...
              */
             return builder
                     .title(Text.translatable("imagicthud.config.title"))
                     .categories(Arrays.asList(
-                            hudCategory.build()//,
+                            hudCategory.build(),
+                            indicatorCategory.build()
                             //hotbarCategory.build()
                     ));
 

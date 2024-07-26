@@ -83,6 +83,39 @@
   "imagicthud.config.hud.layout.offset.title": "Hud Offset-Position",
   "imagicthud.config.hud.layout.offset.description": "Set the Hud Offset-Position.",
 
+  "imagicthud.config.indicator.title": "Indicator settings",
+
+  "imagicthud.config.indicator.component.title": "Component",
+  "imagicthud.config.indicator.component.description": "Indicator components.",
+  "imagicthud.config.indicator.component.enable_indicator.title": "Enable Indicator",
+  "imagicthud.config.indicator.component.enable_indicator.description": "Enable/disable Indicator.",
+
+  "imagicthud.config.indicator.display.title": "Display",
+  "imagicthud.config.indicator.display.description": "Indicator display.",
+  "imagicthud.config.indicator.display.attacking_at.title": "Enable attacking_at",
+  "imagicthud.config.indicator.display.attacking_at.description": "Enable/disable attacking_at.",
+  "imagicthud.config.indicator.display.looking_at.title": "Enable looking_at",
+  "imagicthud.config.indicator.display.looking_at.description": "Enable/disable looking_at.",
+  "imagicthud.config.indicator.display.damaged_only.title": "Enable damaged_only",
+  "imagicthud.config.indicator.display.damaged_only.description": "Enable/disable damaged_only.",
+  "imagicthud.config.indicator.display.duration.title": "Duration",
+  "imagicthud.config.indicator.display.duration.description": "duration.",
+  "imagicthud.config.indicator.display.reach.title": "Reach",
+  "imagicthud.config.indicator.display.reach.description": "reach.",
+
+  "imagicthud.config.indicator.entities.title": "Entities",
+  "imagicthud.config.indicator.entities.description": "Indicator Entities.",
+  "imagicthud.config.indicator.entities.player_entities.title": "Enable player_entities",
+  "imagicthud.config.indicator.entities.player_entities.description": "Enable/disable player_entities.",
+  "imagicthud.config.indicator.entities.self_player_entity.title": "Enable self_player_entity",
+  "imagicthud.config.indicator.entities.self_player_entity.description": "Enable/disable self_player_entity.",
+  "imagicthud.config.indicator.entities.passive_entities.title": "Enable passive_entities",
+  "imagicthud.config.indicator.entities.passive_entities.description": "Enable/disable passive_entities.",
+  "imagicthud.config.indicator.entities.hostile_entities.title": "Enable hostile_entities",
+  "imagicthud.config.indicator.entities.hostile_entities.description": "Enable/disable hostile_entities.",
+
   "imagicthud.config.format_key.int_pixels": "%d pixels",
-  "imagicthud.config.format_key.int_rate": "%d rate"
+  "imagicthud.config.format_key.int_rate": "%d rate",
+  "imagicthud.config.format_key.int_seconds": "%d seconds",
+  "imagicthud.config.format_key.int_meter": "%d meters"
 }

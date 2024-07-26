@@ -7,7 +7,9 @@
   ],
   "client": [
     "InGameHudMixin",
-    "KeyboardMixin"
+    "KeyboardMixin",
+    "LivingEntityMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

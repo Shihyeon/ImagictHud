@@ -5,6 +5,7 @@
 - Fabric API 0.100.7
 
 ### Change
+- Added health bar indicator
 - Added local-date-time mode
 - Fixed typo in lang file
 - Fixed toggle key press

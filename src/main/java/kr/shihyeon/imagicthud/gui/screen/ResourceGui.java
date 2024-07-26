@@ -1,10 +1,14 @@
 package kr.shihyeon.imagicthud.gui.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.util.RenderUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.util.Identifier;
+import org.joml.Matrix4f;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +16,8 @@ import java.util.Set;
 public class ResourceGui {
     protected static final Set<Identifier> blendedHeadTextures = new HashSet<>();
 
-    public static Identifier getBlendedLocation(Identifier TextureLocation) {
-        return Identifier.of(ImagictHud.MODID, TextureLocation.getPath());
+    public static Identifier getBlendedLocation(Identifier textureLocation) {
+        return Identifier.of(ImagictHud.MODID, textureLocation.getPath());
     }
 
     public static void renderLabelFrame(DrawContext context, int x, int y, int width, int height, int color) {
@@ -69,5 +73,50 @@ public class ResourceGui {
             context.drawTexture(skinLocation, x + offset/2, y + offset/2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
             context.drawTexture(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
         }
+    }
+
+    public static void drawBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.enableDepthTest();
+
+        drawBarFrame(matrix, vertexConsumer);
+        //drawBarBackground(matrix, vertexConsumer);
+        drawBarHealth(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
+    }
+
+    private static void drawBarFrame(Matrix4f matrix, VertexConsumer vertexConsumer) {
+        float width = 42.f;
+        float initPosX = width/2.f;
+
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff333333);
+        RenderUtil.fill(matrix, vertexConsumer, initPosX - 1.f, - 1.f, initPosX, 1.f, 0xff333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, - 1.f, -initPosX + 1.f, 1.f, 0xff222222);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, - 2.f, initPosX - 1.f, -1.f, 0xff222222);
+    }
+
+    // TODO: Fix opacity
+    private static void drawBarBackground(Matrix4f matrix, VertexConsumer vertexConsumer) {
+        float width = 40.f;
+        float initPosX = width/2.f;
+
+        //RenderSystem.enableBlend();
+        //RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 1.f, initPosX, -1.f, 0x80000000);
+        //RenderSystem.disableBlend();
+    }
+
+    private static void drawBarHealth(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
+        float width = 40.f;
+        float initPosX = width/2.f;
+        float healthRed = width * percentageHealthRed;
+        float healthYellow = width * percentageHealthYellow;
+
+        // Health
+        RenderUtil.fill(matrix, vertexConsumer, initPosX, 0f, initPosX -healthRed, 1.f, 0xffaa0000);
+        RenderUtil.fill(matrix, vertexConsumer, initPosX, -1.f, initPosX -healthRed, 0f, 0xff880000);
+
+        // Absorption
+        RenderUtil.fill(matrix, vertexConsumer, initPosX -healthRed, 0f, initPosX -healthRed -healthYellow, 1.f, 0xffffff55);
+        RenderUtil.fill(matrix, vertexConsumer, initPosX -healthRed, -1.f, initPosX -healthRed -healthYellow, 0f, 0xffdede4a);
     }
 }

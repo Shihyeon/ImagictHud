@@ -55,6 +55,9 @@ Please contribute to the translation in one of two ways:
 
 ## Reference
 
+> - [Health Indicators](https://modrinth.com/mod/health-indicators) 
+>   - [Source](https://github.com/AdyTech99/HealthIndicators)
+>
 > - [Korean Chat Patch](https://modrinth.com/mod/korean-chat-patch)
 >   - [Source](https://github.com/najoan125/fabric-koreanchat)
 

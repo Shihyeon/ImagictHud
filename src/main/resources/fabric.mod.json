@@ -31,6 +31,7 @@
             "kr.shihyeon.imagicthud.config.ModMenuIntegration"
         ]
     },
+    "accessWidener": "imagicthud.accesswidener",
     "mixins": [
         "imagicthud.mixins.json"
     ],
