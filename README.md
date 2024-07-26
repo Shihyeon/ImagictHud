@@ -10,11 +10,14 @@ The developer is Korean and not proficient in English. We would appreciate it if
 
 - [Imagict Hud (Modrinth)](https://modrinth.com/mod/imagict-hud)
 
-    > dependencies:
+    > **Dependencies:**
     > 
-    > [Fabric-API (Required)](https://modrinth.com/mod/fabric-api), [YetAnotherConfigLib (Required)](https://modrinth.com/mod/yacl),
+    > - Required 
+    >   - [Fabric-API](https://modrinth.com/mod/fabric-api)
+    >   - [YetAnotherConfigLib](https://modrinth.com/mod/yacl),
     > 
-    > [ModMenu (Optional)](https://modrinth.com/mod/modmenu)
+    > - Optional 
+    >   - [ModMenu](https://modrinth.com/mod/modmenu)
 
 ## Reporting Issues
 
@@ -49,6 +52,11 @@ Please contribute to the translation in one of two ways:
 ## License
 
 - [LGPL-3.0-only](https://github.com/Shihyeon/ImagictHud/blob/main/LICENSE)
+
+## Reference
+
+> - [Korean Chat Patch](https://modrinth.com/mod/korean-chat-patch)
+>   - [Source](https://github.com/najoan125/fabric-koreanchat)
 
 ## Screenshot
 

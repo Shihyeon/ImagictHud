@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.ImagictHud;
+import kr.shihyeon.imagicthud.util.RenderUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.util.Identifier;
@@ -16,16 +17,16 @@ public class ResourceGui {
     }
 
     public static void renderLabelFrame(DrawContext context, int x, int y, int width, int height, int color) {
-        context.fill(x+1, y, x+width-1, y+1, color);
-        context.fill(x, y+1, x+1, y+height-1, color);
-        context.fill(x+width, y+1, x+width-1, y+height-1, color);
-        context.fill(x+1, y+height, x+width-1, y+height-1, color);
+        RenderUtil.fill(context, x+1, y, x+width-1, y+1, color);
+        RenderUtil.fill(context, x, y+1, x+1, y+height-1, color);
+        RenderUtil.fill(context, x+width, y+1, x+width-1, y+height-1, color);
+        RenderUtil.fill(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
     public static void renderLabelBackground(DrawContext context, int x, int y, int width, int height, int color) {
-        context.fill(x+1, y, x+width-1, y+1, color);
-        context.fill(x, y+1, x+width, y+height-1, color);
-        context.fill(x+1, y+height, x+width-1, y+height-1, color);
+        RenderUtil.fill(context, x+1, y, x+width-1, y+1, color);
+        RenderUtil.fill(context, x, y+1, x+width, y+height-1, color);
+        RenderUtil.fill(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
     public static void renderHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
