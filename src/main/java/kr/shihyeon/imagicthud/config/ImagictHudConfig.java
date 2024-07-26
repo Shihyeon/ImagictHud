@@ -643,7 +643,7 @@ public class ImagictHudConfig {
              * Builder: HudCategory, ...
              */
             return builder
-                    .title(Text.translatable("imagicthud.config.title"))
+                    .title(Text.translatable("yacl3." + ImagictHud.MODID + ".config.title"))
                     .categories(Arrays.asList(
                             hudCategory.build(),
                             indicatorCategory.build()
@@ -665,7 +665,7 @@ public class ImagictHudConfig {
         } else {
             categoryDesc = category + ".title";
         }
-        return "imagicthud.config." + categoryDesc;
+        return "yacl3." + ImagictHud.MODID + ".config." + categoryDesc;
     }
 
     private static String setGroup(String category, String group) {
@@ -679,7 +679,7 @@ public class ImagictHudConfig {
         } else {
             groupDesc = group + ".title";
         }
-        return "imagicthud.config." + category + "." + groupDesc;
+        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + groupDesc;
     }
 
     private static String setOption(String category, String group, String option) {
@@ -701,14 +701,14 @@ public class ImagictHudConfig {
         } else {
             optionDesc = option + ".title";
         }
-        return "imagicthud.config." + category + "." + group + "." + optionDesc;
+        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + group + "." + optionDesc;
     }
 
     private static String setEnumOptionFormatKey(String category, String group, String option) {
-        return "imagicthud.config." + category + "." + group + "." + option + ".";
+        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + group + "." + option + ".";
     }
 
     private static String setOptionFormatKey(String typeAndUnit) {
-        return "imagicthud.config.format_key." + typeAndUnit;
+        return "yacl3." + ImagictHud.MODID + ".config.format_key." + typeAndUnit;
     }
 }
