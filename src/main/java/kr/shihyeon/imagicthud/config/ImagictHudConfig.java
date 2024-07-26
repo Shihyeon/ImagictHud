@@ -68,11 +68,11 @@ public class ImagictHudConfig {
     // ----- Indicator: Component ----- //
     @SerialEntry public boolean enableIndicator = true;
     // ----- Indicator: Display ----- //
-    @SerialEntry public boolean attackingAt = false;
+    @SerialEntry public boolean attackingAt = true;
     @SerialEntry public boolean lookingAt = true;
     @SerialEntry public boolean damagedOnly = false;
     @SerialEntry public int duration = 10;
-    @SerialEntry public int reach = 3;
+    @SerialEntry public int reach = 20;
     // ----- Indicator: Entities ----- //
     @SerialEntry public boolean playerEntities = true;
     @SerialEntry public boolean selfPlayerEntity = false;
