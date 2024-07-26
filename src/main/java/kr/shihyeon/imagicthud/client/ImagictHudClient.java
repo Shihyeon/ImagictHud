@@ -16,17 +16,12 @@ public class ImagictHudClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         ImagictHudConfig.HANDLER.load();
         CONFIG = ImagictHudConfig.HANDLER.instance();
 
         KeyBinds.register();
 
-        ClientTickEvents.END_CLIENT_TICK.register(EntityTracker::tick);
-
-        ClientEntityEvents.ENTITY_UNLOAD.register((entity, world) -> {
-            EntityTracker.removeFromUUIDS(entity);
-        });
+        registerEvents();
 
         init();
     }
@@ -34,6 +29,14 @@ public class ImagictHudClient implements ClientModInitializer {
     private static void init() {
         LimitedConfigValue.setValueWithLimit(CONFIG);
         ImagictHudConfig.HANDLER.save();
+    }
+
+    public void registerEvents() {
+        ClientTickEvents.END_CLIENT_TICK.register(EntityTracker::tick);
+
+        ClientEntityEvents.ENTITY_UNLOAD.register((entity, world) -> {
+            EntityTracker.removeFromUUIDS(entity);
+        });
     }
 
     public static void toggleHud() {
