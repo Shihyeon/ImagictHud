@@ -93,8 +93,12 @@ public class EntityTracker {
         }
 
         if (configChanged) {
-            UUIDS.clear();
+            clearUUIDS();
         }
+    }
+
+    public static void clearUUIDS() {
+        UUIDS.clear();
     }
 
     private static void drawBar(ClientPlayerEntity player, LivingEntity livingEntity) {
