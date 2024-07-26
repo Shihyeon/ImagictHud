@@ -3,7 +3,7 @@
     "id": "imagicthud",
     "version": "${version}",
     "name": "ImagictHud",
-    "description": "Displays player head, nickname, coordinates, and biome on in-game HUD",
+    "description": "Displays the player's head, nickname, coordinates, indicators, etc. on the in-game HUD.",
     "authors": [
         {
             "name": "@Shihyeon",
@@ -49,7 +49,8 @@
     "custom": {
         "modmenu": {
             "links": {
-                "modmenu.modrinth": "https://modrinth.com/mod/imagict-hud"
+                "modmenu.modrinth": "https://modrinth.com/mod/imagict-hud",
+                "modmenu.discord": "https://discord.gg/vYwV9ZySeK"
             }
         }
     }

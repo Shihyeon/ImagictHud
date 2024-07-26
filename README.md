@@ -1,10 +1,10 @@
 # Imagict Hud
 
-Client-side mod that displays player head, nickname, coordinates, and biome on in-game HUD
+Client-side mod that displays the player's head, nickname, coordinates, indicators, etc. on the in-game HUD.
 
 Please submit issues, improvements, and suggestions [here](https://github.com/Shihyeon/ImagictHud/issues).
 
-The developer is Korean and not proficient in English. We would appreciate it if you could contribute to the translation (PR).
+The developer is Korean and not proficient in English. We would appreciate it if you could contribute to the translation ([Pull request](https://github.com/Shihyeon/ImagictHud/pulls)).
 
 ## Installation
 
