@@ -98,53 +98,43 @@ public class EntityTracker {
     }
 
     private static void drawBar(ClientPlayerEntity player, LivingEntity livingEntity) {
-        if (isEntityTypeAllowed(livingEntity, player)) {
-            if (ImagictHudClient.CONFIG.attackingAt) {
-                if (UUIDS.containsKey(livingEntity.getUuid())) {
-                    if (ImagictHudClient.CONFIG.damagedOnly) {
-                        if (livingEntity.getHealth() != livingEntity.getMaxHealth()) {
-                            if (ImagictHudClient.CONFIG.lookingAt) {
-                                if (isTargeted(livingEntity)) {
-                                    addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                                }
-                            } else {
-                                addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                            }
-                        }
-                    } else {
-                        if (ImagictHudClient.CONFIG.lookingAt) {
-                            if (isTargeted(livingEntity)) {
-                                addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                            }
-                        } else {
-                            addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                        }
-                    }
-                }
-            } else {
-                if (ImagictHudClient.CONFIG.damagedOnly) {
-                    if (livingEntity.getHealth() != livingEntity.getMaxHealth()) {
-                        if (ImagictHudClient.CONFIG.lookingAt) {
-                            if (isTargeted(livingEntity)) {
-                                addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                            }
-                        } else {
-                            addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                        }
-                    }
-                } else {
-                    if (ImagictHudClient.CONFIG.lookingAt) {
-                        if (isTargeted(livingEntity)) {
-                            addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                        }
-                    } else {
-                        addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
-                    }
-                }
-            }
-        }
         if (isSelf(livingEntity, player)) {
             addToUUIDS(livingEntity, 86_400 * 20);
+            return;
+        }
+
+        if (!isEntityTypeAllowed(livingEntity, player)) {
+            return;
+        }
+
+        boolean isExistingEntity = UUIDS.containsKey(livingEntity.getUuid());
+        boolean isDamaged = livingEntity.getHealth() != livingEntity.getMaxHealth();
+        boolean isLookingAt = ImagictHudClient.CONFIG.lookingAt && isTargeted(livingEntity);
+
+        boolean shouldAddToUUIDS = false;
+
+        if (ImagictHudClient.CONFIG.attackingAt) {
+            if (isExistingEntity) {
+                if (ImagictHudClient.CONFIG.damagedOnly) {
+                    if (isDamaged) {
+                        shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                    }
+                } else {
+                    shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                }
+            }
+        } else {
+            if (ImagictHudClient.CONFIG.damagedOnly) {
+                if (isDamaged) {
+                    shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                }
+            } else {
+                shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+            }
+        }
+
+        if (shouldAddToUUIDS) {
+            addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
         }
     }
 
