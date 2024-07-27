@@ -65,7 +65,7 @@ Please contribute to the translation in one of two ways:
 
 ### screen
 
-![hud image](https://cdn.modrinth.com/data/cached_images/91c5722a0858c18205809e465c5b029b551ed343.png)
+![screen](https://cdn.modrinth.com/data/uWeqs5CX/images/0e1fb60d2092c7c8a0c9a972bde4a7c69eac89b8.png)
 
 ### head mode (bold/flat)
 
@@ -73,8 +73,69 @@ Please contribute to the translation in one of two ways:
 
 ### hud config
 
-![hud component confg](https://cdn.modrinth.com/data/uWeqs5CX/images/3d8b9b031e5499586a9d2e0698450218ff2ac1d0.png)
+**Installing the [ModMenu](https://modrinth.com/mod/modmenu) allows you to manipulate settings from the GUI screen.**
 
-![hud head and label config](https://cdn.modrinth.com/data/uWeqs5CX/images/438e54f74519dab6e56b2a84c3628e2d2a09b6e7.png)
-
-![hud layout config](https://cdn.modrinth.com/data/uWeqs5CX/images/539af07473bc7110096dc405c6e4d81df376d6ab.png)
+```json5
+{
+	general: {
+		hud: {
+			enable_hud: true
+		},
+		indicator: {
+			enable_indicator: true
+		}
+	},
+	hud: {
+		display: {
+			enable_head: true,
+			enable_top_custom_label: false,
+			enable_local_date_time_label: false,
+			enable_nickname_label: true,
+			enable_coordinates_label: true,
+			enable_biome_label: true,
+			enable_bottom_custom_label: false
+		},
+		head: {
+			head_render_mode: "BOLD" // ["BOLD", "FLAT"]
+		},
+		label: {
+			enable_label_frame: false,
+			label_frame_color: -16777216,
+			label_background_color: -12303292,
+			label_backgound_opacity: 70
+		},
+		text: {
+			text_color: -1,
+			enable_text_shadows: false,
+			text_opacity: 90,
+			text_align_mode: "CENTER", // ["LEFT", "CENTER"]
+			local_date_time_mode: "DATE_AND_TIME", // ["DATE_AND_TIME", "DATE", "TIME"]
+			top_custom_text: "Custom Text",
+			bottom_custom_text: "Custom Text"
+		},
+		layout: {
+			label_width: 91,
+			label_line_spacing: 0,
+			hud_scale: 1.0,
+			position_x: 0,
+			position_y: 0,
+			offset: 10
+		}
+	},
+	indicator: {
+		display: {
+			attacking_at: false,
+			looking_at: true,
+			damaged_only: false,
+			duration: 10,
+			reach: 20
+		},
+		entities: {
+			player_entities: true,
+			self_player_entity: false,
+			passive_entities: true,
+			hostile_entities: true
+		}
+	}
+}
+```
