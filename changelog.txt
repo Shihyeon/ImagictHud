@@ -5,6 +5,8 @@
 - Fabric API 0.100.7
 
 ### Change
+- Bump version to 1.4.0
+- Refactored configuration structure
 - Added health bar indicator
 - Added local-date-time mode
 - Fixed typo in lang file
