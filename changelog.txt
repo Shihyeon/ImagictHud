@@ -4,7 +4,7 @@
 - Fabric loader 0.16.0
 - Fabric API 0.100.7
 
-### Change
+### Changes
 - Bump version to 1.4.0
 - Refactored configuration structure
 - Added health bar indicator
