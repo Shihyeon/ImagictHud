@@ -1,6 +1,5 @@
 package kr.shihyeon.imagicthud.mixin;
 
-import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.client.ImagictHudClientManager;
 import kr.shihyeon.imagicthud.client.KeyBinds;
 import net.fabricmc.api.EnvType;

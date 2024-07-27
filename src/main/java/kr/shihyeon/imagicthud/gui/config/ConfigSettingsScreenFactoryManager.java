@@ -1,5 +1,6 @@
 package kr.shihyeon.imagicthud.gui.config;
 
+import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import kr.shihyeon.imagicthud.ImagictHud;
@@ -19,9 +20,9 @@ public class ConfigSettingsScreenFactoryManager {
     public static Screen createScreen(Screen parent) {
         return YetAnotherConfigLib.create(HANDLER, (defaults, config, builder) -> {
 
-            var generalCategory = GeneralSettingsScreenFactory.createGeneralCategory(defaults, config);
-            var hudCategory = HudSettingsScreenFactory.createHudCategory(defaults, config);
-            var indicatorCategory = IndicatorSettingsScreenFactory.createIndicatorCategory(defaults, config);
+            ConfigCategory generalCategory = GeneralSettingsScreenFactory.createGeneralCategory(defaults, config);
+            ConfigCategory hudCategory = HudSettingsScreenFactory.createHudCategory(defaults, config);
+            ConfigCategory indicatorCategory = IndicatorSettingsScreenFactory.createIndicatorCategory(defaults, config);
 
             return builder
                     .title(Text.translatable("yacl3." + ImagictHud.MODID + ".config.title"))
