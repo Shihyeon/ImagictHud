@@ -31,15 +31,11 @@ public class ImagictHudClient implements ClientModInitializer {
         ImagictHudConfig.HANDLER.save();
     }
 
-    public void registerEvents() {
+    private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(EntityTracker::tick);
 
         ClientEntityEvents.ENTITY_UNLOAD.register((entity, world) -> {
             EntityTracker.removeFromUUIDS(entity);
         });
-    }
-
-    public static void toggleHud() {
-        CONFIG.enableHud = !CONFIG.enableHud;
     }
 }

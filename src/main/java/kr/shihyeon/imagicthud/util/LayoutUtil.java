@@ -10,22 +10,22 @@ public class LayoutUtil {
     public static int getPosX(MinecraftClient client) {
         double guiScale = client.getWindow().getScaleFactor();
         int maxPosX = client.getWindow().getScaledWidth();
-        int posX = Math.min(Math.round(config.offset / (float) guiScale + (config.xPosition + 0) + 2), maxPosX);
+        int posX = Math.min(Math.round(config.hud.layout.offset / (float) guiScale + (config.hud.layout.positionX + 0) + 2), maxPosX);
         return posX;
     }
 
     public static int getLabelPosX(MinecraftClient client) {
         double guiScale = client.getWindow().getScaleFactor();
         int maxPosX = client.getWindow().getScaledWidth();
-        int headHudOffsetX = config.enableHeadHud ? 52 : 0;
-        int posX = Math.min(Math.round(config.offset / (float) guiScale + (config.xPosition + headHudOffsetX) + 2), maxPosX);
+        int headHudOffsetX = config.hud.display.enableHead ? 52 : 0;
+        int posX = Math.min(Math.round(config.hud.layout.offset / (float) guiScale + (config.hud.layout.positionX + headHudOffsetX) + 2), maxPosX);
         return posX;
     }
 
     public static int getPosY(MinecraftClient client) {
         double guiScale = client.getWindow().getScaleFactor();
         int maxPosY = client.getWindow().getScaledHeight();
-        int posY = Math.min(Math.round(config.offset / (float) guiScale + (config.yPosition + 0) + 2), maxPosY);
+        int posY = Math.min(Math.round(config.hud.layout.offset / (float) guiScale + (config.hud.layout.positionY + 0) + 2), maxPosY);
         return posY;
     }
 }

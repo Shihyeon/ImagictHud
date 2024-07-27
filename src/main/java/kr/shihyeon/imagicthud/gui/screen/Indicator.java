@@ -14,7 +14,7 @@ public class Indicator {
                                        MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
                                        int light, MinecraftClient client) {
 
-        if (ImagictHudClient.CONFIG.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
+        if (ImagictHudClient.CONFIG.general.indicator.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 Indicator.renderBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
             }

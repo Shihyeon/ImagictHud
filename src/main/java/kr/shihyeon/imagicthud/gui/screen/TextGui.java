@@ -28,15 +28,15 @@ public class TextGui {
             nickname = PlayerUtil.getName(client, playerListEntry);
         }
 
-        if (config.enableTopCustomHud) {
-            String topCustomLabelText = config.topCustomLabelText;
+        if (config.hud.display.enableTopCustomLabel) {
+            String topCustomLabelText = config.hud.text.topCustomText;
             textLines.add(topCustomLabelText);
         }
 
-        if (config.enableLocalDateTimeHud) {
+        if (config.hud.display.enableLocalDateTimeLabel) {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter;
-            switch (config.localDateTimeMode) {
+            switch (config.hud.text.localDateTimeMode) {
                 case DATE_AND_TIME -> formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
                 case DATE -> formatter = DateTimeFormatter.ofPattern("MM/dd");
                 case TIME -> formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -46,18 +46,18 @@ public class TextGui {
             textLines.add(currentLocalDateTime);
         }
 
-        if (config.enableNicknameHud) {
+        if (config.hud.display.enableNicknameLabel) {
             textLines.add(nickname);
         }
 
-        if (config.enableCoordinatesHud) {
+        if (config.hud.display.enableCoordinatesLabel) {
             final int playerPosX = MathHelper.floor(client.player.getX());
             final int playerPosY = MathHelper.floor(client.player.getBoundingBox().minY);
             final int playerPosZ = MathHelper.floor(client.player.getZ());
             textLines.add(playerPosX + ", " + playerPosY + ", " + playerPosZ);
         }
 
-        if (config.enableBiomeHud) {
+        if (config.hud.display.enableBiomeLabel) {
             BlockPos playerPos = client.player.getBlockPos();
             if (client.world != null) {
                 var biomeEntry = client.world.getBiome(playerPos);
@@ -72,8 +72,8 @@ public class TextGui {
             }
         }
 
-        if (config.enableBottomCustomHud) {
-            String bottomCustomLabelText = config.bottomCustomLabelText;
+        if (config.hud.display.enableBottomCustomLabel) {
+            String bottomCustomLabelText = config.hud.text.bottomCustomText;
             textLines.add(bottomCustomLabelText);
         }
 

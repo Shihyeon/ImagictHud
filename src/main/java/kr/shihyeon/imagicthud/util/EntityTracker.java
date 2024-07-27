@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.util;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
+import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -26,20 +27,22 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EntityTracker {
     private static final ConcurrentHashMap<UUID, Integer> UUIDS = new ConcurrentHashMap<>();
 
-    public static boolean attackingAt = ImagictHudClient.CONFIG.attackingAt;
-    public static boolean lookingAt = ImagictHudClient.CONFIG.lookingAt;
-    public static boolean damagedOnly = ImagictHudClient.CONFIG.damagedOnly;
-    public static int duration = ImagictHudClient.CONFIG.duration;
-    public static int reach = ImagictHudClient.CONFIG.reach;
-    public static boolean playerEntities = ImagictHudClient.CONFIG.playerEntities;
-    public static boolean selfPlayerEntity = ImagictHudClient.CONFIG.selfPlayerEntity;
-    public static boolean passiveEntities = ImagictHudClient.CONFIG.passiveEntities;
-    public static boolean hostileEntities = ImagictHudClient.CONFIG.hostileEntities;
+    private static ImagictHudConfig config = ImagictHudClient.CONFIG;
+
+    private static boolean attackingAt = ImagictHudClient.CONFIG.indicator.display.attackingAt;
+    private static boolean lookingAt = ImagictHudClient.CONFIG.indicator.display.lookingAt;
+    private static boolean damagedOnly = ImagictHudClient.CONFIG.indicator.display.damagedOnly;
+    private static int duration = ImagictHudClient.CONFIG.indicator.display.duration;
+    private static int reach = ImagictHudClient.CONFIG.indicator.display.reach;
+    private static boolean playerEntities = ImagictHudClient.CONFIG.indicator.entities.playerEntities;
+    private static boolean selfPlayerEntity = ImagictHudClient.CONFIG.indicator.entities.selfPlayerEntity;
+    private static boolean passiveEntities = ImagictHudClient.CONFIG.indicator.entities.passiveEntities;
+    private static boolean hostileEntities = ImagictHudClient.CONFIG.indicator.entities.hostileEntities;
 
     public static void tick(MinecraftClient client){
         if (client.player == null || client.world == null) return;
 
-        if (ImagictHudClient.CONFIG.enableIndicator) {
+        if (config.general.indicator.enableIndicator) {
             for (Entity entity: client.world.getEntities()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     drawBar(client.player, livingEntity);
@@ -55,40 +58,40 @@ public class EntityTracker {
     private static void init() {
         boolean configChanged = false;
 
-        if (ImagictHudClient.CONFIG.attackingAt != attackingAt) {
-            attackingAt = ImagictHudClient.CONFIG.attackingAt;
+        if (config.indicator.display.attackingAt != attackingAt) {
+            attackingAt = config.indicator.display.attackingAt;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.lookingAt != lookingAt) {
-            lookingAt = ImagictHudClient.CONFIG.lookingAt;
+        if (config.indicator.display.lookingAt != lookingAt) {
+            lookingAt = config.indicator.display.lookingAt;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.damagedOnly != damagedOnly) {
-            damagedOnly = ImagictHudClient.CONFIG.damagedOnly;
+        if (config.indicator.display.damagedOnly != damagedOnly) {
+            damagedOnly = config.indicator.display.damagedOnly;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.duration != duration) {
-            duration = ImagictHudClient.CONFIG.duration;
+        if (config.indicator.display.duration != duration) {
+            duration = config.indicator.display.duration;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.reach != reach) {
-            reach = ImagictHudClient.CONFIG.reach;
+        if (config.indicator.display.reach != reach) {
+            reach = config.indicator.display.reach;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.playerEntities != playerEntities) {
-            playerEntities = ImagictHudClient.CONFIG.playerEntities;
+        if (config.indicator.entities.playerEntities != playerEntities) {
+            playerEntities = config.indicator.entities.playerEntities;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.selfPlayerEntity != selfPlayerEntity) {
-            selfPlayerEntity = ImagictHudClient.CONFIG.selfPlayerEntity;
+        if (config.indicator.entities.selfPlayerEntity != selfPlayerEntity) {
+            selfPlayerEntity = config.indicator.entities.selfPlayerEntity;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.passiveEntities != passiveEntities) {
-            passiveEntities = ImagictHudClient.CONFIG.passiveEntities;
+        if (config.indicator.entities.passiveEntities != passiveEntities) {
+            passiveEntities = config.indicator.entities.passiveEntities;
             configChanged = true;
         }
-        if (ImagictHudClient.CONFIG.hostileEntities != hostileEntities) {
-            hostileEntities = ImagictHudClient.CONFIG.hostileEntities;
+        if (config.indicator.entities.hostileEntities != hostileEntities) {
+            hostileEntities = config.indicator.entities.hostileEntities;
             configChanged = true;
         }
 
@@ -113,44 +116,44 @@ public class EntityTracker {
 
         boolean isExistingEntity = UUIDS.containsKey(livingEntity.getUuid());
         boolean isDamaged = livingEntity.getHealth() != livingEntity.getMaxHealth();
-        boolean isLookingAt = ImagictHudClient.CONFIG.lookingAt && isTargeted(livingEntity);
+        boolean isLookingAt = config.indicator.display.lookingAt && isTargeted(livingEntity);
 
         boolean shouldAddToUUIDS = false;
 
-        if (ImagictHudClient.CONFIG.attackingAt) {
+        if (config.indicator.display.attackingAt) {
             if (isExistingEntity) {
-                if (ImagictHudClient.CONFIG.damagedOnly) {
+                if (config.indicator.display.damagedOnly) {
                     if (isDamaged) {
-                        shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                        shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
                     }
                 } else {
-                    shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                    shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
                 }
             }
         } else {
-            if (ImagictHudClient.CONFIG.damagedOnly) {
+            if (config.indicator.display.damagedOnly) {
                 if (isDamaged) {
-                    shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                    shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
                 }
             } else {
-                shouldAddToUUIDS = isLookingAt || !ImagictHudClient.CONFIG.lookingAt;
+                shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
             }
         }
 
         if (shouldAddToUUIDS) {
-            addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
+            addToUUIDS(livingEntity, config.indicator.display.duration * 20);
         }
     }
 
     public static void onDamage(DamageSource damageSource, LivingEntity livingEntity) {
         if (damageSource.getAttacker() instanceof PlayerEntity) {
             assert MinecraftClient.getInstance().world != null;
-            if (ImagictHudClient.CONFIG.attackingAt
+            if (config.indicator.display.attackingAt
                     && livingEntity instanceof LivingEntity
                     && EntityTracker.isEntityTypeAllowed(livingEntity, MinecraftClient.getInstance().player)) {
                 if (!addToUUIDS(livingEntity, 0)) {
                     //UUIDS.replace(livingEntity.getUuid(), ImagictHudClient.CONFIG.duration * 20);
-                    addToUUIDS(livingEntity, ImagictHudClient.CONFIG.duration * 20);
+                    addToUUIDS(livingEntity, config.indicator.display.duration * 20);
                 }
             }
         }
@@ -169,7 +172,7 @@ public class EntityTracker {
         }
 
         // Remove invalid entities
-        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !ImagictHudClient.CONFIG.enableIndicator);
+        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !config.general.indicator.enableIndicator);
 
         if (UUIDS.size() >= 1536) {
             UUIDS.clear();
@@ -199,13 +202,13 @@ public class EntityTracker {
     }
 
     private static boolean isEntityTypeAllowed(LivingEntity livingEntity, PlayerEntity self){
-        if (!ImagictHudClient.CONFIG.passiveEntities && livingEntity instanceof PassiveEntity) {
+        if (!config.indicator.entities.passiveEntities && livingEntity instanceof PassiveEntity) {
             return false;
         }
-        if (!ImagictHudClient.CONFIG.hostileEntities && livingEntity instanceof HostileEntity) {
+        if (!config.indicator.entities.hostileEntities && livingEntity instanceof HostileEntity) {
             return false;
         }
-        if (!ImagictHudClient.CONFIG.playerEntities && livingEntity instanceof PlayerEntity) {
+        if (!config.indicator.entities.playerEntities && livingEntity instanceof PlayerEntity) {
             return false;
         }
         if (livingEntity == self) {
@@ -215,12 +218,12 @@ public class EntityTracker {
     }
 
     private static boolean isSelf(LivingEntity livingEntity, PlayerEntity self) {
-        return ImagictHudClient.CONFIG.selfPlayerEntity && livingEntity == self;
+        return config.indicator.entities.selfPlayerEntity && livingEntity == self;
     }
 
     private static boolean isTargeted(LivingEntity livingEntity) {
         Entity camera = MinecraftClient.getInstance().cameraEntity;
-        double d = ImagictHudClient.CONFIG.reach;
+        double d = config.indicator.display.reach;
         double e = MathHelper.square(d);
         Vec3d vec3d = camera.getCameraPosVec(0);
         HitResult hitResult = camera.raycast(d, 0, false);

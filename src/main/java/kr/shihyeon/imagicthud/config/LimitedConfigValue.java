@@ -3,19 +3,35 @@ package kr.shihyeon.imagicthud.config;
 public class LimitedConfigValue {
 
     public static void setValueWithLimit(ImagictHudConfig config) {
+        setGeneralLimit(config);
         setHudLimit(config);
+        setIndicatorLimit(config);
     }
 
+    // General
+    private static void setGeneralLimit(ImagictHudConfig config) {
+        setGeneralHudLimit(config);
+        setGeneralIndicatorLimit(config);
+    }
+
+    private static void setGeneralHudLimit(ImagictHudConfig config) {
+
+    }
+
+    private static void setGeneralIndicatorLimit(ImagictHudConfig config) {
+
+    }
+
+    // Hud
     private static void setHudLimit(ImagictHudConfig config) {
-        setHudComponentLimit(config);
+        setHudDisplayLimit(config);
         setHudHeadLimit(config);
         setHudLabelLimit(config);
-        setHudCustomLabel(config);
-        setHudLabelText(config);
+        setHudText(config);
         setHudLayout(config);
     }
 
-    private static void setHudComponentLimit(ImagictHudConfig config) {
+    private static void setHudDisplayLimit(ImagictHudConfig config) {
 
     }
 
@@ -24,60 +40,53 @@ public class LimitedConfigValue {
     }
 
     private static void setHudLabelLimit(ImagictHudConfig config) {
-        if (config.labelBackgoundOpacity > 100) {
-            config.labelBackgoundOpacity = 100;
-        } else if (config.labelBackgoundOpacity < 0) {
-            config.labelBackgoundOpacity = 0;
-        }
+        config.hud.label.labelBackgoundOpacity = applyLimit(config.hud.label.labelBackgoundOpacity, 0, 100);
     }
 
-    private static void setHudCustomLabel(ImagictHudConfig config) {
-
-    }
-
-    private static void setHudLabelText(ImagictHudConfig config) {
-        if (config.labelTextOpacity > 100) {
-            config.labelTextOpacity = 100;
-        } else if (config.labelTextOpacity < 0) {
-            config.labelTextOpacity = 0;
-        }
+    private static void setHudText(ImagictHudConfig config) {
+        config.hud.text.textOpacity = applyLimit(config.hud.text.textOpacity, 0, 100);
     }
 
     private static void setHudLayout(ImagictHudConfig config) {
-        if (config.labelWidth > 150) {
-            config.labelWidth = 150;
-        } else if (config.labelWidth < 0) {
-            config.labelWidth = 0;
-        }
+        config.hud.layout.labelWidth = applyLimit(config.hud.layout.labelWidth, 0, 150);
+        config.hud.layout.labelLineSpacing = applyLimit(config.hud.layout.labelLineSpacing, -5, 5);
+        config.hud.layout.hudScale = applyLimit(config.hud.layout.hudScale, .5f, 2.f);
+        config.hud.layout.positionX = applyLimit(config.hud.layout.positionX, 0, 50);
+        config.hud.layout.positionY = applyLimit(config.hud.layout.positionY, 0, 50);
+        config.hud.layout.offset = applyLimit(config.hud.layout.offset, 0, 50);
+    }
 
-        if (config.labelTextLineSpacing > 5) {
-            config.labelTextLineSpacing = 5;
-        } else if (config.labelTextLineSpacing < -5) {
-            config.labelTextLineSpacing = -5;
-        }
+    // Indicator
+    private static void setIndicatorLimit(ImagictHudConfig config) {
+        setIndicatorDisplayLimit(config);
+        setIndicatorEntitiesLimit(config);
+    }
 
-        if (config.hudScale > 2.f) {
-            config.hudScale = 2.f;
-        } else if (config.hudScale < .5f) {
-            config.hudScale = .5f;
-        }
+    private static void setIndicatorDisplayLimit(ImagictHudConfig config) {
+        config.indicator.display.duration = applyLimit(config.indicator.display.duration, 0, 120);
+        config.indicator.display.reach = applyLimit(config.indicator.display.reach, 3, 50);
+    }
 
-        if (config.xPosition > 50) {
-            config.xPosition = 50;
-        } else if (config.xPosition < 0) {
-            config.xPosition = 0;
-        }
+    private static void setIndicatorEntitiesLimit(ImagictHudConfig config) {
 
-        if (config.yPosition > 50) {
-            config.yPosition = 50;
-        } else if (config.yPosition < 0) {
-            config.yPosition = 0;
-        }
+    }
 
-        if (config.offset > 50) {
-            config.offset = 50;
-        } else if (config.offset < 0) {
-            config.offset = 0;
+    // Util
+    private static float applyLimit(float value, float min, float max) {
+        if (value > max) {
+            return max;
+        } else if (value < min) {
+            return min;
         }
+        return value;
+    }
+
+    private static int applyLimit(int value, int min, int max) {
+        if (value > max) {
+            return max;
+        } else if (value < min) {
+            return min;
+        }
+        return value;
     }
 }

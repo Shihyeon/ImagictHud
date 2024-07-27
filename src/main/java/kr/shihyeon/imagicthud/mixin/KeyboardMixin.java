@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.mixin;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
+import kr.shihyeon.imagicthud.client.ImagictHudClientManager;
 import kr.shihyeon.imagicthud.client.KeyBinds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,7 +25,7 @@ public class KeyboardMixin {
     public void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (action != 1 && client.currentScreen == null
                 && KeyBinds.getHudKeyBinding().matchesKey(keyCode, scanCode)) {
-            ImagictHudClient.toggleHud();
+            ImagictHudClientManager.toggleHud();
             ci.cancel();
         }
     }
