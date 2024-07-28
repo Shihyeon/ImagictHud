@@ -10,7 +10,7 @@ object Constants {
     const val MODMENU_VERSION: String = "11.0.1"
 
     // https://semver.org/
-    const val MOD_VERSION: String = "1.4.0"
+    const val MOD_VERSION: String = "1.5.0"
     const val MOD_TYPE: String = "release" // release/beta/alpha
 }
 
