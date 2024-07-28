@@ -48,5 +48,6 @@ jobs:
           loaders: fabric
           dependencies: |
             fabric-api{modrinth:P7dR8mSH}
-            yacl{modrinth:1eAoo2KR}
+            sodium(optional){modrinth:AANobbMI}
+            yacl(optional){modrinth:1eAoo2KR}
             modmenu(optional){modrinth:mOgUt4GM}

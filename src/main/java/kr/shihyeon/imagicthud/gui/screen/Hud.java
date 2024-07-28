@@ -2,7 +2,7 @@ package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.enums.TextAlignMode;
+import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
 import net.minecraft.client.MinecraftClient;
@@ -18,8 +18,8 @@ public class Hud {
     private static ImagictHudConfig config = ImagictHudClient.CONFIG;
 
     public static void renderHud(DrawContext context, MinecraftClient client) {
-        if (!client.options.hudHidden && config.general.hud.enableHud && client.player != null) {
-            float scale = config.hud.layout.hudScale;
+        if (!client.options.hudHidden && config.hud.general.enableHud && client.player != null) {
+            float scale = config.hud.layout.hudScale == 0 ? 1.f : (float) config.hud.layout.hudScale / 4.f;
 
             int posX = MathHelper.floor(LayoutUtil.getPosX(client) / scale);
             int posY = MathHelper.floor(LayoutUtil.getPosY(client) / scale);

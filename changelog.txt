@@ -5,10 +5,12 @@
 - Fabric API 0.100.7
 
 ### Changes
-- Bump version to 1.4.0
-- Refactored configuration structure
-- Added health bar indicator
-- Added local-date-time mode
-- Fixed typo in lang file
-- Fixed toggle key press
-- Added publishing build-script for modrinth uploading
+- Fixed typo variable name
+- Removed custom text labels
+- Changed hud scale from float to int
+- Added config screen in sodium option
+- Fixed translation key
+- Fixed loading variables in entity tracker
+- Updated github build-script
+- Refactored configuration structure yacl3 to gson
+- Removed dependency YetAnotherConfigLib

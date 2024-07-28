@@ -1,13 +1,15 @@
 package kr.shihyeon.imagicthud.config.categories.hud;
 
-import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import com.google.gson.annotations.Expose;
+import kr.shihyeon.imagicthud.config.categories.ConfigCategory;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.*;
 
-public class HudCategory {
+public class HudCategory extends ConfigCategory {
 
-    @SerialEntry public HudDisplayGroup display = new HudDisplayGroup();
-    @SerialEntry public HudHeadGroup head = new HudHeadGroup();
-    @SerialEntry public HudLabelGroup label = new HudLabelGroup();
-    @SerialEntry public HudTextGroup text = new HudTextGroup();
-    @SerialEntry public HudLayoutGroup layout = new HudLayoutGroup();
+    @Expose public HudGeneralGroup general = new HudGeneralGroup();
+    @Expose public HudDisplayGroup display = new HudDisplayGroup();
+    @Expose public HudHeadGroup head = new HudHeadGroup();
+    @Expose public HudLabelGroup label = new HudLabelGroup();
+    @Expose public HudTextGroup text = new HudTextGroup();
+    @Expose public HudLayoutGroup layout = new HudLayoutGroup();
 }

@@ -27,22 +27,53 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EntityTracker {
     private static final ConcurrentHashMap<UUID, Integer> UUIDS = new ConcurrentHashMap<>();
 
-    private static ImagictHudConfig config = ImagictHudClient.CONFIG;
+    private static ImagictHudConfig config;
 
-    private static boolean attackingAt = ImagictHudClient.CONFIG.indicator.display.attackingAt;
-    private static boolean lookingAt = ImagictHudClient.CONFIG.indicator.display.lookingAt;
-    private static boolean damagedOnly = ImagictHudClient.CONFIG.indicator.display.damagedOnly;
-    private static int duration = ImagictHudClient.CONFIG.indicator.display.duration;
-    private static int reach = ImagictHudClient.CONFIG.indicator.display.reach;
-    private static boolean playerEntities = ImagictHudClient.CONFIG.indicator.entities.playerEntities;
-    private static boolean selfPlayerEntity = ImagictHudClient.CONFIG.indicator.entities.selfPlayerEntity;
-    private static boolean passiveEntities = ImagictHudClient.CONFIG.indicator.entities.passiveEntities;
-    private static boolean hostileEntities = ImagictHudClient.CONFIG.indicator.entities.hostileEntities;
+    static {
+        config = ImagictHudClient.CONFIG;
+        if (config == null) {
+            throw new IllegalStateException("ImagictHudClient.CONFIG is not initialized");
+        }
+    }
+
+    private static boolean attackingAt;
+    private static boolean lookingAt;
+    private static boolean damagedOnly;
+    private static int duration;
+    private static int reach;
+    private static boolean playerEntities;
+    private static boolean selfPlayerEntity;
+    private static boolean passiveEntities;
+    private static boolean hostileEntities;
+
+    static {
+        if (config != null && config.indicator != null) {
+            attackingAt = config.indicator.display.attackingAt;
+            lookingAt = config.indicator.display.lookingAt;
+            damagedOnly = config.indicator.display.damagedOnly;
+            duration = config.indicator.display.duration;
+            reach = config.indicator.display.reach;
+            playerEntities = config.indicator.entities.playerEntities;
+            selfPlayerEntity = config.indicator.entities.selfPlayerEntity;
+            passiveEntities = config.indicator.entities.passiveEntities;
+            hostileEntities = config.indicator.entities.hostileEntities;
+        } else {
+            attackingAt = true;
+            lookingAt = true;
+            damagedOnly = false;
+            duration = 10;
+            reach = 20;
+            playerEntities = true;
+            selfPlayerEntity = false;
+            passiveEntities = true;
+            hostileEntities = true;
+        }
+    }
 
     public static void tick(MinecraftClient client){
         if (client.player == null || client.world == null) return;
 
-        if (config.general.indicator.enableIndicator) {
+        if (config.indicator.general.enableIndicator) {
             for (Entity entity: client.world.getEntities()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     drawBar(client.player, livingEntity);
@@ -172,7 +203,7 @@ public class EntityTracker {
         }
 
         // Remove invalid entities
-        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !config.general.indicator.enableIndicator);
+        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !config.indicator.general.enableIndicator);
 
         if (UUIDS.size() >= 1536) {
             UUIDS.clear();

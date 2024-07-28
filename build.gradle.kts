@@ -5,8 +5,9 @@ object Constants {
     const val FABRIC_LOADER_VERSION: String = "0.16.0"
     const val FABRIC_API_VERSION: String = "0.100.7+1.21"
 
-    const val MODMENU_VERSION: String = "11.0.1"
+    const val SODIUM_VERSION: String = "mc1.21-0.5.11"
     const val YACL_VERSION: String = "3.5.0+1.21-fabric"
+    const val MODMENU_VERSION: String = "11.0.1"
 
     // https://semver.org/
     const val MOD_VERSION: String = "1.4.0"
@@ -62,8 +63,9 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")
 
-    modImplementation("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
-    modImplementation("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
+    modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
+    modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
+    modCompileOnly("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
 }
 
 tasks {
