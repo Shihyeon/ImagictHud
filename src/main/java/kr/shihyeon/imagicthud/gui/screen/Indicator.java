@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
+import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.util.EntityTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -12,9 +13,9 @@ public class Indicator {
 
     public static void renderIndicator(LivingEntity livingEntity, float yaw, float tickDelta,
                                        MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                       int light, MinecraftClient client) {
+                                       int light, MinecraftClient client, ImagictHudConfig config) {
 
-        if (ImagictHudClient.CONFIG.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
+        if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 Indicator.renderBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
             }

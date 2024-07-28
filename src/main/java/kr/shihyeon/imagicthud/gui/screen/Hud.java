@@ -15,9 +15,8 @@ import java.util.List;
 
 public class Hud {
     private static PlayerListEntry playerListEntry;
-    private static ImagictHudConfig config = ImagictHudClient.CONFIG;
 
-    public static void renderHud(DrawContext context, MinecraftClient client) {
+    public static void renderHud(DrawContext context, MinecraftClient client, ImagictHudConfig config) {
         if (!client.options.hudHidden && config.hud.general.enableHud && client.player != null) {
             float scale = config.hud.layout.hudScale == 0 ? 1.f : (float) config.hud.layout.hudScale / 4.f;
 
@@ -51,13 +50,13 @@ public class Hud {
                 posX = LayoutUtil.getLabelPosX(client);
             }
 
-            renderLabel(context, client, playerListEntry, posX, posY, width, height, lineSpacing, frameColor, backgroundColor, textColor, shadow, center);
+            renderLabel(context, client, config, playerListEntry, posX, posY, width, height, lineSpacing, frameColor, backgroundColor, textColor, shadow, center);
 
             matrixStack.pop();
         }
     }
 
-    public static void renderLabel(DrawContext context, MinecraftClient client, PlayerListEntry playerListEntry,
+    public static void renderLabel(DrawContext context, MinecraftClient client, ImagictHudConfig config, PlayerListEntry playerListEntry,
                                    int x, int y, int width, int height, int lineSpacing,
                                    int frameColor, int backgroundColor, int textColor,
                                    boolean shadow, boolean center) {

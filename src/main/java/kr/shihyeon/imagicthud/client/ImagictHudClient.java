@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 public class ImagictHudClient implements ClientModInitializer {
 
     public static final boolean DEBUG = false;
-
     public static ImagictHudConfig CONFIG;
 
     @Override
@@ -36,8 +35,8 @@ public class ImagictHudClient implements ClientModInitializer {
     private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(EntityTracker::tick);
 
-        ClientEntityEvents.ENTITY_UNLOAD.register((entity, world) -> {
-            EntityTracker.removeFromUUIDS(entity);
-        });
+        ClientEntityEvents.ENTITY_UNLOAD.register(
+                (entity, world) -> EntityTracker.removeFromUUIDS(entity)
+        );
     }
 }

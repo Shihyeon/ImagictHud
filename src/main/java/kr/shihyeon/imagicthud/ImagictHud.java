@@ -1,20 +1,18 @@
 package kr.shihyeon.imagicthud;
 
+import kr.shihyeon.imagicthud.util.ModLogger;
 import net.fabricmc.api.ModInitializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ImagictHud implements ModInitializer {
 
     public static final String MODID = "imagicthud";
-    public static final Logger logger = LogManager.getLogger(ImagictHud.MODID);
 
     @Override
     public void onInitialize() {
-        print("ImagictHud initialized");
+        print("ImagictHud initialized!");
     }
 
-    public void print(String text) {
-        logger.info("[ImagictHud] " + text);
+    public void print(String message) {
+        ModLogger.log("[ImagictHud] " + message);
     }
 }

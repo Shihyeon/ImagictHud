@@ -48,7 +48,9 @@ public class ImagictHudConfig {
     @Expose public final HudCategory hud = new HudCategory();
     @Expose public final IndicatorCategory indicator = new IndicatorCategory();
 
-    private File file;
+    private final File file;
+
+    private static final Object lock = new Object();
 
     public static final ImagictHudConfig INSTANCE = new ImagictHudConfig(CONFIG_PATH.toFile());
 
@@ -58,27 +60,31 @@ public class ImagictHudConfig {
     }
 
     public void load() {
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                ImagictHudConfig config = GSON.fromJson(reader, ImagictHudConfig.class);
-                if (config != null) {
-                    this.hud.updateFields(config.hud);
-                    this.indicator.updateFields(config.indicator);
+        synchronized (lock) {
+            if (file.exists()) {
+                try (FileReader reader = new FileReader(file)) {
+                    ImagictHudConfig config = GSON.fromJson(reader, ImagictHudConfig.class);
+                    if (config != null) {
+                        this.hud.updateFields(config.hud);
+                        this.indicator.updateFields(config.indicator);
+                    }
+                } catch (Exception exception) {
+                    ModLogger.error("Could not parse config, falling back to defaults!", exception);
                 }
-            } catch (Exception e) {
-                ModLogger.error("Could not parse config, falling back to defaults!", e);
+            } else {
+                write();
             }
-        } else {
-            write();
         }
     }
 
     public void save() {
-        write();
+        synchronized (lock) {
+            write();
+        }
     }
 
     private void write() {
-        File dir = this.file.getParentFile();
+        File dir = file.getParentFile();
 
         if (!dir.exists() && !dir.mkdirs()) {
             throw new RuntimeException("Could not create parent directories");
@@ -88,10 +94,10 @@ public class ImagictHudConfig {
             throw new RuntimeException("The parent file is not a directory");
         }
 
-        try (FileWriter writer = new FileWriter(this.file)) {
+        try (FileWriter writer = new FileWriter(file)) {
             GSON.toJson(this, writer);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not save configuration file", e);
+        } catch (IOException exception) {
+            throw new RuntimeException("Could not save configuration file", exception);
         }
     }
 }

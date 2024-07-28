@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextGui {
+
     public static void renderText(DrawContext context, MinecraftClient client, String text, int x, int y, int color, boolean shadow) {
         if (client != null && client.textRenderer != null) {
             context.drawText(client.textRenderer, text, x, y, color, shadow);

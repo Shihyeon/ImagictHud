@@ -29,7 +29,7 @@ public class EnumTypeAdapter<T extends Enum<T>> extends TypeAdapter<T> {
     public T read(JsonReader in) throws IOException {
         try {
             return Enum.valueOf(enumClass, in.nextString());
-        } catch (IllegalArgumentException | IllegalStateException e) {
+        } catch (IllegalArgumentException | IllegalStateException exception) {
             return defaultValue;
         }
     }
