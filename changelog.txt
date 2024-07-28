@@ -5,6 +5,7 @@
 - Fabric API 0.100.7
 
 ### Changes
+- Fixed runtime issue
 - Downgraded fabric-loader to 0.15.11
 - Fixed typo variable name
 - Removed custom text labels

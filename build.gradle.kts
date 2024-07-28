@@ -63,9 +63,9 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")
 
-    modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
-    modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
-    modCompileOnly("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
+    modImplementation("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
+    modImplementation("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
+    modImplementation("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
 }
 
 tasks {
