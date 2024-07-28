@@ -8,7 +8,7 @@ public class ColorHelper {
 
     public static int getLabelBackgroundColor() {
         int rgb = config.hud.label.labelBackgroundColor.getRGB() & 0xFFFFFF;
-        int opacity = config.hud.label.labelBackgoundOpacity * 255/100;
+        int opacity = config.hud.label.labelBackgroundOpacity * 255/100;
         return ((opacity & 0xFF) << 24) | rgb;
     }
 

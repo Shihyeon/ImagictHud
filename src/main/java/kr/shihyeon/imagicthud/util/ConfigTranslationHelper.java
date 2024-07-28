@@ -2,7 +2,7 @@ package kr.shihyeon.imagicthud.util;
 
 import kr.shihyeon.imagicthud.ImagictHud;
 
-public class FactoryTranslationHelper {
+public class ConfigTranslationHelper {
 
     public static String setCategory(String category) {
         return setCategory(category, false);
@@ -10,7 +10,7 @@ public class FactoryTranslationHelper {
 
     public static String setCategory(String category, boolean useDescription) {
         String categoryDesc = useDescription ? category + ".description" : category + ".title";
-        return "yacl3." + ImagictHud.MODID + ".config." + categoryDesc;
+        return ImagictHud.MODID + ".config." + categoryDesc;
     }
 
     public static String setGroup(String category, String group) {
@@ -19,7 +19,7 @@ public class FactoryTranslationHelper {
 
     public static String setGroup(String category, String group, boolean useDescription) {
         String groupDesc = useDescription ? group + ".description" : group + ".title";
-        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + groupDesc;
+        return ImagictHud.MODID + ".config." + category + "." + groupDesc;
     }
 
     public static String setOption(String category, String group, String option) {
@@ -32,14 +32,14 @@ public class FactoryTranslationHelper {
 
     public static String setOption(String category, String group, String option, boolean useDescription, int line) {
         String optionDesc = useDescription ? (line == -1 ? option + ".description" : option + ".description." + line) : option + ".title";
-        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + group + "." + optionDesc;
+        return ImagictHud.MODID + ".config." + category + "." + group + "." + optionDesc;
     }
 
     public static String setEnumOptionFormatKey(String category, String group, String option) {
-        return "yacl3." + ImagictHud.MODID + ".config." + category + "." + group + "." + option + ".";
+        return ImagictHud.MODID + ".config." + category + "." + group + "." + option + ".";
     }
 
     public static String setOptionFormatKey(String typeAndUnit) {
-        return "yacl3." + ImagictHud.MODID + ".config.format_key." + typeAndUnit;
+        return ImagictHud.MODID + ".config.format_key." + typeAndUnit;
     }
 }

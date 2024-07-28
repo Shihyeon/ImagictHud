@@ -1,12 +1,12 @@
 package kr.shihyeon.imagicthud.config.categories.indicator.groups;
 
-import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import com.google.gson.annotations.Expose;
 
 public class IndicatorDisplayGroup {
 
-    @SerialEntry public boolean attackingAt = false;
-    @SerialEntry public boolean lookingAt = true;
-    @SerialEntry public boolean damagedOnly = false;
-    @SerialEntry public int duration = 10;
-    @SerialEntry public int reach = 20;
+    @Expose public boolean attackingAt = true;
+    @Expose public boolean lookingAt = true;
+    @Expose public boolean damagedOnly = false;
+    @Expose public int duration = 10;
+    @Expose public int reach = 20;
 }

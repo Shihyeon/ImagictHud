@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.config.enums;
+package kr.shihyeon.imagicthud.config.categories.hud.groups.enums;
 
 public enum LocalDateTimeMode {
     DATE_AND_TIME,

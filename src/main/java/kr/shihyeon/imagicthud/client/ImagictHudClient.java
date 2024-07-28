@@ -12,12 +12,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 @Environment(EnvType.CLIENT)
 public class ImagictHudClient implements ClientModInitializer {
 
+    public static final boolean DEBUG = false;
+
     public static ImagictHudConfig CONFIG;
 
     @Override
     public void onInitializeClient() {
-        ImagictHudConfig.HANDLER.load();
-        CONFIG = ImagictHudConfig.HANDLER.instance();
+        CONFIG = ImagictHudConfig.INSTANCE;
+        CONFIG.load();
 
         KeyBinds.register();
 
@@ -28,7 +30,7 @@ public class ImagictHudClient implements ClientModInitializer {
 
     private static void init() {
         LimitedConfigValue.setValueWithLimit(CONFIG);
-        ImagictHudConfig.HANDLER.save();
+        CONFIG.save();
     }
 
     private void registerEvents() {

@@ -7,6 +7,6 @@ public class ImagictHudClientManager {
     public static ImagictHudConfig config = ImagictHudClient.CONFIG;
 
     public static void toggleHud() {
-        config.general.hud.enableHud = !config.general.hud.enableHud;
+        config.hud.general.enableHud = !config.hud.general.enableHud;
     }
 }

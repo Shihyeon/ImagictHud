@@ -40,8 +40,7 @@
         "fabric": ">=${fabric}",
         "minecraft": ">=${minecraft_version}",
         "java": ">=21",
-        "fabric-key-binding-api-v1": "*",
-        "yet_another_config_lib_v3": "*"
+        "fabric-key-binding-api-v1": "*"
     },
     "suggests": {
         "modmenu": "*"

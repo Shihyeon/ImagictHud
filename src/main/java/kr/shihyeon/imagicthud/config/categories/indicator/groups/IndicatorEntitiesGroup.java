@@ -1,11 +1,11 @@
 package kr.shihyeon.imagicthud.config.categories.indicator.groups;
 
-import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import com.google.gson.annotations.Expose;
 
 public class IndicatorEntitiesGroup {
 
-    @SerialEntry public boolean playerEntities = true;
-    @SerialEntry public boolean selfPlayerEntity = false;
-    @SerialEntry public boolean passiveEntities = true;
-    @SerialEntry public boolean hostileEntities = true;
+    @Expose public boolean playerEntities = true;
+    @Expose public boolean selfPlayerEntity = false;
+    @Expose public boolean passiveEntities = true;
+    @Expose public boolean hostileEntities = true;
 }

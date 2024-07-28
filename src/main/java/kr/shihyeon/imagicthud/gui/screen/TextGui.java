@@ -28,11 +28,6 @@ public class TextGui {
             nickname = PlayerUtil.getName(client, playerListEntry);
         }
 
-        if (config.hud.display.enableTopCustomLabel) {
-            String topCustomLabelText = config.hud.text.topCustomText;
-            textLines.add(topCustomLabelText);
-        }
-
         if (config.hud.display.enableLocalDateTimeLabel) {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter;
@@ -70,11 +65,6 @@ public class TextGui {
             } else {
                 textLines.add("Unknown Biome");
             }
-        }
-
-        if (config.hud.display.enableBottomCustomLabel) {
-            String bottomCustomLabelText = config.hud.text.bottomCustomText;
-            textLines.add(bottomCustomLabelText);
         }
 
         return textLines;

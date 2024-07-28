@@ -1,14 +1,12 @@
 package kr.shihyeon.imagicthud.config.categories.hud.groups;
 
-import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import com.google.gson.annotations.Expose;
 
 public class HudDisplayGroup {
 
-    @SerialEntry public boolean enableHead = true;
-    @SerialEntry public boolean enableTopCustomLabel = false;
-    @SerialEntry public boolean enableLocalDateTimeLabel = false;
-    @SerialEntry public boolean enableNicknameLabel = true;
-    @SerialEntry public boolean enableCoordinatesLabel = true;
-    @SerialEntry public boolean enableBiomeLabel = true;
-    @SerialEntry public boolean enableBottomCustomLabel = false;
+    @Expose public boolean enableHead = true;
+    @Expose public boolean enableLocalDateTimeLabel = false;
+    @Expose public boolean enableNicknameLabel = true;
+    @Expose public boolean enableCoordinatesLabel = true;
+    @Expose public boolean enableBiomeLabel = true;
 }

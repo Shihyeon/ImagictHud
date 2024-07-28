@@ -9,7 +9,8 @@
     "InGameHudMixin",
     "KeyboardMixin",
     "LivingEntityMixin",
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "gui.SodiumOptionsGUIMixin"
   ],
   "injectors": {
     "defaultRequire": 1
