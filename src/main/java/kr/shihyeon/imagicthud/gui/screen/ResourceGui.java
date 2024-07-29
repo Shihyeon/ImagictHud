@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ResourceGui {
+
     protected static final Set<Identifier> blendedHeadTextures = new HashSet<>();
 
     public static Identifier getBlendedLocation(Identifier textureLocation) {
@@ -88,10 +89,10 @@ public class ResourceGui {
         float width = 42.f;
         float initPosX = width/2.f;
 
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff333333);
-        RenderUtil.fill(matrix, vertexConsumer, initPosX - 1.f, - 1.f, initPosX, 1.f, 0xff333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, - 1.f, -initPosX + 1.f, 1.f, 0xff222222);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, - 2.f, initPosX - 1.f, -1.f, 0xff222222);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, - 2.f, initPosX - 1.f, -1.f, 0xff333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, - 1.f, -initPosX + 1.f, 1.f, 0xff333333);
+        RenderUtil.fill(matrix, vertexConsumer, initPosX - 1.f, - 1.f, initPosX, 1.f, 0xff222222);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff222222);
     }
 
     // TODO: Fix opacity
@@ -101,7 +102,7 @@ public class ResourceGui {
 
         //RenderSystem.enableBlend();
         //RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 1.f, initPosX, -1.f, 0x80000000);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, initPosX, 1.f, 0x80000000);
         //RenderSystem.disableBlend();
     }
 
@@ -112,11 +113,11 @@ public class ResourceGui {
         float healthYellow = width * percentageHealthYellow;
 
         // Health
-        RenderUtil.fill(matrix, vertexConsumer, initPosX, 0f, initPosX -healthRed, 1.f, 0xffaa0000);
-        RenderUtil.fill(matrix, vertexConsumer, initPosX, -1.f, initPosX -healthRed, 0f, 0xff880000);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0f, 0xffaa0000);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 0f, -initPosX +healthRed, 1.f, 0xff880000);
 
         // Absorption
-        RenderUtil.fill(matrix, vertexConsumer, initPosX -healthRed, 0f, initPosX -healthRed -healthYellow, 1.f, 0xffffff55);
-        RenderUtil.fill(matrix, vertexConsumer, initPosX -healthRed, -1.f, initPosX -healthRed -healthYellow, 0f, 0xffdede4a);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0f, 0xffffff55);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0f, -initPosX +healthRed +healthYellow, 1.f, 0xffdede4a);
     }
 }

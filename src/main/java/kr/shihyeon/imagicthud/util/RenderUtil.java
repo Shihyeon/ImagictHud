@@ -7,6 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.text.OrderedText;
+import net.minecraft.text.Text;
 import org.joml.Matrix4f;
 
 public class RenderUtil {
@@ -26,6 +27,11 @@ public class RenderUtil {
         Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
         VertexConsumerProvider vertexConsumers = context.getVertexConsumers();
         textRenderer.draw(text, x, y, -1, false, matrix, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+    }
+
+    public static void drawText(Matrix4f matrix, VertexConsumerProvider vertexConsumer, Text text, float x, float y, int color) {
+        TextRenderer textRenderer = client.textRenderer;
+        textRenderer.draw(text, x, y, color, false, matrix, vertexConsumer, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
     public static void fill(DrawContext context, float x1, float y1, float x2, float y2, int color) {

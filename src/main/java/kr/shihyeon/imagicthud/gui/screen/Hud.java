@@ -1,10 +1,10 @@
 package kr.shihyeon.imagicthud.gui.screen;
 
-import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
+import kr.shihyeon.imagicthud.util.TextUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
@@ -60,7 +60,8 @@ public class Hud {
                                    int x, int y, int width, int height, int lineSpacing,
                                    int frameColor, int backgroundColor, int textColor,
                                    boolean shadow, boolean center) {
-        List<String> textLines = TextGui.getStrings(client, config, playerListEntry);
+
+        List<String> textLines = TextUtil.getLabelTests(client, config, playerListEntry);
 
         for (int i = 0; i < textLines.size(); i++) {
             String text = textLines.get(i);
@@ -72,7 +73,7 @@ public class Hud {
             if (config.hud.label.enableLabelFrame) {
                 ResourceGui.renderLabelFrame(context, x, lineY, width, height, frameColor);
             }
-            TextGui.renderText(context, client, text, x + textCenteredX, lineY + lineSpacingCenter, textColor, shadow);
+            TextGui.drawText(context, client, text, x + textCenteredX, lineY + lineSpacingCenter, textColor, shadow);
         }
     }
 }
