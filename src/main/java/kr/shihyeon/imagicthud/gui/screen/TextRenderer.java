@@ -7,7 +7,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.text.Text;
 import org.joml.Matrix4f;
 
-public class TextGui {
+public class TextRenderer {
 
     public static void drawText(DrawContext context, MinecraftClient client, String text, int x, int y, int color, boolean shadow) {
         if (client != null && client.textRenderer != null) {

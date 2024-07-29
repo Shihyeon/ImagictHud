@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ResourceGui {
+public class ResourceRenderer {
 
     protected static final Set<Identifier> blendedHeadTextures = new HashSet<>();
 

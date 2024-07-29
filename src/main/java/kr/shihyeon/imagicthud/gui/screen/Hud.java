@@ -43,9 +43,9 @@ public class Hud {
 
             if (config.hud.display.enableHead) {
                 switch (config.hud.head.headRenderMode) {
-                    case BOLD -> ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
-                    case FLAT -> ResourceGui.renderHead(context, playerListEntry, posX, posY);
-                    case null, default -> ResourceGui.renderBoldHead(context, playerListEntry, posX, posY);
+                    case BOLD -> ResourceRenderer.renderBoldHead(context, playerListEntry, posX, posY);
+                    case FLAT -> ResourceRenderer.renderHead(context, playerListEntry, posX, posY);
+                    case null, default -> ResourceRenderer.renderBoldHead(context, playerListEntry, posX, posY);
                 }
                 posX = LayoutUtil.getLabelPosX(client);
             }
@@ -69,11 +69,11 @@ public class Hud {
             int lineSpacingCenter = lineSpacingOffset / 2 - 1;
             int textCenteredX = center ? (width - client.textRenderer.getWidth(text))/2 : 4;
             int lineY = y + i * (client.textRenderer.fontHeight + (lineSpacing + lineSpacingOffset));
-            ResourceGui.renderLabelBackground(context, x, lineY, width, height, backgroundColor);
+            ResourceRenderer.renderLabelBackground(context, x, lineY, width, height, backgroundColor);
             if (config.hud.label.enableLabelFrame) {
-                ResourceGui.renderLabelFrame(context, x, lineY, width, height, frameColor);
+                ResourceRenderer.renderLabelFrame(context, x, lineY, width, height, frameColor);
             }
-            TextGui.drawText(context, client, text, x + textCenteredX, lineY + lineSpacingCenter, textColor, shadow);
+            TextRenderer.drawText(context, client, text, x + textCenteredX, lineY + lineSpacingCenter, textColor, shadow);
         }
     }
 }
