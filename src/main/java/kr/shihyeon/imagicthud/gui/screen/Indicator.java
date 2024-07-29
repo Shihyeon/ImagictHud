@@ -1,5 +1,6 @@
 package kr.shihyeon.imagicthud.gui.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.util.EntityTracker;
 import kr.shihyeon.imagicthud.util.FormatUtil;
@@ -106,6 +107,7 @@ public class Indicator {
 
         TextGui.drawHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption);
 
+        RenderSystem.disableBlend();
         matrixStack.pop();
     }
 }

@@ -27,7 +27,7 @@ public class TextGui {
             float x1 = -(w1 + w2) / 2.f;
             float x2 = -(w1 + w2) / 2.f + w1;
             RenderUtil.drawText(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff);
-            RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffBFBF40);
+            RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55);
         }
     }
 }

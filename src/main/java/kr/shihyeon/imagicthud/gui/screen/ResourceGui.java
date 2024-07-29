@@ -9,6 +9,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -80,8 +81,11 @@ public class ResourceGui {
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.enableDepthTest();
 
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
         drawBarFrame(matrix, vertexConsumer);
-        //drawBarBackground(matrix, vertexConsumer);
+        drawBarBackground(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
         drawBarHealth(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
     }
 
@@ -95,15 +99,14 @@ public class ResourceGui {
         RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff222222);
     }
 
-    // TODO: Fix opacity
-    private static void drawBarBackground(Matrix4f matrix, VertexConsumer vertexConsumer) {
+    private static void drawBarBackground(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
         float width = 40.f;
         float initPosX = width/2.f;
+        float healthRed = width * percentageHealthRed;
+        float healthYellow = width * percentageHealthYellow;
 
-        //RenderSystem.enableBlend();
-        //RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, initPosX, 1.f, 0x80000000);
-        //RenderSystem.disableBlend();
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, -1.f, initPosX, 0, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, 0, initPosX, 1.f, 0x80222222);
     }
 
     private static void drawBarHealth(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
@@ -113,11 +116,11 @@ public class ResourceGui {
         float healthYellow = width * percentageHealthYellow;
 
         // Health
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0f, 0xffaa0000);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 0f, -initPosX +healthRed, 1.f, 0xff880000);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0, 0xffaa0000);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 0, -initPosX +healthRed, 1.f, 0xff880000);
 
         // Absorption
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0f, 0xffffff55);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0f, -initPosX +healthRed +healthYellow, 1.f, 0xffdede4a);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, 0xffcfcf45);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
     }
 }
