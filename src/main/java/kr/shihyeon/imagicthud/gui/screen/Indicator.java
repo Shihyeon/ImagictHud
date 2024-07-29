@@ -23,10 +23,21 @@ public class Indicator {
 
         if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
-                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
-                renderHealthText(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+                switch (config.indicator.display.indicatorMode) {
+                    case BAR_AND_NUMBER -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+                    case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+                    case null, default -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+                }
             }
         }
+    }
+
+    private static void renderHealthBarAndNumber(LivingEntity livingEntity, float yaw, float tickDelta,
+                                        MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                        int light, MinecraftClient client) {
+
+        renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+        renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
     }
 
     private static void renderHealthBar(LivingEntity livingEntity, float yaw, float tickDelta,
@@ -69,9 +80,9 @@ public class Indicator {
         matrixStack.pop();
     }
 
-    private static void renderHealthText(LivingEntity livingEntity, float yaw, float tickDelta,
-                                         MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                         int light, MinecraftClient client) {
+    private static void renderHealthNumber(LivingEntity livingEntity, float yaw, float tickDelta,
+                                           MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                           int light, MinecraftClient client) {
 
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.getMaxAbsorption();

@@ -1,9 +1,12 @@
 package kr.shihyeon.imagicthud.gui.config.yacl3.categories;
 
 import dev.isxander.yacl3.api.*;
+import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
+import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.minecraft.text.Text;
 
@@ -84,6 +87,18 @@ public class IndicatorConfigScreenFactory {
                 )
                 .controller(TickBoxControllerBuilder::create)
                 .build();
+        Option<IndicatorMode> indicatorModeOption = Option.<IndicatorMode>createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "head", "indicator_mode", true))))
+                .binding(
+                        config.indicator.display.indicatorMode,
+                        () -> config.indicator.display.indicatorMode,
+                        newValue -> config.indicator.display.indicatorMode = newValue
+                )
+                .controller(option -> EnumControllerBuilder.create(option)
+                        .enumClass(IndicatorMode.class)
+                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode") + value.name().toLowerCase(), value)))
+                .build();
         Option<Integer> durationOption = Option.<Integer>createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
                 .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true))))
@@ -115,6 +130,7 @@ public class IndicatorConfigScreenFactory {
         group.option(attackingAtOption);
         group.option(lookingAtOption);
         group.option(damagedOnlyOption);
+        group.option(indicatorModeOption);
         group.option(durationOption);
         group.option(reachOption);
 

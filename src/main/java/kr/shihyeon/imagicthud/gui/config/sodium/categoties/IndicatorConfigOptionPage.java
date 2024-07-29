@@ -1,13 +1,18 @@
 package kr.shihyeon.imagicthud.gui.config.sodium.categoties;
 
+import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionsStorage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import me.jellysquid.mods.sodium.client.gui.options.OptionGroup;
 import me.jellysquid.mods.sodium.client.gui.options.OptionImpl;
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
+import me.jellysquid.mods.sodium.client.gui.options.control.CyclingControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.SliderControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
 import net.minecraft.text.Text;
+
+import java.util.stream.Stream;
 
 public class IndicatorConfigOptionPage {
 
@@ -61,6 +66,24 @@ public class IndicatorConfigOptionPage {
                         option -> option.indicator.display.damagedOnly
                 )
                 .build();
+        OptionImpl<?, IndicatorMode> indicatorModeOption = OptionImpl.createBuilder(IndicatorMode.class, storage)
+                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
+                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true)))
+                .setControl(option -> new CyclingControl<>(
+                        option,
+                        IndicatorMode.class,
+                        Stream.of(IndicatorMode.values())
+                              .map(value -> ControlValueFormatter.translateVariable(
+                                      ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode")
+                                              + value.name().toLowerCase())
+                                      .format(0))
+                              .toArray(Text[]::new))
+                )
+                .setBinding(
+                        (option, value) -> option.indicator.display.indicatorMode = value,
+                        option -> option.indicator.display.indicatorMode
+                )
+                .build();
         OptionImpl<?, Integer> durationOption = OptionImpl.createBuilder(int.class, storage)
                 .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
                 .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true)))
@@ -83,6 +106,7 @@ public class IndicatorConfigOptionPage {
         group.add(attackingAtOption);
         group.add(lookingAtOption);
         group.add(damagedOnlyOption);
+        group.add(indicatorModeOption);
         group.add(durationOption);
         group.add(reachOption);
 

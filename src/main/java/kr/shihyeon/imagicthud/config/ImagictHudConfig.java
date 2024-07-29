@@ -6,6 +6,7 @@ import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.LocalDateTimeMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.util.ModLogger;
 import kr.shihyeon.imagicthud.config.categories.hud.HudCategory;
 import kr.shihyeon.imagicthud.config.categories.indicator.IndicatorCategory;
@@ -29,9 +30,13 @@ public class ImagictHudConfig {
 
     private static final EnumTypeAdapterFactory ENUM_FACTORY = new EnumTypeAdapterFactory();
     static {
+        // Hud Category
         ENUM_FACTORY.registerEnum(HeadRenderMode.class, HeadRenderMode.BOLD);
         ENUM_FACTORY.registerEnum(TextAlignMode.class, TextAlignMode.CENTER);
         ENUM_FACTORY.registerEnum(LocalDateTimeMode.class, LocalDateTimeMode.DATE_AND_TIME);
+
+        // Indicator Category
+        ENUM_FACTORY.registerEnum(IndicatorMode.class, IndicatorMode.BAR_AND_NUMBER);
     }
 
     private static final Gson GSON = new GsonBuilder()
