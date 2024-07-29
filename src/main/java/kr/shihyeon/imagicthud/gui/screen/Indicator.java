@@ -47,9 +47,9 @@ public class Indicator {
         BufferBuilder vertexConsumer;
 
         float currentHealthRed = livingEntity.getHealth();
-        float currentHealthYellow = livingEntity.getMaxAbsorption();
+        float currentHealthYellow = livingEntity.isPlayer() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
         float maxHealthRed = livingEntity.getMaxHealth();
-        float maxHealthYellow = livingEntity.getMaxAbsorption();
+        float maxHealthYellow = currentHealthYellow;
         float totalMaxHealth = maxHealthRed + maxHealthYellow;
         float percentageHealthRed = currentHealthRed / totalMaxHealth;
         float percentageHealthYellow = currentHealthYellow / totalMaxHealth;
@@ -85,7 +85,7 @@ public class Indicator {
                                            int light, MinecraftClient client) {
 
         float currentHealthRed = livingEntity.getHealth();
-        float currentHealthYellow = livingEntity.getMaxAbsorption();
+        float currentHealthYellow = livingEntity.isPlayer() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
         float maxHealthRed = livingEntity.getMaxHealth();
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
