@@ -2,18 +2,10 @@
 - Java 21
 - Minecraft 1.21
 - Fabric loader 0.15.11
-- Fabric API 0.100.7
+- Fabric API 0.100.8
 
 ### Changes
-- Bump version
-- Fixed runtime issue
-- Downgraded fabric-loader to 0.15.11
-- Fixed typo variable name
-- Removed custom text labels
-- Changed hud scale from float to int
-- Added config screen in sodium option
-- Fixed translation key
-- Fixed loading variables in entity tracker
-- Updated github build-script
-- Refactored configuration structure yacl3 to gson
-- Removed dependency YetAnotherConfigLib
+- Updated fabric-api to 0.100.8
+- Added indicator rendering mode
+- Added indicator background opacity (alpha 50%)
+- Added indicator number rendering
