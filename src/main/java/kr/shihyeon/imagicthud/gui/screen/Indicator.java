@@ -15,6 +15,7 @@ public class Indicator {
 
     private static final float INDICATOR_SCALE = 0.025f;
     private static final float HEIGHT_OFFSET = 0.5f;
+    private static final float PLAYER_HEIGHT_OFFSET = 0.15f;
     private static final float TEXT_OFFSET = 0.00001f;
 
     public static void renderIndicator(LivingEntity livingEntity, float yaw, float tickDelta,
@@ -55,7 +56,8 @@ public class Indicator {
         float percentageHealthYellow = currentHealthYellow / totalMaxHealth;
 
         float scale = INDICATOR_SCALE;
-        float entityHeight = livingEntity.getHeight() + HEIGHT_OFFSET;
+        float barHeightOffset = livingEntity.isPlayer() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float entityHeight = livingEntity.getHeight() + barHeightOffset;
 
         matrixStack.push();
         vertexConsumer = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
@@ -89,7 +91,8 @@ public class Indicator {
         float maxHealthRed = livingEntity.getMaxHealth();
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
-        float entityHeight = livingEntity.getHeight() + HEIGHT_OFFSET;
+        float numberHeightOffset = livingEntity.isPlayer() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float entityHeight = livingEntity.getHeight() + numberHeightOffset;
 
         float dx = MathHelper.sign(client.player.getX() - livingEntity.getX());
         float dy = MathHelper.sign(client.player.getY() - livingEntity.getY());
