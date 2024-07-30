@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.mixin.gui;
+package kr.shihyeon.imagicthud.mixin.gui.sodium;
 
 import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionPages;
 import me.jellysquid.mods.sodium.client.gui.SodiumOptionsGUI;

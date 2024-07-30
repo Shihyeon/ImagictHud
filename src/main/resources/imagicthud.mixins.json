@@ -6,11 +6,11 @@
   "mixins": [
   ],
   "client": [
-    "InGameHudMixin",
     "KeyboardMixin",
     "LivingEntityMixin",
-    "LivingEntityRendererMixin",
-    "gui.SodiumOptionsGUIMixin"
+    "gui.InGameHudMixin",
+    "gui.LivingEntityRendererMixin",
+    "gui.sodium.SodiumOptionsGUIMixin"
   ],
   "injectors": {
     "defaultRequire": 1
