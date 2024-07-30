@@ -35,6 +35,7 @@ public class SodiumOptionPages {
         groups.add(IndicatorConfigOptionPage.createGeneralGroup(STORAGE));
         groups.add(IndicatorConfigOptionPage.createDisplayGroup(STORAGE));
         groups.add(IndicatorConfigOptionPage.createEntitiesGroup(STORAGE));
+        groups.add(IndicatorConfigOptionPage.createLayoutGroup(STORAGE));
 
         return new OptionPage(Text.translatable(ConfigTranslationHelper.setCategory("indicator")), ImmutableList.copyOf(groups));
     }

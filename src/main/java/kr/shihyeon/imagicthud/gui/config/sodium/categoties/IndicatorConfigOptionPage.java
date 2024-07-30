@@ -1,6 +1,5 @@
 package kr.shihyeon.imagicthud.gui.config.sodium.categoties;
 
-import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionsStorage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
@@ -158,6 +157,25 @@ public class IndicatorConfigOptionPage {
         group.add(selfPlayerEntityOption);
         group.add(passiveEntitiesOption);
         group.add(hostileEntitiesOption);
+
+        return group.build();
+    }
+
+    public static OptionGroup createLayoutGroup(SodiumOptionsStorage storage) {
+
+        OptionGroup.Builder group = OptionGroup.createBuilder();
+
+        OptionImpl<?, Integer> positionYOption = OptionImpl.createBuilder(int.class, storage)
+                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
+                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true)))
+                .setControl(option -> new SliderControl(option, -15, 15, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
+                .setBinding(
+                        (option, value) -> option.indicator.layout.positionY = value,
+                        option -> option.indicator.layout.positionY
+                )
+                .build();
+
+        group.add(positionYOption);
 
         return group.build();
     }

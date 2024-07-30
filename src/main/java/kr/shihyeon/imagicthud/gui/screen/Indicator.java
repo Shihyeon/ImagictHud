@@ -25,9 +25,9 @@ public class Indicator {
         if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 switch (config.indicator.display.indicatorMode) {
-                    case BAR_AND_NUMBER -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
-                    case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
-                    case null, default -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+                    case BAR_AND_NUMBER -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case null, default -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                 }
             }
         }
@@ -35,15 +35,15 @@ public class Indicator {
 
     private static void renderHealthBarAndNumber(LivingEntity livingEntity, float yaw, float tickDelta,
                                         MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                        int light, MinecraftClient client) {
+                                        int light, MinecraftClient client, ImagictHudConfig config) {
 
-        renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
-        renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client);
+        renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+        renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
     }
 
     private static void renderHealthBar(LivingEntity livingEntity, float yaw, float tickDelta,
                                         MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                        int light, MinecraftClient client) {
+                                        int light, MinecraftClient client, ImagictHudConfig config) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexConsumer;
 
@@ -57,7 +57,8 @@ public class Indicator {
 
         float scale = INDICATOR_SCALE;
         float barHeightOffset = livingEntity.isPlayer() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
-        float entityHeight = livingEntity.getHeight() + barHeightOffset;
+        float configOffset = (float) config.indicator.layout.positionY / 100.f;
+        float entityHeight = livingEntity.getHeight() + barHeightOffset + configOffset;
 
         matrixStack.push();
         vertexConsumer = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
@@ -84,7 +85,7 @@ public class Indicator {
 
     private static void renderHealthNumber(LivingEntity livingEntity, float yaw, float tickDelta,
                                            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                           int light, MinecraftClient client) {
+                                           int light, MinecraftClient client, ImagictHudConfig config) {
 
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.isPlayer() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
@@ -92,7 +93,8 @@ public class Indicator {
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
         float numberHeightOffset = livingEntity.isPlayer() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
-        float entityHeight = livingEntity.getHeight() + numberHeightOffset;
+        float configOffset = (float) config.indicator.layout.positionY / 100.f;
+        float entityHeight = livingEntity.getHeight() + numberHeightOffset + configOffset;
 
         float dx = MathHelper.sign(client.player.getX() - livingEntity.getX());
         float dy = MathHelper.sign(client.player.getY() - livingEntity.getY());

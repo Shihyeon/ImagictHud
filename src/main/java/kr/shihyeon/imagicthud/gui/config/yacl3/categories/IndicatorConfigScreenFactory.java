@@ -5,7 +5,6 @@ import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.minecraft.text.Text;
@@ -21,10 +20,12 @@ public class IndicatorConfigScreenFactory {
         OptionGroup indicatorGeneralGroup = createIndicatorGeneralGroup(config);
         OptionGroup indicatorDisplayGroup = createIndicatorDisplayGroup(config);
         OptionGroup indicatorEntitiesGroup = createIndicatorEntitiesGroup(config);
+        OptionGroup indicatorLayoutGroup = createIndicatorLayoutGroup(config);
 
         category.group(indicatorGeneralGroup);
         category.group(indicatorDisplayGroup);
         category.group(indicatorEntitiesGroup);
+        category.group(indicatorLayoutGroup);
 
         return category.build();
     }
@@ -187,6 +188,32 @@ public class IndicatorConfigScreenFactory {
         group.option(selfPlayerEntityOption);
         group.option(passiveEntitiesOption);
         group.option(hostileEntitiesOption);
+
+        return group.build();
+    }
+
+    private static OptionGroup createIndicatorLayoutGroup(ImagictHudConfig config) {
+
+        OptionGroup.Builder group = OptionGroup.createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "layout")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "layout", true))));
+
+        Option<Integer> positionYOption = Option.<Integer>createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true))))
+                .binding(
+                        config.indicator.layout.positionY,
+                        () -> config.indicator.layout.positionY,
+                        newValue -> config.indicator.layout.positionY = newValue
+                )
+                .controller(option -> IntegerSliderControllerBuilder.create(option)
+                        .range(-15, 15)
+                        .step(1)
+                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                )
+                .build();
+
+        group.option(positionYOption);
 
         return group.build();
     }

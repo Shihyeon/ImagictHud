@@ -114,6 +114,11 @@
   "imagicthud.config.indicator.entities.hostile_entities.title": "적대적 생명체 인디케이터 표시",
   "imagicthud.config.indicator.entities.hostile_entities.description": "적대적 생명체 인디케이터를 활성화/비활성화합니다.",
 
+  "imagicthud.config.indicator.layout.title": "레이아웃",
+  "imagicthud.config.indicator.layout.description": "레이아웃 설정입니다.",
+  "imagicthud.config.indicator.layout.position_y.title": "인디케이터 Y-위치",
+  "imagicthud.config.indicator.layout.position_y.description": "인디케이터의 Y-위치를 설정합니다. (+)는 아래쪽, (-)는 위쪽을 나타냅니다.",
+
   "imagicthud.config.format_key.int_pixels": "%d 픽셀",
   "imagicthud.config.format_key.int_seconds": "%d 초",
   "imagicthud.config.format_key.int_meter": "%d 미터"

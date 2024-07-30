@@ -114,6 +114,11 @@
   "imagicthud.config.indicator.entities.hostile_entities.title": "Show Hostile Entity Indicator",
   "imagicthud.config.indicator.entities.hostile_entities.description": "Enable/disable hostile entity Indicators.",
 
+  "imagicthud.config.indicator.layout.title": "Layout",
+  "imagicthud.config.indicator.layout.description": "Layout settings.",
+  "imagicthud.config.indicator.layout.position_y.title": "Indicator Y-position",
+  "imagicthud.config.indicator.layout.position_y.description": "Set the Indicator Y-position. (+) direction is down, (-) direction is up.",
+
   "imagicthud.config.format_key.int_pixels": "%d pixels",
   "imagicthud.config.format_key.int_seconds": "%d seconds",
   "imagicthud.config.format_key.int_meter": "%d meters"

@@ -5,6 +5,7 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Added y-position of indicator config option
 - Fixed player indicator y-position
 - Fixed mob/player absorption of indicator issue
 - Updated fabric-api to 0.100.8
