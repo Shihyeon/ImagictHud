@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.config;
+package kr.shihyeon.imagicthud.gui.config.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

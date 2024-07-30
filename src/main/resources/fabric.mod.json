@@ -28,7 +28,7 @@
             "kr.shihyeon.imagicthud.ImagictHud"
         ],
         "modmenu": [
-            "kr.shihyeon.imagicthud.config.ModMenuIntegration"
+            "kr.shihyeon.imagicthud.gui.config.modmenu.ModMenuIntegration"
         ]
     },
     "accessWidener": "imagicthud.accesswidener",
