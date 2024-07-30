@@ -31,7 +31,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
         super(context);
     }
 
-    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V") //
+    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
     public void render(T livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo ci) {
         Indicator.renderIndicator(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, CONFIG);
     }

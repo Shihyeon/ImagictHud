@@ -24,7 +24,7 @@ public class InGameHudMixin {
     @Unique
     private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
 
-    @Inject(at = @At("HEAD"), method = "render", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "render")
     public void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         Hud.renderHud(context, client, CONFIG);
     }
