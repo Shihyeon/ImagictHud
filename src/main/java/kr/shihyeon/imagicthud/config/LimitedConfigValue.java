@@ -51,6 +51,7 @@ public class LimitedConfigValue {
         setIndicatorGeneralLimit(config);
         setIndicatorDisplayLimit(config);
         setIndicatorEntitiesLimit(config);
+        setIndicatorLayoutLimit(config);
     }
 
     private static void setIndicatorGeneralLimit(ImagictHudConfig config) {
@@ -64,6 +65,10 @@ public class LimitedConfigValue {
 
     private static void setIndicatorEntitiesLimit(ImagictHudConfig config) {
 
+    }
+
+    private static void setIndicatorLayoutLimit(ImagictHudConfig config) {
+        config.indicator.layout.positionY = applyLimit(config.indicator.layout.positionY, -15, 15);
     }
 
     // Util
