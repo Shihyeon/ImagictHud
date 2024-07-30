@@ -15,9 +15,10 @@ object Constants {
 }
 
 plugins {
-    id("fabric-loom") version "1.7.+"
-    id("maven-publish")
-    //id("com.modrinth.minotaur") version "2.+"
+    id("fabric-loom").version("1.7.+")
+    `java-library`
+    `maven-publish`
+    //id("com.modrinth.minotaur").version("2.+")
 }
 
 base {
