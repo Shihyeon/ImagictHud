@@ -9,7 +9,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL11;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -82,7 +81,7 @@ public class ResourceRenderer {
         RenderSystem.enableDepthTest();
 
         RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.defaultBlendFunc();
 
         drawBarFrame(matrix, vertexConsumer);
         drawBarBackground(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);

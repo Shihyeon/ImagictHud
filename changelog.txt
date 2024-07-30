@@ -5,6 +5,7 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Changed blend function
 - Fixed init limit value of indicator layout
 - Added y-position of indicator config option
 - Fixed player indicator y-position
