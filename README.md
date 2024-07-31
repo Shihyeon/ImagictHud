@@ -69,7 +69,7 @@ Please contribute to the translation in one of two ways:
 
 ### screen
 
-![screen](https://cdn.modrinth.com/data/uWeqs5CX/images/0e1fb60d2092c7c8a0c9a972bde4a7c69eac89b8.png)
+![screen](https://cdn.modrinth.com/data/uWeqs5CX/images/10202d21af7b63e7795d54dbbe2cdc9ba82a1db6.png)
 
 ### head mode (bold/flat)
 
