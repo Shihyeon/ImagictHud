@@ -30,6 +30,17 @@ jobs:
         with:
           cache-read-only: false
 
+      - name: Extract version and Minecraft version from release title
+        id: extract_info
+        run: |
+          RELEASE_TITLE="${{ github.event.release.name }}"
+          MOD_VERSION=$(echo "${RELEASE_TITLE}" | grep -oP '[0-9]+\.[0-9][^ ]*' | sed -n 1p)
+          MC_VERSION=$(echo "${RELEASE_TITLE}" | grep -oP '[0-9]+\.[0-9][^ ]*' | sed -n 2p)
+          NAME="Imagict Hud ${MOD_VERSION}"
+          VERSION="mc${MC_VERSION}-${MOD_VERSION}"
+          echo "NAME=${NAME}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
       - name: Run build with Gradle Wrapper
         run: ./gradlew build remapJar -Dbuild.release=true
 
@@ -37,13 +48,16 @@ jobs:
       - name: Upload artifacts to Modrinth and GitHub
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          modrinth-id: uWeqs5CX
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
           files: build/libs/!(*-@(dev|sources|all)).jar
 
+          name: $${{ env.NAME }}
+          version: ${{ env.VERSION }}
+
+          modrinth-id: uWeqs5CX
+          modrinth-featured: false
           version-type: release
           loaders: fabric
           dependencies: |
