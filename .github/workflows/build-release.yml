@@ -53,7 +53,7 @@ jobs:
 
           files: build/libs/!(*-@(dev|sources|all)).jar
 
-          name: $${{ env.NAME }}
+          name: ${{ env.NAME }}
           version: ${{ env.VERSION }}
 
           modrinth-id: uWeqs5CX
