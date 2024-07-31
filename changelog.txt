@@ -5,6 +5,7 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Bump version
 - Changed blend function
 - Fixed init limit value of indicator layout
 - Added y-position of indicator config option
