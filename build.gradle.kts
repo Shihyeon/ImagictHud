@@ -1,4 +1,6 @@
 object Constants {
+    const val JAVA_VERSION: Int = 21
+
     // https://fabricmc.net/develop/
     const val MINECRAFT_VERSION: String = "1.21"
     const val YARN_MAPPINGS: String = "1.21+build.9"
@@ -28,13 +30,15 @@ base {
     version = createVersionString()
 }
 
+val targetJavaVersion = 21
+
 loom {
     accessWidenerPath = file("${rootProject.projectDir}/src/main/resources/imagicthud.accesswidener")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.toVersion(Constants.JAVA_VERSION)
+    targetCompatibility = JavaVersion.toVersion(Constants.JAVA_VERSION)
 }
 
 repositories {
@@ -95,7 +99,7 @@ tasks {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.release = 21
+    options.release = Constants.JAVA_VERSION
     //options.compilerArgs.add("-Xlint:deprecation")
 }
 
