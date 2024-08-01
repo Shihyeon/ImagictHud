@@ -15,7 +15,7 @@ public class TextRenderer {
         }
     }
 
-    public static void drawHealth(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String healthRed, String healthYellow, boolean absorption) {
+    public static void drawEntityHealth(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String healthRed, String healthYellow, boolean absorption) {
         if (client != null && client.textRenderer != null) {
             Text txt1 = Text.literal(healthRed);
             Text txt2 = Text.literal("");

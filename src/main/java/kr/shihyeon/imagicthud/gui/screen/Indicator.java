@@ -67,7 +67,7 @@ public class Indicator {
         matrixStack.scale(scale, -scale, scale);
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
 
-        ResourceRenderer.drawBar(matrix4f, vertexConsumer, percentageHealthRed, percentageHealthYellow);
+        ResourceRenderer.drawEntityBar(matrix4f, vertexConsumer, percentageHealthRed, percentageHealthYellow);
 
         BuiltBuffer builtBuffer;
         try {
@@ -121,7 +121,7 @@ public class Indicator {
 
         boolean absorption = currentHealthYellow > 0;
 
-        TextRenderer.drawHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption);
+        TextRenderer.drawEntityHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption);
 
         RenderSystem.disableBlend();
         matrixStack.pop();

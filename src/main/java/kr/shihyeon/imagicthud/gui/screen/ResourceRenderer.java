@@ -76,19 +76,19 @@ public class ResourceRenderer {
         }
     }
 
-    public static void drawBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
+    public static void drawEntityBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.enableDepthTest();
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        drawBarFrame(matrix, vertexConsumer);
-        drawBarBackground(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
-        drawBarHealth(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
+        drawEntityFrameBar(matrix, vertexConsumer);
+        drawEntityBackgroundBar(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
+        drawEntityHealthBar(matrix, vertexConsumer, percentageHealthRed, percentageHealthYellow);
     }
 
-    private static void drawBarFrame(Matrix4f matrix, VertexConsumer vertexConsumer) {
+    private static void drawEntityFrameBar(Matrix4f matrix, VertexConsumer vertexConsumer) {
         float width = 42.f;
         float initPosX = width/2.f;
 
@@ -98,7 +98,7 @@ public class ResourceRenderer {
         RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff222222);
     }
 
-    private static void drawBarBackground(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
+    private static void drawEntityBackgroundBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
         float width = 40.f;
         float initPosX = width/2.f;
         float healthRed = width * percentageHealthRed;
@@ -108,7 +108,7 @@ public class ResourceRenderer {
         RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, 0, initPosX, 1.f, 0x80222222);
     }
 
-    private static void drawBarHealth(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
+    private static void drawEntityHealthBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
         float width = 40.f;
         float initPosX = width/2.f;
         float healthRed = width * percentageHealthRed;
