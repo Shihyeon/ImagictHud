@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.screen;
+package kr.shihyeon.imagicthud.gui.screen.renderer;
 
 import kr.shihyeon.imagicthud.util.RenderUtil;
 import net.minecraft.client.MinecraftClient;

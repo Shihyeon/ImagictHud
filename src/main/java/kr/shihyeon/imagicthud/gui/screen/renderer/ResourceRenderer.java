@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.screen;
+package kr.shihyeon.imagicthud.gui.screen.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.ImagictHud;
