@@ -2,8 +2,8 @@ package kr.shihyeon.imagicthud.gui.screen;
 
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
-import kr.shihyeon.imagicthud.gui.screen.renderer.ResourceRenderer;
-import kr.shihyeon.imagicthud.gui.screen.renderer.TextRenderer;
+import kr.shihyeon.imagicthud.gui.render.ResourceRenderer;
+import kr.shihyeon.imagicthud.gui.render.TextRenderer;
 import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.LayoutUtil;
 import kr.shihyeon.imagicthud.util.TextUtil;

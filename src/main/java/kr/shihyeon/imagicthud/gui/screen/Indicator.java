@@ -2,8 +2,8 @@ package kr.shihyeon.imagicthud.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.gui.screen.renderer.ResourceRenderer;
-import kr.shihyeon.imagicthud.gui.screen.renderer.TextRenderer;
+import kr.shihyeon.imagicthud.gui.render.ResourceRenderer;
+import kr.shihyeon.imagicthud.gui.render.TextRenderer;
 import kr.shihyeon.imagicthud.util.EntityTracker;
 import kr.shihyeon.imagicthud.util.FormatUtil;
 import net.minecraft.client.MinecraftClient;
