@@ -98,6 +98,8 @@ public class Indicator {
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getHeight() + numberHeightOffset + configOffset;
 
+        boolean shadow = config.indicator.text.enableTextShadows;
+
         float dx = MathHelper.sign(client.player.getX() - livingEntity.getX());
         float dy = MathHelper.sign(client.player.getY() - livingEntity.getY());
         float dz = MathHelper.sign(client.player.getZ() - livingEntity.getZ());
@@ -123,7 +125,7 @@ public class Indicator {
 
         boolean absorption = currentHealthYellow > 0;
 
-        TextRenderer.drawEntityHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption);
+        TextRenderer.drawEntityHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption, shadow);
 
         RenderSystem.disableBlend();
         matrixStack.pop();

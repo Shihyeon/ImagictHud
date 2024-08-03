@@ -20,11 +20,13 @@ public class IndicatorConfigScreenFactory {
         OptionGroup indicatorGeneralGroup = createIndicatorGeneralGroup(config);
         OptionGroup indicatorDisplayGroup = createIndicatorDisplayGroup(config);
         OptionGroup indicatorEntitiesGroup = createIndicatorEntitiesGroup(config);
+        OptionGroup indicatorTextGroup = createIndicatorTextGroup(config);
         OptionGroup indicatorLayoutGroup = createIndicatorLayoutGroup(config);
 
         category.group(indicatorGeneralGroup);
         category.group(indicatorDisplayGroup);
         category.group(indicatorEntitiesGroup);
+        category.group(indicatorTextGroup);
         category.group(indicatorLayoutGroup);
 
         return category.build();
@@ -188,6 +190,28 @@ public class IndicatorConfigScreenFactory {
         group.option(selfPlayerEntityOption);
         group.option(passiveEntitiesOption);
         group.option(hostileEntitiesOption);
+
+        return group.build();
+    }
+
+    private static OptionGroup createIndicatorTextGroup(ImagictHudConfig config) {
+
+        OptionGroup.Builder group = OptionGroup.createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "text")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "text", true))));
+
+        Option<Boolean> enableTextShadowsOption = Option.<Boolean>createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true))))
+                .binding(
+                        config.indicator.text.enableTextShadows,
+                        () -> config.indicator.text.enableTextShadows,
+                        newValue -> config.indicator.text.enableTextShadows = newValue
+                )
+                .controller(TickBoxControllerBuilder::create)
+                .build();
+
+        group.option(enableTextShadowsOption);
 
         return group.build();
     }

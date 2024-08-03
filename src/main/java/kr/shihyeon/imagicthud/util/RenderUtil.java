@@ -29,9 +29,9 @@ public class RenderUtil {
         textRenderer.draw(text, x, y, -1, false, matrix, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
-    public static void drawText(Matrix4f matrix, VertexConsumerProvider vertexConsumer, Text text, float x, float y, int color) {
+    public static void drawText(Matrix4f matrix, VertexConsumerProvider vertexConsumer, Text text, float x, float y, int color, boolean shadow) {
         TextRenderer textRenderer = client.textRenderer;
-        textRenderer.draw(text, x, y, color, false, matrix, vertexConsumer, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        textRenderer.draw(text, x, y, color, shadow, matrix, vertexConsumer, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
     public static void fill(DrawContext context, float x1, float y1, float x2, float y2, int color) {

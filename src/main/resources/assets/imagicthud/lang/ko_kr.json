@@ -114,6 +114,11 @@
   "imagicthud.config.indicator.entities.hostile_entities.title": "적대적 생명체 인디케이터 표시",
   "imagicthud.config.indicator.entities.hostile_entities.description": "적대적 생명체 인디케이터를 활성화/비활성화합니다.",
 
+  "imagicthud.config.indicator.text.title": "텍스트",
+  "imagicthud.config.indicator.text.description": "텍스트 설정입니다.",
+  "imagicthud.config.indicator.text.enable_shadows.title": "인디케이터 텍스트 그림자",
+  "imagicthud.config.indicator.text.enable_shadows.description": "인디케이터 텍스트의 그림자를 활성화/비활성화합니다.",
+
   "imagicthud.config.indicator.layout.title": "레이아웃",
   "imagicthud.config.indicator.layout.description": "레이아웃 설정입니다.",
   "imagicthud.config.indicator.layout.position_y.title": "인디케이터 Y-위치",

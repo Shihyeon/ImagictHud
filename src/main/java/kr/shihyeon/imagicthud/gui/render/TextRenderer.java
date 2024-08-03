@@ -15,7 +15,7 @@ public class TextRenderer {
         }
     }
 
-    public static void drawEntityHealth(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String healthRed, String healthYellow, boolean absorption) {
+    public static void drawEntityHealth(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String healthRed, String healthYellow, boolean absorption, boolean shadow) {
         if (client != null && client.textRenderer != null) {
             Text txt1 = Text.literal(healthRed);
             Text txt2 = Text.literal("");
@@ -26,8 +26,8 @@ public class TextRenderer {
             float w2 = client.textRenderer.getWidth(txt2);
             float x1 = -(w1 + w2) / 2.f;
             float x2 = -(w1 + w2) / 2.f + w1;
-            RenderUtil.drawText(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff);
-            RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55);
+            RenderUtil.drawText(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff, shadow);
+            RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55, shadow);
         }
     }
 }

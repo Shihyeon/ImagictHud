@@ -114,6 +114,11 @@
   "imagicthud.config.indicator.entities.hostile_entities.title": "Show Hostile Entity Indicator",
   "imagicthud.config.indicator.entities.hostile_entities.description": "Enable/disable hostile entity Indicators.",
 
+  "imagicthud.config.indicator.text.title": "Text",
+  "imagicthud.config.indicator.text.description": "Configure Text Indicators.",
+  "imagicthud.config.indicator.text.enable_shadows.title": "Show Indicator Text Shadows",
+  "imagicthud.config.indicator.text.enable_shadows.description": "Enable/disable Indicator Text Shadows.",
+
   "imagicthud.config.indicator.layout.title": "Layout",
   "imagicthud.config.indicator.layout.description": "Layout settings.",
   "imagicthud.config.indicator.layout.position_y.title": "Indicator Y-position",

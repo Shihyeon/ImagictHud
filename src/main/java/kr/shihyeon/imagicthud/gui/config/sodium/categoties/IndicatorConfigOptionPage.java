@@ -161,6 +161,25 @@ public class IndicatorConfigOptionPage {
         return group.build();
     }
 
+    public static OptionGroup createTextGroup(SodiumOptionsStorage storage) {
+
+        OptionGroup.Builder group = OptionGroup.createBuilder();
+
+        OptionImpl<?, Boolean> enableTextShadowsOption = OptionImpl.createBuilder(boolean.class, storage)
+                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
+                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true)))
+                .setControl(TickBoxControl::new)
+                .setBinding(
+                        (option, value) -> option.indicator.text.enableTextShadows = value,
+                        option -> option.indicator.text.enableTextShadows
+                )
+                .build();
+
+        group.add(enableTextShadowsOption);
+
+        return group.build();
+    }
+
     public static OptionGroup createLayoutGroup(SodiumOptionsStorage storage) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder();
