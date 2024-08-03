@@ -1,12 +1,16 @@
 package kr.shihyeon.imagicthud.util;
 
+import java.text.DecimalFormat;
+
 public class FormatUtil {
+
+    private static final DecimalFormat numberFormat = new DecimalFormat("#,###.#");
 
     public static String formatHealthFloat(float value) {
         if (value % 1 <= 0.01) {
-            return String.format("%d", Math.round(value));
+            return numberFormat.format(Math.round(value));
         } else {
-            return String.format("%.1f", value);
+            return numberFormat.format(value);
         }
     }
 }
