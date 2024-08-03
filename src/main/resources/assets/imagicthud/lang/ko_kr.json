@@ -50,7 +50,7 @@
   "imagicthud.config.hud.text.color.title": "라벨 텍스트 색상",
   "imagicthud.config.hud.text.color.description": "라벨 텍스트의 색상을 설정합니다.",
   "imagicthud.config.hud.text.enable_shadows.title": "라벨 텍스트 그림자",
-  "imagicthud.config.hud.text.enable_shadows.description": "라벨 텍스트에 그림자를 활성화/비활성화합니다.",
+  "imagicthud.config.hud.text.enable_shadows.description": "라벨 텍스트의 그림자를 활성화/비활성화합니다.",
   "imagicthud.config.hud.text.opacity.title": "라벨 텍스트 불투명도",
   "imagicthud.config.hud.text.opacity.description": "라벨 텍스트의 불투명도를 설정합니다. 0%부터 100%까지 가능합니다.",
   "imagicthud.config.hud.text.align_mode.title": "라벨 텍스트 정렬",
