@@ -5,5 +5,7 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Bump version
 - Added shadow of indicator text
 - Changed number format of indicator to #,###.#
+- Fixed dependencies
