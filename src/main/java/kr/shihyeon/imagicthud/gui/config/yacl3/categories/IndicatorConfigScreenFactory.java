@@ -17,22 +17,22 @@ public class IndicatorConfigScreenFactory {
                 .name(Text.translatable(ConfigTranslationHelper.setCategory("indicator")))
                 .tooltip(Text.translatable(ConfigTranslationHelper.setCategory("indicator", true)));
 
-        OptionGroup indicatorGeneralGroup = createIndicatorGeneralGroup(config);
-        OptionGroup indicatorDisplayGroup = createIndicatorDisplayGroup(config);
-        OptionGroup indicatorEntitiesGroup = createIndicatorEntitiesGroup(config);
-        OptionGroup indicatorTextGroup = createIndicatorTextGroup(config);
-        OptionGroup indicatorLayoutGroup = createIndicatorLayoutGroup(config);
+        OptionGroup generalGroup = createGeneralGroup(config);
+        OptionGroup displayGroup = createDisplayGroup(config);
+        OptionGroup entitiesGroup = createEntitiesGroup(config);
+        OptionGroup textGroup = createTextGroup(config);
+        OptionGroup layoutGroup = createLayoutGroup(config);
 
-        category.group(indicatorGeneralGroup);
-        category.group(indicatorDisplayGroup);
-        category.group(indicatorEntitiesGroup);
-        category.group(indicatorTextGroup);
-        category.group(indicatorLayoutGroup);
+        category.group(generalGroup);
+        category.group(displayGroup);
+        category.group(entitiesGroup);
+        category.group(textGroup);
+        category.group(layoutGroup);
 
         return category.build();
     }
 
-    private static OptionGroup createIndicatorGeneralGroup(ImagictHudConfig config) {
+    private static OptionGroup createGeneralGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "general")))
@@ -54,7 +54,7 @@ public class IndicatorConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createIndicatorDisplayGroup(ImagictHudConfig config) {
+    private static OptionGroup createDisplayGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "display")))
@@ -140,7 +140,7 @@ public class IndicatorConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createIndicatorEntitiesGroup(ImagictHudConfig config) {
+    private static OptionGroup createEntitiesGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "entities")))
@@ -194,7 +194,7 @@ public class IndicatorConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createIndicatorTextGroup(ImagictHudConfig config) {
+    private static OptionGroup createTextGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "text")))
@@ -216,7 +216,7 @@ public class IndicatorConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createIndicatorLayoutGroup(ImagictHudConfig config) {
+    private static OptionGroup createLayoutGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "layout")))

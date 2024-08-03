@@ -19,24 +19,24 @@ public class HudConfigScreenFactory {
                 .name(Text.translatable(ConfigTranslationHelper.setCategory("hud")))
                 .tooltip(Text.translatable(ConfigTranslationHelper.setCategory("hud", true)));
 
-        OptionGroup hudGeneralGroup = createHudGeneralGroup(config);
-        OptionGroup hudDisplayGroup = createHudDisplayGroup(config);
-        OptionGroup hudHeadGroup = createHudHeadGroup(config);
-        OptionGroup hudLabelGroup = createHudLabelGroup(config);
-        OptionGroup hudTextGroup = createHudTextGroup(config);
-        OptionGroup hudLayoutGroup = createHudLayoutGroup(config);
+        OptionGroup generalGroup = createGeneralGroup(config);
+        OptionGroup displayGroup = createDisplayGroup(config);
+        OptionGroup headGroup = createHeadGroup(config);
+        OptionGroup labelGroup = createLabelGroup(config);
+        OptionGroup textGroup = createTextGroup(config);
+        OptionGroup layoutGroup = createLayoutGroup(config);
 
-        category.group(hudGeneralGroup);
-        category.group(hudDisplayGroup);
-        category.group(hudHeadGroup);
-        category.group(hudLabelGroup);
-        category.group(hudTextGroup);
-        category.group(hudLayoutGroup);
+        category.group(generalGroup);
+        category.group(displayGroup);
+        category.group(headGroup);
+        category.group(labelGroup);
+        category.group(textGroup);
+        category.group(layoutGroup);
 
         return category.build();
     }
 
-    private static OptionGroup createHudGeneralGroup(ImagictHudConfig config) {
+    private static OptionGroup createGeneralGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "general")))
@@ -58,7 +58,7 @@ public class HudConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createHudDisplayGroup(ImagictHudConfig config) {
+    private static OptionGroup createDisplayGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "display")))
@@ -124,7 +124,7 @@ public class HudConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createHudHeadGroup(ImagictHudConfig config) {
+    private static OptionGroup createHeadGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "head")))
@@ -148,7 +148,7 @@ public class HudConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createHudLabelGroup(ImagictHudConfig config) {
+    private static OptionGroup createLabelGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "label")))
@@ -206,7 +206,7 @@ public class HudConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createHudTextGroup(ImagictHudConfig config) {
+    private static OptionGroup createTextGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "text")))
@@ -280,7 +280,7 @@ public class HudConfigScreenFactory {
         return group.build();
     }
 
-    private static OptionGroup createHudLayoutGroup(ImagictHudConfig config) {
+    private static OptionGroup createLayoutGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "layout")))
