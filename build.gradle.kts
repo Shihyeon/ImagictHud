@@ -20,7 +20,6 @@ plugins {
     id("fabric-loom").version("1.7.+")
     `java-library`
     `maven-publish`
-    //id("com.modrinth.minotaur").version("2.+")
 }
 
 base {
@@ -100,23 +99,6 @@ tasks.withType<JavaCompile> {
     options.release = Constants.JAVA_VERSION
     //options.compilerArgs.add("-Xlint:deprecation")
 }
-
-//modrinth {
-//    token.set(System.getenv("MODRINTH_TOKEN"))
-//    changelog.set(file("changelog.txt").readText())
-//    projectId.set("uWeqs5CX")
-//    versionNumber.set("mc" + Constants.MINECRAFT_VERSION + "-" + Constants.MOD_VERSION)
-//    versionName.set("Imagict Hud " + Constants.MOD_VERSION)
-//    versionType.set(Constants.MOD_TYPE)
-//    uploadFile.set(tasks.remapJar)
-//    gameVersions.addAll(arrayListOf(Constants.MINECRAFT_VERSION))
-//    loaders.add("fabric")
-//    dependencies {
-//        required.project("P7dR8mSH") // Fabric API
-//        required.project("1eAoo2KR") // YetAnotherConfigLib
-//        optional.project("mOgUt4GM") // Mod Menu
-//    }
-//}
 
 fun createVersionString(): String {
     val builder = StringBuilder()
