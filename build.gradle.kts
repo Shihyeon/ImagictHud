@@ -30,8 +30,6 @@ base {
     version = createVersionString()
 }
 
-val targetJavaVersion = 21
-
 loom {
     accessWidenerPath = file("${rootProject.projectDir}/src/main/resources/imagicthud.accesswidener")
 }
