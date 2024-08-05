@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Keyboard.class)
-public class KeyboardMixin {
+public abstract class KeyboardMixin {
 
     @Shadow @Final
     private MinecraftClient client;
 
     @Inject(at = @At("HEAD"), method = "onKey", cancellable = true)
-    public void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
+    private void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (action != 1 && client.currentScreen == null
                 && KeyBinds.getHudKeyBinding().matchesKey(keyCode, scanCode)) {
             ImagictHudClientManager.toggleHud();
