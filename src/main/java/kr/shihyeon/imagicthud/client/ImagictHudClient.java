@@ -8,10 +8,15 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class ImagictHudClient implements ClientModInitializer {
 
+    private static KeyBinding hudKeyBinding;
     public static final boolean DEBUG = false;
     public static ImagictHudConfig CONFIG;
 
@@ -20,7 +25,13 @@ public class ImagictHudClient implements ClientModInitializer {
         CONFIG = ImagictHudConfig.INSTANCE;
         CONFIG.load();
 
-        KeyBinds.register();
+        //KeyBinds.register();
+        hudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.imagicthud.toggle_hud",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_GRAVE_ACCENT,
+                "key.categories.imagicthud"
+        ));
 
         registerEvents();
 
@@ -38,5 +49,9 @@ public class ImagictHudClient implements ClientModInitializer {
         ClientEntityEvents.ENTITY_UNLOAD.register(
                 (entity, world) -> EntityTracker.removeFromUUIDS(entity)
         );
+    }
+
+    public static KeyBinding getHudKeyBinding() {
+        return hudKeyBinding;
     }
 }
