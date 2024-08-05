@@ -100,19 +100,6 @@ tasks.withType<JavaCompile> {
     //options.compilerArgs.add("-Xlint:deprecation")
 }
 
-publishing {
-    publications {
-        register("mavenJava", MavenPublication::class) {
-            artifactId = base.archivesName.get()
-            from(components["java"])
-        }
-    }
-
-    repositories {
-
-    }
-}
-
 fun createVersionString(): String {
     val builder = StringBuilder()
 
