@@ -42,7 +42,7 @@ jobs:
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build remapJar -Dbuild.release=true
+        run: ./gradlew build -Dbuild.release=true
 
       # https://github.com/Kir-Antipov/mc-publish
       - name: Upload artifacts to Modrinth and GitHub
