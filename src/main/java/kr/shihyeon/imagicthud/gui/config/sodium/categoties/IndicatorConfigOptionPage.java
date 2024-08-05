@@ -1,5 +1,6 @@
 package kr.shihyeon.imagicthud.gui.config.sodium.categoties;
 
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorBarMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionsStorage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
@@ -83,6 +84,24 @@ public class IndicatorConfigOptionPage {
                         option -> option.indicator.display.indicatorMode
                 )
                 .build();
+        OptionImpl<?, IndicatorBarMode> indicatorBarModeOption = OptionImpl.createBuilder(IndicatorBarMode.class, storage)
+                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
+                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true)))
+                .setControl(option -> new CyclingControl<>(
+                        option,
+                        IndicatorBarMode.class,
+                        Stream.of(IndicatorBarMode.values())
+                              .map(value -> ControlValueFormatter.translateVariable(
+                                      ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode")
+                                              + value.name().toLowerCase())
+                                      .format(0))
+                              .toArray(Text[]::new))
+                )
+                .setBinding(
+                        (option, value) -> option.indicator.display.indicatorBarMode = value,
+                        option -> option.indicator.display.indicatorBarMode
+                )
+                .build();
         OptionImpl<?, Integer> durationOption = OptionImpl.createBuilder(int.class, storage)
                 .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
                 .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true)))
@@ -106,6 +125,7 @@ public class IndicatorConfigOptionPage {
         group.add(lookingAtOption);
         group.add(damagedOnlyOption);
         group.add(indicatorModeOption);
+        group.add(indicatorBarModeOption);
         group.add(durationOption);
         group.add(reachOption);
 
@@ -193,8 +213,18 @@ public class IndicatorConfigOptionPage {
                         option -> option.indicator.layout.positionY
                 )
                 .build();
+        OptionImpl<?, Integer> nameScaleOption = OptionImpl.createBuilder(int.class, storage)
+                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
+                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true)))
+                .setControl(option -> new SliderControl(option, 0, 4, 1, ControlValueFormatter.guiScale()))
+                .setBinding(
+                        (option, value) -> option.indicator.layout.nameScale = value,
+                        option -> option.indicator.layout.nameScale
+                )
+                .build();
 
         group.add(positionYOption);
+        group.add(nameScaleOption);
 
         return group.build();
     }

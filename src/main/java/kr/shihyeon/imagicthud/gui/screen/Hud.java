@@ -47,7 +47,7 @@ public class Hud {
                 switch (config.hud.head.headRenderMode) {
                     case BOLD -> ResourceRenderer.renderBoldHead(context, playerListEntry, posX, posY);
                     case FLAT -> ResourceRenderer.renderHead(context, playerListEntry, posX, posY);
-                    case null, default -> ResourceRenderer.renderBoldHead(context, playerListEntry, posX, posY);
+                    case null -> ResourceRenderer.renderBoldHead(context, playerListEntry, posX, posY);
                 }
                 posX = LayoutUtil.getLabelPosX(client);
             }

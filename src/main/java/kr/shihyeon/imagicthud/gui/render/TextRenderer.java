@@ -30,4 +30,13 @@ public class TextRenderer {
             RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55, shadow);
         }
     }
+
+    public static void drawEntityName(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String name, boolean shadow) {
+        if (client != null && client.textRenderer != null) {
+            Text text = Text.literal(name);
+            float width = client.textRenderer.getWidth(text);
+            float x = - width / 2.f;
+            RenderUtil.drawText(matrix, vertexConsumer, text, x, -3.6f, 0xffffffff, shadow);
+        }
+    }
 }

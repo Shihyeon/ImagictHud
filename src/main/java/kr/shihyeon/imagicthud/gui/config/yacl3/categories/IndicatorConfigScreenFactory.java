@@ -5,6 +5,7 @@ import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorBarMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.minecraft.text.Text;
@@ -92,7 +93,7 @@ public class IndicatorConfigScreenFactory {
                 .build();
         Option<IndicatorMode> indicatorModeOption = Option.<IndicatorMode>createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "head", "indicator_mode", true))))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true))))
                 .binding(
                         config.indicator.display.indicatorMode,
                         () -> config.indicator.display.indicatorMode,
@@ -101,6 +102,18 @@ public class IndicatorConfigScreenFactory {
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(IndicatorMode.class)
                         .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode") + value.name().toLowerCase(), value)))
+                .build();
+        Option<IndicatorBarMode> indicatorBarModeOption = Option.<IndicatorBarMode>createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true))))
+                .binding(
+                        config.indicator.display.indicatorBarMode,
+                        () -> config.indicator.display.indicatorBarMode,
+                        newValue -> config.indicator.display.indicatorBarMode = newValue
+                )
+                .controller(option -> EnumControllerBuilder.create(option)
+                        .enumClass(IndicatorBarMode.class)
+                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode") + value.name().toLowerCase(), value)))
                 .build();
         Option<Integer> durationOption = Option.<Integer>createBuilder()
                 .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
@@ -134,6 +147,7 @@ public class IndicatorConfigScreenFactory {
         group.option(lookingAtOption);
         group.option(damagedOnlyOption);
         group.option(indicatorModeOption);
+        group.option(indicatorBarModeOption);
         group.option(durationOption);
         group.option(reachOption);
 
@@ -236,8 +250,23 @@ public class IndicatorConfigScreenFactory {
                         .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
+        Option<Integer> nameScaleOption = Option.<Integer>createBuilder()
+                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
+                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true))))
+                .binding(
+                        config.indicator.layout.nameScale,
+                        () -> config.indicator.layout.nameScale,
+                        newValue -> config.indicator.layout.nameScale = newValue
+                )
+                .controller(option -> IntegerSliderControllerBuilder.create(option)
+                        .range(0, 4)
+                        .step(1)
+                        .formatValue(value -> Text.literal(String.format("%dx", value)))
+                )
+                .build();
 
         group.option(positionYOption);
+        group.option(nameScaleOption);
 
         return group.build();
     }

@@ -3,6 +3,7 @@ package kr.shihyeon.imagicthud.gui.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.util.RenderUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.render.GameRenderer;
@@ -121,5 +122,22 @@ public class ResourceRenderer {
         // Absorption
         RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, 0xffcfcf45);
         RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
+    }
+
+    public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, MinecraftClient client) {
+        float width = client.textRenderer.getWidth(name);
+        float height = client.textRenderer.fontHeight;
+        float initPosX = width / 2.f;
+        float initPosY = height / 2.f;
+
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.enableDepthTest();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -initPosY -1.f, initPosX, -initPosY, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX -1.f, -initPosY, initPosX +1.f, initPosY, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, initPosY, initPosX, initPosY +1.f, 0x80333333);
     }
 }

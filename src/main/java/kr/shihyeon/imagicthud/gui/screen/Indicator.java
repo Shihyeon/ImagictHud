@@ -18,6 +18,7 @@ public class Indicator {
     private static final float INDICATOR_SCALE = 0.025f;
     private static final float HEIGHT_OFFSET = 0.5f;
     private static final float PLAYER_HEIGHT_OFFSET = 0.15f;
+    private static final float NAME_HEIGHT_OFFSET = 0.14f;
     private static final float TEXT_OFFSET = 0.00001f;
 
     public static void renderIndicator(LivingEntity livingEntity, float yaw, float tickDelta,
@@ -27,20 +28,46 @@ public class Indicator {
         if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 switch (config.indicator.display.indicatorMode) {
-                    case BAR_AND_NUMBER -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                    case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                    case null, default -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case BAR_AND_NAME -> {
+                        renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                        renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    }
+                    case BAR -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case null -> {
+                        renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                        renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    }
                 }
+
             }
         }
     }
 
     private static void renderHealthBarAndNumber(LivingEntity livingEntity, float yaw, float tickDelta,
-                                        MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
-                                        int light, MinecraftClient client, ImagictHudConfig config) {
+                                                 MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                                 int light, MinecraftClient client, ImagictHudConfig config) {
 
-        renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-        renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+        switch (config.indicator.display.indicatorBarMode) {
+            case BAR_AND_NUMBER -> {
+                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            }
+            case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            case null -> {
+                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            }
+        }
+    }
+
+    private static void renderNameAndBackground(LivingEntity livingEntity, float yaw, float tickDelta,
+                                                MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                                int light, MinecraftClient client, ImagictHudConfig config) {
+
+        if (!livingEntity.isPlayer()) {
+            renderNameBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            renderName(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+        }
     }
 
     private static void renderHealthBar(LivingEntity livingEntity, float yaw, float tickDelta,
@@ -82,6 +109,7 @@ public class Indicator {
             // Handle exception if needed
         }
 
+        RenderSystem.disableBlend();
         matrixStack.pop();
     }
 
@@ -126,6 +154,78 @@ public class Indicator {
         boolean absorption = currentHealthYellow > 0;
 
         TextRenderer.drawEntityHealth(client, matrix4f, vertexConsumerProvider, healthRedText, healthYellowText, absorption, shadow);
+
+        matrixStack.pop();
+    }
+
+    private static void renderName(LivingEntity livingEntity, float yaw, float tickDelta,
+                                   MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                   int light, MinecraftClient client, ImagictHudConfig config) {
+
+        String name = livingEntity.getName().getString();
+
+        float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
+        float scale = INDICATOR_SCALE / 3.f * configScale;
+        float nameHeightOffset = HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float configOffset = (float) config.indicator.layout.positionY / 100.f;
+        float entityHeight = livingEntity.getHeight() + nameHeightOffset + configOffset;
+
+        float dx = MathHelper.sign(client.player.getX() - livingEntity.getX());
+        float dy = MathHelper.sign(client.player.getY() - livingEntity.getY());
+        float dz = MathHelper.sign(client.player.getZ() - livingEntity.getZ());
+
+        float xOffset = TEXT_OFFSET * dx;
+        float yOffset = TEXT_OFFSET * dy;
+        float zOffset = TEXT_OFFSET * dz;
+
+        matrixStack.push();
+        matrixStack.translate(xOffset, yOffset, zOffset); // name-text offset
+        matrixStack.translate(0, entityHeight, 0);
+        matrixStack.multiply(client.getEntityRenderDispatcher().getRotation());
+        matrixStack.scale(scale, -scale, scale);
+
+        Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
+
+        TextRenderer.drawEntityName(client, matrix4f, vertexConsumerProvider, name, false);
+
+        matrixStack.pop();
+    }
+
+    private static void renderNameBackground(LivingEntity livingEntity, float yaw, float tickDelta,
+                                   MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider,
+                                   int light, MinecraftClient client, ImagictHudConfig config) {
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder vertexConsumer;
+
+        String name = livingEntity.getName().getString();
+
+        float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
+        float scale = INDICATOR_SCALE / 3.f * configScale;
+        float nameHeightOffset = HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float configOffset = (float) config.indicator.layout.positionY / 100.f;
+        float entityHeight = livingEntity.getHeight() + nameHeightOffset + configOffset;
+
+        matrixStack.push();
+        vertexConsumer = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+        matrixStack.translate(0, entityHeight, 0);
+        matrixStack.multiply(client.getEntityRenderDispatcher().getRotation());
+        matrixStack.scale(scale, -scale, scale);
+
+        Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
+
+        ResourceRenderer.drawEntityNameBackground(matrix4f, vertexConsumer, name, client);
+
+        BuiltBuffer builtBuffer;
+        try {
+            builtBuffer = vertexConsumer.build();
+            if(builtBuffer != null){
+                BufferRenderer.drawWithGlobalProgram(builtBuffer);
+                builtBuffer.close();
+            }
+        } catch (Exception e){
+            // Handle exception if needed
+        }
 
         RenderSystem.disableBlend();
         matrixStack.pop();
