@@ -5,6 +5,7 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Bump version
 - Fixed some translation key
 - Added name tag to indicator
 - Fixed remap of sodium
