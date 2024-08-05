@@ -1,6 +1,5 @@
 package kr.shihyeon.imagicthud.mixin;
 
-import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.client.ImagictHudClientManager;
 import kr.shihyeon.imagicthud.client.KeyBinds;
 import net.minecraft.client.Keyboard;
@@ -21,7 +20,7 @@ public class KeyboardMixin {
     @Inject(at = @At("HEAD"), method = "onKey", cancellable = true)
     public void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (action != 1 && client.currentScreen == null
-                && ImagictHudClient.getHudKeyBinding().matchesKey(keyCode, scanCode)) {
+                && KeyBinds.getHudKeyBinding().matchesKey(keyCode, scanCode)) {
             ImagictHudClientManager.toggleHud();
             ci.cancel();
         }
