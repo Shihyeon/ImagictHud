@@ -63,7 +63,7 @@ public class Hud {
                                    int frameColor, int backgroundColor, int textColor,
                                    boolean shadow, boolean center) {
 
-        List<String> textLines = TextUtil.getLabelTests(client, config, playerListEntry);
+        List<String> textLines = TextUtil.getLabelTexts(client, config, playerListEntry);
 
         for (int i = 0; i < textLines.size(); i++) {
             String text = textLines.get(i);

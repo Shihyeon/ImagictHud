@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TextUtil {
 
-    public static List<String> getLabelTests(MinecraftClient client, ImagictHudConfig config, PlayerListEntry playerListEntry) {
+    public static List<String> getLabelTexts(MinecraftClient client, ImagictHudConfig config, PlayerListEntry playerListEntry) {
         List<String> textLines = new ArrayList<>();
         String nickname = "";
         if (client.player != null) {
