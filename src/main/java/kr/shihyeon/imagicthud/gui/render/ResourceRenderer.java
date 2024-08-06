@@ -124,7 +124,7 @@ public class ResourceRenderer {
         RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
     }
 
-    public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, MinecraftClient client) {
+    public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, float y, MinecraftClient client) {
         float width = client.textRenderer.getWidth(name);
         float height = client.textRenderer.fontHeight;
         float initPosX = width / 2.f;
@@ -136,8 +136,8 @@ public class ResourceRenderer {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -initPosY -1.f, initPosX, -initPosY, 0x80333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX -1.f, -initPosY, initPosX +1.f, initPosY, 0x80333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, initPosY, initPosX, initPosY +1.f, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, y -initPosY -1.f, initPosX, y -initPosY, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX -1.f, y -initPosY, initPosX +1.f, y +initPosY, 0x80333333);
+        RenderUtil.fill(matrix, vertexConsumer, -initPosX, y +initPosY, initPosX, y +initPosY +1.f, 0x80333333);
     }
 }

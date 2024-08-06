@@ -2,6 +2,7 @@ package kr.shihyeon.imagicthud.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
+import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.gui.render.ResourceRenderer;
 import kr.shihyeon.imagicthud.gui.render.TextRenderer;
 import kr.shihyeon.imagicthud.util.EntityTracker;
@@ -28,7 +29,7 @@ public class Indicator {
         if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 switch (config.indicator.display.indicatorMode) {
-                    case BAR_AND_NAME -> {
+                    case BAR_AND_NAME_A, BAR_AND_NAME_B -> {
                         renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                         renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                     }
@@ -166,9 +167,10 @@ public class Indicator {
 
         float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
         float scale = INDICATOR_SCALE / 3.f * configScale;
-        float nameHeightOffset = HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getHeight() + nameHeightOffset + configOffset;
+        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? -11.2f : 0;
 
         float dx = MathHelper.sign(client.player.getX() - livingEntity.getX());
         float dy = MathHelper.sign(client.player.getY() - livingEntity.getY());
@@ -186,7 +188,7 @@ public class Indicator {
 
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
 
-        TextRenderer.drawEntityName(client, matrix4f, vertexConsumerProvider, name, false);
+        TextRenderer.drawEntityName(client, matrix4f, vertexConsumerProvider, name, y, false);
 
         matrixStack.pop();
     }
@@ -202,9 +204,10 @@ public class Indicator {
 
         float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
         float scale = INDICATOR_SCALE / 3.f * configScale;
-        float nameHeightOffset = HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getHeight() + nameHeightOffset + configOffset;
+        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? -11.2f : 0;
 
         matrixStack.push();
         vertexConsumer = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
@@ -214,7 +217,7 @@ public class Indicator {
 
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
 
-        ResourceRenderer.drawEntityNameBackground(matrix4f, vertexConsumer, name, client);
+        ResourceRenderer.drawEntityNameBackground(matrix4f, vertexConsumer, name, y, client);
 
         BuiltBuffer builtBuffer;
         try {

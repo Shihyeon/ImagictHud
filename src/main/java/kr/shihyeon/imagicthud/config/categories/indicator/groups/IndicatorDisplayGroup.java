@@ -9,7 +9,7 @@ public class IndicatorDisplayGroup {
     @Expose public boolean attackingAt = true;
     @Expose public boolean lookingAt = true;
     @Expose public boolean damagedOnly = false;
-    @Expose public IndicatorMode indicatorMode = IndicatorMode.BAR_AND_NAME;
+    @Expose public IndicatorMode indicatorMode = IndicatorMode.BAR_AND_NAME_A;
     @Expose public IndicatorBarMode indicatorBarMode = IndicatorBarMode.BAR_AND_NUMBER;
     @Expose public int duration = 10;
     @Expose public int reach = 20;

@@ -37,7 +37,7 @@ public class ImagictHudConfig {
         ENUM_FACTORY.registerEnum(LocalDateTimeMode.class, LocalDateTimeMode.DATE_AND_TIME);
 
         // Indicator Category
-        ENUM_FACTORY.registerEnum(IndicatorMode.class, IndicatorMode.BAR_AND_NAME);
+        ENUM_FACTORY.registerEnum(IndicatorMode.class, IndicatorMode.BAR_AND_NAME_A);
         ENUM_FACTORY.registerEnum(IndicatorBarMode.class, IndicatorBarMode.BAR_AND_NUMBER);
     }
 
