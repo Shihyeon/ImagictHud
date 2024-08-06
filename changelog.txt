@@ -5,4 +5,5 @@
 - Fabric API 0.100.8
 
 ### Changes
+- Bump version
 - Added bar and name group mode (BAR_AND_NAME_A) to indicator mode
