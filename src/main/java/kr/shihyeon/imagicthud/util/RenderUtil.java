@@ -14,27 +14,27 @@ public class RenderUtil {
 
     static MinecraftClient client = MinecraftClient.getInstance();
 
-    public static void drawCenteredText(DrawContext context, OrderedText text, float x, float y) {
+    public static void drawCenteredTextContext(DrawContext context, OrderedText text, float x, float y) {
         TextRenderer textRenderer = client.textRenderer;
         float textWidth = textRenderer.getWidth(text);
         float xPosition = x - textWidth / 2.0f;
         float yPosition = y - client.textRenderer.fontHeight / 2.0f;
-        drawText(context, text, xPosition, yPosition);
+        drawTextContext(context, text, xPosition, yPosition);
     }
 
-    public static void drawText(DrawContext context, OrderedText text, float x, float y) {
+    public static void drawTextContext(DrawContext context, OrderedText text, float x, float y) {
         TextRenderer textRenderer = client.textRenderer;
         Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
         VertexConsumerProvider vertexConsumers = context.getVertexConsumers();
         textRenderer.draw(text, x, y, -1, false, matrix, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
-    public static void drawText(Matrix4f matrix, VertexConsumerProvider vertexConsumer, Text text, float x, float y, int color, boolean shadow) {
+    public static void drawTextMatrix(Matrix4f matrix, VertexConsumerProvider vertexConsumer, Text text, float x, float y, int color, boolean shadow) {
         TextRenderer textRenderer = client.textRenderer;
         textRenderer.draw(text, x, y, color, shadow, matrix, vertexConsumer, TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
-    public static void fill(DrawContext context, float x1, float y1, float x2, float y2, int color) {
+    public static void fillContext(DrawContext context, float x1, float y1, float x2, float y2, int color) {
         Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
         float i;
         if (x1 < x2) {
@@ -57,7 +57,7 @@ public class RenderUtil {
         context.draw();
     }
 
-    public static void fill(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float y1, float x2, float y2, int color) {
+    public static void fillMatrix(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float y1, float x2, float y2, int color) {
         float i;
         if (x1 < x2) {
             i = x1;

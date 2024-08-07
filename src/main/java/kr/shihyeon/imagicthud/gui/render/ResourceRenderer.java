@@ -23,16 +23,16 @@ public class ResourceRenderer {
     }
 
     public static void renderLabelFrame(DrawContext context, int x, int y, int width, int height, int color) {
-        RenderUtil.fill(context, x+1, y, x+width-1, y+1, color);
-        RenderUtil.fill(context, x, y+1, x+1, y+height-1, color);
-        RenderUtil.fill(context, x+width, y+1, x+width-1, y+height-1, color);
-        RenderUtil.fill(context, x+1, y+height, x+width-1, y+height-1, color);
+        RenderUtil.fillContext(context, x+1, y, x+width-1, y+1, color);
+        RenderUtil.fillContext(context, x, y+1, x+1, y+height-1, color);
+        RenderUtil.fillContext(context, x+width, y+1, x+width-1, y+height-1, color);
+        RenderUtil.fillContext(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
     public static void renderLabelBackground(DrawContext context, int x, int y, int width, int height, int color) {
-        RenderUtil.fill(context, x+1, y, x+width-1, y+1, color);
-        RenderUtil.fill(context, x, y+1, x+width, y+height-1, color);
-        RenderUtil.fill(context, x+1, y+height, x+width-1, y+height-1, color);
+        RenderUtil.fillContext(context, x+1, y, x+width-1, y+1, color);
+        RenderUtil.fillContext(context, x, y+1, x+width, y+height-1, color);
+        RenderUtil.fillContext(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
     public static void renderHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
@@ -93,10 +93,10 @@ public class ResourceRenderer {
         float width = 42.f;
         float initPosX = width/2.f;
 
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, - 2.f, initPosX - 1.f, -1.f, 0xff333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, - 1.f, -initPosX + 1.f, 1.f, 0xff333333);
-        RenderUtil.fill(matrix, vertexConsumer, initPosX - 1.f, - 1.f, initPosX, 1.f, 0xff222222);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff222222);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX + 1.f, - 2.f, initPosX - 1.f, -1.f, 0xff333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, - 1.f, -initPosX + 1.f, 1.f, 0xff333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, initPosX - 1.f, - 1.f, initPosX, 1.f, 0xff222222);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX + 1.f, 1.f, initPosX - 1.f, 2.f, 0xff222222);
     }
 
     private static void drawEntityBackgroundBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
@@ -105,8 +105,8 @@ public class ResourceRenderer {
         float healthRed = width * percentageHealthRed;
         float healthYellow = width * percentageHealthYellow;
 
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, -1.f, initPosX, 0, 0x80333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, 0, initPosX, 1.f, 0x80222222);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, -1.f, initPosX, 0, 0x80333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed +healthYellow, 0, initPosX, 1.f, 0x80222222);
     }
 
     private static void drawEntityHealthBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
@@ -116,12 +116,12 @@ public class ResourceRenderer {
         float healthYellow = width * percentageHealthYellow;
 
         // Health
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0, 0xffaa0000);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, 0, -initPosX +healthRed, 1.f, 0xff880000);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0, 0xffaa0000);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, 0, -initPosX +healthRed, 1.f, 0xff880000);
 
         // Absorption
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, 0xffcfcf45);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, 0xffcfcf45);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
     }
 
     public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, float y, MinecraftClient client) {
@@ -136,8 +136,8 @@ public class ResourceRenderer {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, y -initPosY -1.f, initPosX, y -initPosY, 0x80333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX -1.f, y -initPosY, initPosX +1.f, y +initPosY, 0x80333333);
-        RenderUtil.fill(matrix, vertexConsumer, -initPosX, y +initPosY, initPosX, y +initPosY +1.f, 0x80333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, y -initPosY -1.f, initPosX, y -initPosY, 0x80333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX -1.f, y -initPosY, initPosX +1.f, y +initPosY, 0x80333333);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, y +initPosY, initPosX, y +initPosY +1.f, 0x80333333);
     }
 }

@@ -26,8 +26,8 @@ public class TextRenderer {
             float w2 = client.textRenderer.getWidth(txt2);
             float x1 = -(w1 + w2) / 2.f;
             float x2 = -(w1 + w2) / 2.f + w1;
-            RenderUtil.drawText(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff, shadow);
-            RenderUtil.drawText(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55, shadow);
+            RenderUtil.drawTextMatrix(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff, shadow);
+            RenderUtil.drawTextMatrix(matrix, vertexConsumer, txt2, x2, -3.6f, 0xffffff55, shadow);
         }
     }
 
@@ -36,7 +36,7 @@ public class TextRenderer {
             Text text = Text.literal(name);
             float width = client.textRenderer.getWidth(text);
             float x = - width / 2.f;
-            RenderUtil.drawText(matrix, vertexConsumer, text, x, y -3.6f, 0xffffffff, shadow);
+            RenderUtil.drawTextMatrix(matrix, vertexConsumer, text, x, y -3.6f, 0xffffffff, shadow);
         }
     }
 }
