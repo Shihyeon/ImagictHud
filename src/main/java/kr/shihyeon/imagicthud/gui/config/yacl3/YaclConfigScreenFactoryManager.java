@@ -10,7 +10,8 @@ import kr.shihyeon.imagicthud.gui.config.yacl3.categories.IndicatorConfigScreenF
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class YaclConfigScreenFactoryManager {
 
@@ -18,12 +19,17 @@ public class YaclConfigScreenFactoryManager {
 
     public static Screen createScreen(Screen parent) {
 
+        List<ConfigCategory> categories = new ArrayList<>();
+
         ConfigCategory hudCategory = HudConfigScreenFactory.createHudCategory(CONFIG);
         ConfigCategory indicatorCategory = IndicatorConfigScreenFactory.createIndicatorCategory(CONFIG);
 
+        categories.add(hudCategory);
+        categories.add(indicatorCategory);
+
         return YetAnotherConfigLib.createBuilder()
                 .title(Text.translatable(ImagictHud.MODID + ".config.title"))
-                .categories(Arrays.asList(hudCategory, indicatorCategory))
+                .categories(categories)
                 .save(CONFIG::save)
                 .build()
                 .generateScreen(parent);
