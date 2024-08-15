@@ -17,17 +17,11 @@ public class LimitedConfigValue {
         setHudLayout(config);
     }
 
-    private static void setHudGeneralLimit(ImagictHudConfig config) {
+    private static void setHudGeneralLimit(ImagictHudConfig config) {}
 
-    }
+    private static void setHudDisplayLimit(ImagictHudConfig config) {}
 
-    private static void setHudDisplayLimit(ImagictHudConfig config) {
-
-    }
-
-    private static void setHudHeadLimit(ImagictHudConfig config) {
-
-    }
+    private static void setHudHeadLimit(ImagictHudConfig config) {}
 
     private static void setHudLabelLimit(ImagictHudConfig config) {
         config.hud.label.labelBackgroundOpacity = applyLimit(config.hud.label.labelBackgroundOpacity, 0, 100);
@@ -54,18 +48,14 @@ public class LimitedConfigValue {
         setIndicatorLayoutLimit(config);
     }
 
-    private static void setIndicatorGeneralLimit(ImagictHudConfig config) {
-
-    }
+    private static void setIndicatorGeneralLimit(ImagictHudConfig config) {}
 
     private static void setIndicatorDisplayLimit(ImagictHudConfig config) {
         config.indicator.display.duration = applyLimit(config.indicator.display.duration, 0, 120);
         config.indicator.display.reach = applyLimit(config.indicator.display.reach, 3, 50);
     }
 
-    private static void setIndicatorEntitiesLimit(ImagictHudConfig config) {
-
-    }
+    private static void setIndicatorEntitiesLimit(ImagictHudConfig config) {}
 
     private static void setIndicatorLayoutLimit(ImagictHudConfig config) {
         config.indicator.layout.positionY = applyLimit(config.indicator.layout.positionY, -15, 15);
