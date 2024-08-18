@@ -8,7 +8,7 @@ object Constants {
     const val FABRIC_API_VERSION: String = "0.100.8+1.21"
 
     const val SODIUM_VERSION: String = "mc1.21-0.5.11"
-    const val YACL_VERSION: String = "3.5.0+1.21-fabric"
+    const val YACL_VERSION: String = "3.5.0+1.21"
     const val MODMENU_VERSION: String = "11.0.1"
 
     // https://semver.org/
@@ -62,10 +62,18 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")
+    fun addEmbeddedFabricModule(name: String) {
+        val module = fabricApi.module(name, Constants.FABRIC_API_VERSION)
+        modImplementation(module)
+        include(module)
+    }
+
+    addEmbeddedFabricModule("fabric-api-base")
+    addEmbeddedFabricModule("fabric-key-binding-api-v1")
+    addEmbeddedFabricModule("fabric-lifecycle-events-v1")
 
     modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
-    modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
+    modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}-fabric")
     modCompileOnly("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
 }
 
@@ -75,7 +83,6 @@ tasks {
             "version" to project.version,
             "minecraft_version" to Constants.MINECRAFT_VERSION,
             "loader_version" to Constants.FABRIC_LOADER_VERSION,
-            "fabric" to Constants.FABRIC_API_VERSION
         )
 
         inputs.properties(propertiesMap)
