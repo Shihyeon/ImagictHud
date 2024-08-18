@@ -1,126 +1,78 @@
-object Constants {
-    const val JAVA_VERSION: Int = 21
-
-    // https://fabricmc.net/develop/
-    const val MINECRAFT_VERSION: String = "1.21"
-    const val YARN_MAPPINGS: String = "1.21+build.9"
-    const val FABRIC_LOADER_VERSION: String = "0.15.11"
-    const val FABRIC_API_VERSION: String = "0.100.8+1.21"
-
-    const val SODIUM_VERSION: String = "mc1.21-0.5.11"
-    const val YACL_VERSION: String = "3.5.0+1.21-fabric"
-    const val MODMENU_VERSION: String = "11.0.1"
-
-    // https://semver.org/
-    const val MOD_VERSION: String = "1.5.4"
-    const val MOD_TYPE: String = "release" // release/beta/alpha
-}
-
 plugins {
-    id("fabric-loom").version("1.7.+")
-    `java-library`
-    `maven-publish`
+    id("java")
+    id("fabric-loom").version("1.7.+").apply(false)
 }
 
-base {
-    archivesName = "imagicthud"
+val JAVA_VERSION by extra { 21 }
 
-    group = "kr.shihyeon"
-    version = createVersionString()
+val MINECRAFT_VERSION by extra { "1.21" }
+val NEOFORGE_VERSION by extra { "21.0.167" }
+val FABRIC_LOADER_VERSION by extra { "0.15.11" }
+val FABRIC_API_VERSION by extra { "0.100.8+1.21" }
+
+val SODIUM_VERSION by extra { "mc1.21-0.5.11" }
+val YACL_VERSION by extra { "3.5.0+1.21" }
+val MODMENU_VERSION by extra { "11.0.1" }
+
+// https://semver.org/
+val MOD_VERSION by extra { "1.5.4" }
+val MOD_TYPE by extra { "release" } // release/beta/alpha
+
+allprojects {
+    apply(plugin = "java")
+    apply(plugin = "maven-publish")
 }
 
-loom {
-    accessWidenerPath = file("${rootProject.projectDir}/src/main/resources/imagicthud.accesswidener")
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion(Constants.JAVA_VERSION)
-    targetCompatibility = JavaVersion.toVersion(Constants.JAVA_VERSION)
-}
-
-repositories {
-    maven("https://maven.terraformersmc.com/releases/")
-    maven {
-        name = "Xander Maven"
-        url = uri("https://maven.isxander.dev/releases")
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = uri("https://api.modrinth.com/maven")
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
-    }
-}
-
-dependencies {
-    minecraft("com.mojang:minecraft:${Constants.MINECRAFT_VERSION}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
-
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")
-
-    modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
-    modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}")
-    modCompileOnly("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
-}
-
-tasks {
-    processResources {
-        val propertiesMap = mapOf(
-            "version" to project.version,
-            "minecraft_version" to Constants.MINECRAFT_VERSION,
-            "loader_version" to Constants.FABRIC_LOADER_VERSION,
-            "fabric" to Constants.FABRIC_API_VERSION
-        )
-
-        inputs.properties(propertiesMap)
-
-        filesMatching("fabric.mod.json") {
-            expand(propertiesMap)
-        }
-    }
-
-    jar {
-        from("${rootProject.projectDir}/LICENSE")
-    }
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.release = Constants.JAVA_VERSION
-    //options.compilerArgs.add("-Xlint:deprecation")
 }
 
-fun createVersionString(): String {
-    val builder = StringBuilder()
+subprojects {
+    apply(plugin = "maven-publish")
 
-    val isReleaseBuild = System.getProperty("build.release") != null
-    val buildId = System.getenv("GITHUB_RUN_NUMBER")
+    java.toolchain.languageVersion = JavaLanguageVersion.of(JAVA_VERSION)
 
-    if (isReleaseBuild) {
-        builder.append(Constants.MOD_VERSION)
-    } else {
-        builder.append(Constants.MOD_VERSION.substringBefore('-'))
-        builder.append("-snapshot")
+    fun createVersionString(): String {
+        val builder = StringBuilder()
+
+        val isReleaseBuild = System.getProperty("build.release") != null
+        val buildId = System.getenv("GITHUB_RUN_NUMBER")
+
+        if (isReleaseBuild) {
+            builder.append(MOD_VERSION)
+        } else {
+            builder.append(MOD_VERSION.substringBefore('-'))
+            builder.append("-snapshot")
+        }
+
+        builder.append("+mc").append(MINECRAFT_VERSION)
+
+        if (!isReleaseBuild) {
+            if (buildId != null) {
+                builder.append("-build.${buildId}")
+            } else {
+                builder.append("-local")
+            }
+        }
+
+        return builder.toString()
     }
 
-    builder.append("+mc").append(Constants.MINECRAFT_VERSION)
-
-    if (!isReleaseBuild) {
-        if (buildId != null) {
-            builder.append("-build.${buildId}")
-        } else {
-            builder.append("-local")
+    tasks.processResources {
+        filesMatching("META-INF/neoforge.mods.toml") {
+            expand(mapOf("version" to createVersionString()))
         }
     }
 
-    return builder.toString()
+    version = createVersionString()
+    group = "kr.shihyeon"
+
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+        options.release.set(JAVA_VERSION)
+    }
+
+    tasks.withType<GenerateModuleMetadata>().configureEach {
+        enabled = false
+    }
 }
