@@ -30,7 +30,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("${rootProject.projectDir}/src/main/resources/imagicthud.accesswidener")
+    accessWidenerPath = file("src/main/resources/imagicthud.accesswidener")
 }
 
 java {
@@ -93,7 +93,7 @@ tasks {
     }
 
     jar {
-        from("${rootProject.projectDir}/LICENSE")
+        from(projectDir.resolve("LICENSE"))
     }
 }
 
