@@ -61,7 +61,6 @@ jobs:
           version-type: release
           loaders: fabric
           dependencies: |
-            fabric-api{modrinth:P7dR8mSH}
             sodium(optional){modrinth:AANobbMI}
             yacl(optional){modrinth:1eAoo2KR}
             modmenu(optional){modrinth:mOgUt4GM}
