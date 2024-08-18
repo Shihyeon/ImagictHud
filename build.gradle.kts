@@ -71,6 +71,7 @@ dependencies {
     addEmbeddedFabricModule("fabric-api-base")
     addEmbeddedFabricModule("fabric-key-binding-api-v1")
     addEmbeddedFabricModule("fabric-lifecycle-events-v1")
+    addEmbeddedFabricModule("fabric-resource-loader-v0")
 
     modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
     modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}-fabric")
