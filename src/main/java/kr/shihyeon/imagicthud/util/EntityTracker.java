@@ -257,7 +257,7 @@ public class EntityTracker {
         double e = Mth.square(d);
         Vec3 vec3d = camera.getEyePosition(0);
         HitResult hitResult = camera.pick(d, 0, false);
-        double f = hitResult.getLocation().distanceTo(vec3d);
+        double f = hitResult.getLocation().distanceToSqr(vec3d);
         if (hitResult.getType() != HitResult.Type.MISS) {
             e = f;
             d = Math.sqrt(e);
