@@ -10,7 +10,7 @@ import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatte
 import me.jellysquid.mods.sodium.client.gui.options.control.CyclingControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.SliderControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.stream.Stream;
 
@@ -21,8 +21,8 @@ public class IndicatorConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> enableIndicatorOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.general.enableIndicator = value,
@@ -40,8 +40,8 @@ public class IndicatorConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> attackingAtOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.display.attackingAt = value,
@@ -49,8 +49,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> lookingAtOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.display.lookingAt = value,
@@ -58,8 +58,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> damagedOnlyOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.display.damagedOnly = value,
@@ -67,8 +67,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, IndicatorMode> indicatorModeOption = OptionImpl.createBuilder(IndicatorMode.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true)))
                 .setControl(option -> new CyclingControl<>(
                         option,
                         IndicatorMode.class,
@@ -77,7 +77,7 @@ public class IndicatorConfigOptionPage {
                                       ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode")
                                               + value.name().toLowerCase())
                                       .format(0))
-                              .toArray(Text[]::new))
+                              .toArray(Component[]::new))
                 )
                 .setBinding(
                         (option, value) -> option.indicator.display.indicatorMode = value,
@@ -85,8 +85,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, IndicatorBarMode> indicatorBarModeOption = OptionImpl.createBuilder(IndicatorBarMode.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true)))
                 .setControl(option -> new CyclingControl<>(
                         option,
                         IndicatorBarMode.class,
@@ -95,7 +95,7 @@ public class IndicatorConfigOptionPage {
                                       ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode")
                                               + value.name().toLowerCase())
                                       .format(0))
-                              .toArray(Text[]::new))
+                              .toArray(Component[]::new))
                 )
                 .setBinding(
                         (option, value) -> option.indicator.display.indicatorBarMode = value,
@@ -103,8 +103,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> durationOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true)))
                 .setControl(option -> new SliderControl(option, 0, 120, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_seconds"))))
                 .setBinding(
                         (option, value) -> option.indicator.display.duration = value,
@@ -112,8 +112,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> reachOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach", true)))
                 .setControl(option -> new SliderControl(option, 3, 50, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_meter"))))
                 .setBinding(
                         (option, value) -> option.indicator.display.reach = value,
@@ -137,8 +137,8 @@ public class IndicatorConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> playerEntitiesOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.entities.playerEntities = value,
@@ -146,8 +146,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> selfPlayerEntityOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.entities.selfPlayerEntity = value,
@@ -155,8 +155,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> passiveEntitiesOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.entities.passiveEntities = value,
@@ -164,8 +164,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> hostileEntitiesOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.entities.hostileEntities = value,
@@ -186,8 +186,8 @@ public class IndicatorConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> enableTextShadowsOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.indicator.text.enableTextShadows = value,
@@ -205,8 +205,8 @@ public class IndicatorConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Integer> positionYOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true)))
                 .setControl(option -> new SliderControl(option, -15, 15, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
                 .setBinding(
                         (option, value) -> option.indicator.layout.positionY = value,
@@ -214,8 +214,8 @@ public class IndicatorConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> nameScaleOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true)))
                 .setControl(option -> new SliderControl(option, 0, 4, 1, ControlValueFormatter.guiScale()))
                 .setBinding(
                         (option, value) -> option.indicator.layout.nameScale = value,

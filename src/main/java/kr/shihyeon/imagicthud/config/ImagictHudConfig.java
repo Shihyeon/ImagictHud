@@ -15,7 +15,7 @@ import kr.shihyeon.imagicthud.config.gson.ColorDeserializer;
 import kr.shihyeon.imagicthud.config.gson.ColorSerializer;
 import kr.shihyeon.imagicthud.config.gson.EnumTypeAdapterFactory;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.awt.*;
 import java.io.File;
@@ -45,7 +45,7 @@ public class ImagictHudConfig {
             .registerTypeAdapterFactory(ENUM_FACTORY)
             .registerTypeAdapter(Color.class, new ColorSerializer())
             .registerTypeAdapter(Color.class, new ColorDeserializer())
-            .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
+            .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
             .excludeFieldsWithoutExposeAnnotation()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .setPrettyPrinting()

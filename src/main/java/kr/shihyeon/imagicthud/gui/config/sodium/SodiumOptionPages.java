@@ -5,7 +5,7 @@ import kr.shihyeon.imagicthud.gui.config.sodium.categoties.HudConfigOptionPage;
 import kr.shihyeon.imagicthud.gui.config.sodium.categoties.IndicatorConfigOptionPage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import me.jellysquid.mods.sodium.client.gui.options.*;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class SodiumOptionPages {
         groups.add(HudConfigOptionPage.createTextGroup(STORAGE));
         groups.add(HudConfigOptionPage.createLayoutGroup(STORAGE));
 
-        return new OptionPage(Text.translatable(ConfigTranslationHelper.setCategory("hud")), ImmutableList.copyOf(groups));
+        return new OptionPage(Component.translatable(ConfigTranslationHelper.setCategory("hud")), ImmutableList.copyOf(groups));
     }
 
     public static OptionPage renderIndicatorPage() {
@@ -38,6 +38,6 @@ public class SodiumOptionPages {
         groups.add(IndicatorConfigOptionPage.createTextGroup(STORAGE));
         groups.add(IndicatorConfigOptionPage.createLayoutGroup(STORAGE));
 
-        return new OptionPage(Text.translatable(ConfigTranslationHelper.setCategory("indicator")), ImmutableList.copyOf(groups));
+        return new OptionPage(Component.translatable(ConfigTranslationHelper.setCategory("indicator")), ImmutableList.copyOf(groups));
     }
 }

@@ -2,22 +2,22 @@ package kr.shihyeon.imagicthud.util;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -70,18 +70,18 @@ public class EntityTracker {
         }
     }
 
-    public static void tick(MinecraftClient client){
-        if (client.player == null || client.world == null) return;
+    public static void tick(Minecraft client){
+        if (client.player == null || client.level == null) return;
 
         if (config.indicator.general.enableIndicator) {
-            for (Entity entity: client.world.getEntities()) {
+            for (Entity entity: client.level.entitiesForRendering()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     drawBar(client.player, livingEntity);
                 }
             }
         }
 
-        trimEntities(client.world);
+        trimEntities(client.level);
 
         init();
     }
@@ -135,7 +135,7 @@ public class EntityTracker {
         UUIDS.clear();
     }
 
-    private static void drawBar(ClientPlayerEntity player, LivingEntity livingEntity) {
+    private static void drawBar(LocalPlayer player, LivingEntity livingEntity) {
         if (isSelf(livingEntity, player)) {
             addToUUIDS(livingEntity, 86_400 * 20);
             return;
@@ -145,7 +145,7 @@ public class EntityTracker {
             return;
         }
 
-        boolean isExistingEntity = UUIDS.containsKey(livingEntity.getUuid());
+        boolean isExistingEntity = UUIDS.containsKey(livingEntity.getUUID());
         boolean isDamaged = livingEntity.getHealth() != livingEntity.getMaxHealth();
         boolean isLookingAt = config.indicator.display.lookingAt && isTargeted(livingEntity);
 
@@ -177,20 +177,19 @@ public class EntityTracker {
     }
 
     public static void onDamage(DamageSource damageSource, LivingEntity livingEntity) {
-        if (damageSource.getAttacker() instanceof PlayerEntity) {
-            assert MinecraftClient.getInstance().world != null;
+        if (damageSource.getEntity() instanceof Player) {
+            assert Minecraft.getInstance().level != null;
             if (config.indicator.display.attackingAt
                     && livingEntity instanceof LivingEntity
-                    && EntityTracker.isEntityTypeAllowed(livingEntity, MinecraftClient.getInstance().player)) {
+                    && EntityTracker.isEntityTypeAllowed(livingEntity, Minecraft.getInstance().player)) {
                 if (!addToUUIDS(livingEntity, 0)) {
-                    //UUIDS.replace(livingEntity.getUuid(), ImagictHudClient.CONFIG.duration * 20);
                     addToUUIDS(livingEntity, config.indicator.display.duration * 20);
                 }
             }
         }
     }
 
-    private static void trimEntities(ClientWorld world) {
+    private static void trimEntities(ClientLevel world) {
         // Check if there's a need to trim entries
         Iterator<Map.Entry<UUID, Integer>> iterator = UUIDS.entrySet().iterator();
 
@@ -211,63 +210,63 @@ public class EntityTracker {
     }
 
     public static void removeFromUUIDS(Entity entity){
-        UUIDS.remove(entity.getUuid());
+        UUIDS.remove(entity.getUUID());
     }
     public static void removeFromUUIDS(UUID uuid){
         UUIDS.remove(uuid);
     }
 
     private static boolean addToUUIDS(LivingEntity livingEntity, int duration) {
-        if (!UUIDS.containsKey(livingEntity.getUuid())) {
-            UUIDS.put(livingEntity.getUuid(), duration);
+        if (!UUIDS.containsKey(livingEntity.getUUID())) {
+            UUIDS.put(livingEntity.getUUID(), duration);
             return true;
         } else {
             // update duration
-            UUIDS.replace(livingEntity.getUuid(), duration);
+            UUIDS.replace(livingEntity.getUUID(), duration);
             return false;
         }
     }
 
     public static boolean isInUUIDS(LivingEntity livingEntity){
-        return UUIDS.containsKey(livingEntity.getUuid());
+        return UUIDS.containsKey(livingEntity.getUUID());
     }
 
-    private static boolean isEntityTypeAllowed(LivingEntity livingEntity, PlayerEntity self){
-        if (!config.indicator.entities.passiveEntities && livingEntity instanceof PassiveEntity) {
+    private static boolean isEntityTypeAllowed(LivingEntity livingEntity, Player self){
+        if (!config.indicator.entities.passiveEntities && livingEntity instanceof AgeableMob) {
             return false;
         }
-        if (!config.indicator.entities.hostileEntities && livingEntity instanceof HostileEntity) {
+        if (!config.indicator.entities.hostileEntities && livingEntity instanceof Monster) {
             return false;
         }
-        if (!config.indicator.entities.playerEntities && livingEntity instanceof PlayerEntity) {
+        if (!config.indicator.entities.playerEntities && livingEntity instanceof Player) {
             return false;
         }
         if (livingEntity == self) {
             return false;
         }
-        return !(livingEntity instanceof ArmorStandEntity);
+        return !(livingEntity instanceof ArmorStand);
     }
 
-    private static boolean isSelf(LivingEntity livingEntity, PlayerEntity self) {
+    private static boolean isSelf(LivingEntity livingEntity, Player self) {
         return config.indicator.entities.selfPlayerEntity && livingEntity == self;
     }
 
     private static boolean isTargeted(LivingEntity livingEntity) {
-        Entity camera = MinecraftClient.getInstance().cameraEntity;
+        Entity camera = Minecraft.getInstance().cameraEntity;
         double d = config.indicator.display.reach;
-        double e = MathHelper.square(d);
-        Vec3d vec3d = camera.getCameraPosVec(0);
-        HitResult hitResult = camera.raycast(d, 0, false);
-        double f = hitResult.getPos().squaredDistanceTo(vec3d);
+        double e = Mth.square(d);
+        Vec3 vec3d = camera.getEyePosition(0);
+        HitResult hitResult = camera.pick(d, 0, false);
+        double f = hitResult.getLocation().distanceTo(vec3d);
         if (hitResult.getType() != HitResult.Type.MISS) {
             e = f;
             d = Math.sqrt(e);
         }
-        Vec3d vec3d2 = camera.getRotationVec(0);
-        Vec3d vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
-        Box box = camera.getBoundingBox().stretch(vec3d2.multiply(d)).expand(1.0, 1.0, 1.0);
-        assert MinecraftClient.getInstance().cameraEntity != null;
-        EntityHitResult entityHitResult = ProjectileUtil.raycast(MinecraftClient.getInstance().cameraEntity, vec3d, vec3d3, box, entity -> !entity.isSpectator() && entity.canHit(), e);
+        Vec3 vec3d2 = camera.getViewVector(0);
+        Vec3 vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
+        AABB box = camera.getBoundingBox().expandTowards(vec3d2.scale(d)).inflate(1.0, 1.0, 1.0);
+        assert Minecraft.getInstance().cameraEntity != null;
+        EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(Minecraft.getInstance().cameraEntity, vec3d, vec3d3, box, entity -> !entity.isSpectator() && entity.isPickable(), e);
 
         if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity livingEntity1) {
             return livingEntity1 == livingEntity;
@@ -278,17 +277,17 @@ public class EntityTracker {
     public static boolean isInvalid(Entity entity){
         return (entity == null
                 || !entity.isAlive()
-                || !entity.isLiving()
-                || entity.isRegionUnloaded()
+                || !entity.showVehicleHealth()
+                || entity.touchingUnloadedChunk()
                 || !(entity instanceof LivingEntity)
-                || MinecraftClient.getInstance().player == null
-                || MinecraftClient.getInstance().player.getVehicle() == entity
-                || entity.isInvisibleTo(MinecraftClient.getInstance().player));
+                || Minecraft.getInstance().player == null
+                || Minecraft.getInstance().player.getVehicle() == entity
+                || entity.isInvisibleTo(Minecraft.getInstance().player));
     }
 
-    private static Entity getEntityFromUUID(UUID uuid, ClientWorld world) {
-        for (Entity entity : world.getEntities()) {
-            if (entity.getUuid().equals(uuid)) {
+    private static Entity getEntityFromUUID(UUID uuid, ClientLevel world) {
+        for (Entity entity : world.entitiesForRendering()) {
+            if (entity.getUUID().equals(uuid)) {
                 return entity;
             }
         }

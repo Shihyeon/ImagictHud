@@ -59,8 +59,7 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${Constants.MINECRAFT_VERSION}")
-    //mappings(loom.officialMojangMappings())
-    mappings("net.fabricmc:yarn:${Constants.YARN_MAPPINGS}:v2")
+    mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")

@@ -1,14 +1,14 @@
 package kr.shihyeon.imagicthud.gui.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.util.RenderUtil;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
 import java.util.HashSet;
@@ -16,27 +16,27 @@ import java.util.Set;
 
 public class ResourceRenderer {
 
-    protected static final Set<Identifier> blendedHeadTextures = new HashSet<>();
+    protected static final Set<ResourceLocation> blendedHeadTextures = new HashSet<>();
 
-    public static Identifier getBlendedLocation(Identifier textureLocation) {
-        return Identifier.of(ImagictHud.MODID, textureLocation.getPath());
+    public static ResourceLocation getBlendedLocation(ResourceLocation textureLocation) {
+        return ResourceLocation.fromNamespaceAndPath(ImagictHud.MODID, textureLocation.getPath());
     }
 
-    public static void renderLabelFrame(DrawContext context, int x, int y, int width, int height, int color) {
+    public static void renderLabelFrame(GuiGraphics context, int x, int y, int width, int height, int color) {
         RenderUtil.fillContext(context, x+1, y, x+width-1, y+1, color);
         RenderUtil.fillContext(context, x, y+1, x+1, y+height-1, color);
         RenderUtil.fillContext(context, x+width, y+1, x+width-1, y+height-1, color);
         RenderUtil.fillContext(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
-    public static void renderLabelBackground(DrawContext context, int x, int y, int width, int height, int color) {
+    public static void renderLabelBackground(GuiGraphics context, int x, int y, int width, int height, int color) {
         RenderUtil.fillContext(context, x+1, y, x+width-1, y+1, color);
         RenderUtil.fillContext(context, x, y+1, x+width, y+height-1, color);
         RenderUtil.fillContext(context, x+1, y+height, x+width-1, y+height-1, color);
     }
 
-    public static void renderHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
-        Identifier skinLocation = playerListEntry.getSkinTextures().texture();
+    public static void renderHead(GuiGraphics context, PlayerInfo playerListEntry, int x, int y) {
+        ResourceLocation skinLocation = playerListEntry.getSkin().texture();
 
         int offset = 6;
         int initPosX = offset * 8;
@@ -48,15 +48,15 @@ public class ResourceRenderer {
         int textureSize = regionSize * 8;
 
         if (blendedHeadTextures.contains(skinLocation)) {
-            context.drawTexture(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
         } else {
-            context.drawTexture(skinLocation, x, y, initPosX, initPosY, u, v, regionSize, regionSize, textureSize, textureSize);
-            context.drawTexture(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(skinLocation, x, y, initPosX, initPosY, u, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
         }
     }
 
-    public static void renderBoldHead(DrawContext context, PlayerListEntry playerListEntry, int x, int y) {
-        Identifier skinLocation = playerListEntry.getSkinTextures().texture();
+    public static void renderBoldHead(GuiGraphics context, PlayerInfo playerListEntry, int x, int y) {
+        ResourceLocation skinLocation = playerListEntry.getSkin().texture();
 
         int offset = 6;
         int initPosX = offset * 8;
@@ -70,15 +70,15 @@ public class ResourceRenderer {
         int textureSize = regionSize * 8;
 
         if (blendedHeadTextures.contains(skinLocation)) {
-            context.drawTexture(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
         } else {
-            context.drawTexture(skinLocation, x + offset/2, y + offset/2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
-            context.drawTexture(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(skinLocation, x + offset/2, y + offset/2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
         }
     }
 
     public static void drawEntityBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.enableDepthTest();
 
         RenderSystem.enableBlend();
@@ -124,13 +124,13 @@ public class ResourceRenderer {
         RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
     }
 
-    public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, float y, MinecraftClient client) {
-        float width = client.textRenderer.getWidth(name);
-        float height = client.textRenderer.fontHeight;
+    public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, float y, Minecraft client) {
+        float width = client.font.width(name);
+        float height = client.font.lineHeight;
         float initPosX = width / 2.f;
         float initPosY = height / 2.f;
 
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.enableDepthTest();
 
         RenderSystem.enableBlend();

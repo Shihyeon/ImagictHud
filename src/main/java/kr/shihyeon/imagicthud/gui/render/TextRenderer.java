@@ -1,29 +1,29 @@
 package kr.shihyeon.imagicthud.gui.render;
 
 import kr.shihyeon.imagicthud.util.RenderUtil;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.network.chat.Component;
 import org.joml.Matrix4f;
 
 public class TextRenderer {
 
-    public static void drawText(DrawContext context, MinecraftClient client, String text, int x, int y, int color, boolean shadow) {
-        if (client != null && client.textRenderer != null) {
-            context.drawText(client.textRenderer, text, x, y, color, shadow);
+    public static void drawText(GuiGraphics context, Minecraft client, String text, int x, int y, int color, boolean shadow) {
+        if (client != null && client.font != null) {
+            context.drawString(client.font, text, x, y, color, shadow);
         }
     }
 
-    public static void drawEntityHealth(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String healthRed, String healthYellow, boolean absorption, boolean shadow) {
-        if (client != null && client.textRenderer != null) {
-            Text txt1 = Text.literal(healthRed);
-            Text txt2 = Text.literal("");
+    public static void drawEntityHealth(Minecraft client, Matrix4f matrix, MultiBufferSource vertexConsumer, String healthRed, String healthYellow, boolean absorption, boolean shadow) {
+        if (client != null && client.font != null) {
+            Component txt1 = Component.literal(healthRed);
+            Component txt2 = Component.literal("");
             if (absorption) {
-                txt2 = Text.literal(healthYellow);
+                txt2 = Component.literal(healthYellow);
             }
-            float w1 = client.textRenderer.getWidth(txt1);
-            float w2 = client.textRenderer.getWidth(txt2);
+            float w1 = client.font.width(txt1);
+            float w2 = client.font.width(txt2);
             float x1 = -(w1 + w2) / 2.f;
             float x2 = -(w1 + w2) / 2.f + w1;
             RenderUtil.drawTextMatrix(matrix, vertexConsumer, txt1, x1, -3.6f, 0xffffffff, shadow);
@@ -31,10 +31,10 @@ public class TextRenderer {
         }
     }
 
-    public static void drawEntityName(MinecraftClient client, Matrix4f matrix, VertexConsumerProvider vertexConsumer, String name, float y, boolean shadow) {
-        if (client != null && client.textRenderer != null) {
-            Text text = Text.literal(name);
-            float width = client.textRenderer.getWidth(text);
+    public static void drawEntityName(Minecraft client, Matrix4f matrix, MultiBufferSource vertexConsumer, String name, float y, boolean shadow) {
+        if (client != null && client.font != null) {
+            Component text = Component.literal(name);
+            float width = client.font.width(text);
             float x = - width / 2.f;
             RenderUtil.drawTextMatrix(matrix, vertexConsumer, text, x, y -3.6f, 0xffffffff, shadow);
         }

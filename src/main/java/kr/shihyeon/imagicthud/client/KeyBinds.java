@@ -1,24 +1,24 @@
 package kr.shihyeon.imagicthud.client;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBinds {
 
-    private static KeyBinding hudKeyBinding;
+    private static KeyMapping hudKeyBinding;
 
     public static void register() {
-        hudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        hudKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.imagicthud.toggle_hud",
-                InputUtil.Type.KEYSYM,
+                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_GRAVE_ACCENT,
                 "key.categories.imagicthud"
         ));
     }
 
-    public static KeyBinding getHudKeyBinding() {
+    public static KeyMapping getHudKeyBinding() {
         return hudKeyBinding;
     }
 }

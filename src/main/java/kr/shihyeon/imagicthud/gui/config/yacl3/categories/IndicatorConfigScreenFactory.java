@@ -8,15 +8,15 @@ import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorBarMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 public class IndicatorConfigScreenFactory {
 
     public static ConfigCategory createIndicatorCategory(ImagictHudConfig config) {
 
         ConfigCategory.Builder category = ConfigCategory.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setCategory("indicator")))
-                .tooltip(Text.translatable(ConfigTranslationHelper.setCategory("indicator", true)));
+                .name(Component.translatable(ConfigTranslationHelper.setCategory("indicator")))
+                .tooltip(Component.translatable(ConfigTranslationHelper.setCategory("indicator", true)));
 
         OptionGroup generalGroup = createGeneralGroup(config);
         OptionGroup displayGroup = createDisplayGroup(config);
@@ -36,12 +36,12 @@ public class IndicatorConfigScreenFactory {
     private static OptionGroup createGeneralGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "general")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "general", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "general")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "general", true))));
 
         Option<Boolean> enableIndicatorOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "general", "enable_indicator", true))))
                 .binding(
                         config.indicator.general.enableIndicator,
                         () -> config.indicator.general.enableIndicator,
@@ -58,12 +58,12 @@ public class IndicatorConfigScreenFactory {
     private static OptionGroup createDisplayGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "display")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "display", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "display")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "display", true))));
 
         Option<Boolean> attackingAtOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "attacking_at", true))))
                 .binding(
                         config.indicator.display.attackingAt,
                         () -> config.indicator.display.attackingAt,
@@ -72,8 +72,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> lookingAtOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "looking_at", true))))
                 .binding(
                         config.indicator.display.lookingAt,
                         () -> config.indicator.display.lookingAt,
@@ -82,8 +82,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> damagedOnlyOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "damaged_only", true))))
                 .binding(
                         config.indicator.display.damagedOnly,
                         () -> config.indicator.display.damagedOnly,
@@ -92,8 +92,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<IndicatorMode> indicatorModeOption = Option.<IndicatorMode>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_mode", true))))
                 .binding(
                         config.indicator.display.indicatorMode,
                         () -> config.indicator.display.indicatorMode,
@@ -101,11 +101,11 @@ public class IndicatorConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(IndicatorMode.class)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode") + value.name().toLowerCase(), value)))
                 .build();
         Option<IndicatorBarMode> indicatorBarModeOption = Option.<IndicatorBarMode>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode", true))))
                 .binding(
                         config.indicator.display.indicatorBarMode,
                         () -> config.indicator.display.indicatorBarMode,
@@ -113,11 +113,11 @@ public class IndicatorConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(IndicatorBarMode.class)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode") + value.name().toLowerCase(), value)))
                 .build();
         Option<Integer> durationOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration", true))))
                 .binding(
                         config.indicator.display.duration,
                         () -> config.indicator.display.duration,
@@ -126,12 +126,12 @@ public class IndicatorConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 120)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_seconds"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_seconds"), value))
                 )
                 .build();
         Option<Integer> reachOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "reach", true))))
                 .binding(
                         config.indicator.display.reach,
                         () -> config.indicator.display.reach,
@@ -140,7 +140,7 @@ public class IndicatorConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(3, 50)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_meter"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_meter"), value))
                 )
                 .build();
         group.option(attackingAtOption);
@@ -157,12 +157,12 @@ public class IndicatorConfigScreenFactory {
     private static OptionGroup createEntitiesGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "entities")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "entities", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "entities")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "entities", true))));
 
         Option<Boolean> playerEntitiesOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "player_entities", true))))
                 .binding(
                         config.indicator.entities.playerEntities,
                         () -> config.indicator.entities.playerEntities,
@@ -171,8 +171,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> selfPlayerEntityOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "self_player_entity", true))))
                 .binding(
                         config.indicator.entities.selfPlayerEntity,
                         () -> config.indicator.entities.selfPlayerEntity,
@@ -181,8 +181,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> passiveEntitiesOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "passive_entities", true))))
                 .binding(
                         config.indicator.entities.passiveEntities,
                         () -> config.indicator.entities.passiveEntities,
@@ -191,8 +191,8 @@ public class IndicatorConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> hostileEntitiesOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "entities", "hostile_entities", true))))
                 .binding(
                         config.indicator.entities.hostileEntities,
                         () -> config.indicator.entities.hostileEntities,
@@ -211,12 +211,12 @@ public class IndicatorConfigScreenFactory {
     private static OptionGroup createTextGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "text")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "text", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "text")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "text", true))));
 
         Option<Boolean> enableTextShadowsOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "text", "enable_shadows", true))))
                 .binding(
                         config.indicator.text.enableTextShadows,
                         () -> config.indicator.text.enableTextShadows,
@@ -233,12 +233,12 @@ public class IndicatorConfigScreenFactory {
     private static OptionGroup createLayoutGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "layout")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("indicator", "layout", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "layout")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("indicator", "layout", true))));
 
         Option<Integer> positionYOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "position_y", true))))
                 .binding(
                         config.indicator.layout.positionY,
                         () -> config.indicator.layout.positionY,
@@ -247,12 +247,12 @@ public class IndicatorConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(-15, 15)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
         Option<Integer> nameScaleOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("indicator", "layout", "name_scale", true))))
                 .binding(
                         config.indicator.layout.nameScale,
                         () -> config.indicator.layout.nameScale,
@@ -261,7 +261,7 @@ public class IndicatorConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 4)
                         .step(1)
-                        .formatValue(value -> Text.literal(String.format("%dx", value)))
+                        .formatValue(value -> Component.literal(String.format("%dx", value)))
                 )
                 .build();
 

@@ -11,7 +11,7 @@ import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatte
 import me.jellysquid.mods.sodium.client.gui.options.control.CyclingControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.SliderControl;
 import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.stream.Stream;
 
@@ -22,8 +22,8 @@ public class HudConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> enableHudOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.general.enableHud = value,
@@ -41,8 +41,8 @@ public class HudConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> enableHeadOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.display.enableHead = value,
@@ -50,8 +50,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> enableLocalDateTimeLabelOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.display.enableLocalDateTimeLabel = value,
@@ -59,8 +59,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> enableNicknameLabelOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.display.enableNicknameLabel = value,
@@ -68,8 +68,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> enableCoordinatesLabelOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.display.enableCoordinatesLabel = value,
@@ -77,8 +77,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Boolean> enableBiomeLabelOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.display.enableBiomeLabel = value,
@@ -100,8 +100,8 @@ public class HudConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, HeadRenderMode> headRenderModeOption = OptionImpl.createBuilder(HeadRenderMode.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode", true)))
                 .setControl(option -> new CyclingControl<>(
                         option,
                         HeadRenderMode.class,
@@ -110,7 +110,7 @@ public class HudConfigOptionPage {
                                       ConfigTranslationHelper.setEnumOptionFormatKey("hud", "head", "render_mode")
                                               + value.name().toLowerCase())
                                       .format(0))
-                              .toArray(Text[]::new))
+                              .toArray(Component[]::new))
                 )
                 .setBinding(
                         (option, value) -> option.hud.head.headRenderMode = value,
@@ -128,8 +128,8 @@ public class HudConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Boolean> enableLabelFrameOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.label.enableLabelFrame = value,
@@ -139,8 +139,8 @@ public class HudConfigOptionPage {
         // labelFrameColorOption
         // labelBackgroundColorOption
         OptionImpl<?, Integer> labelBackgroundOpacityOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity", true)))
                 .setControl(option -> new SliderControl(option, 0, 100, 10, ControlValueFormatter.percentage())) // mode: value -> Text.literal(value==32?"Vanilla":(value==256?"Keep All":value+" chunks"))
                 .setBinding(
                         (option, value) -> option.hud.label.labelBackgroundOpacity = value,
@@ -160,8 +160,8 @@ public class HudConfigOptionPage {
 
         // textColorOption
         OptionImpl<?, Boolean> enableTextShadowsOption = OptionImpl.createBuilder(boolean.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows", true)))
                 .setControl(TickBoxControl::new)
                 .setBinding(
                         (option, value) -> option.hud.text.enableTextShadows = value,
@@ -169,8 +169,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> textOpacityOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity", true)))
                 .setControl(option -> new SliderControl(option, 0, 100, 10, ControlValueFormatter.percentage()))
                 .setBinding(
                         (option, value) -> option.hud.text.textOpacity = value,
@@ -178,8 +178,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, TextAlignMode> textAlignModeOption = OptionImpl.createBuilder(TextAlignMode.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode", true)))
                 .setControl(option -> new CyclingControl<>(
                         option,
                         TextAlignMode.class,
@@ -188,7 +188,7 @@ public class HudConfigOptionPage {
                                       ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "align_mode")
                                               + value.name().toLowerCase())
                                       .format(0))
-                              .toArray(Text[]::new))
+                              .toArray(Component[]::new))
                 )
                 .setBinding(
                         (option, value) -> option.hud.text.textAlignMode = value,
@@ -196,8 +196,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, LocalDateTimeMode> localDateTimeModeOption = OptionImpl.createBuilder(LocalDateTimeMode.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode", true)))
                 .setControl(option -> new CyclingControl<>(
                         option,
                         LocalDateTimeMode.class,
@@ -206,7 +206,7 @@ public class HudConfigOptionPage {
                                       ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "local_date_time_mode")
                                               + value.name().toLowerCase())
                                       .format(0))
-                              .toArray(Text[]::new))
+                              .toArray(Component[]::new))
                 )
                 .setBinding(
                         (option, value) -> option.hud.text.localDateTimeMode = value,
@@ -227,8 +227,8 @@ public class HudConfigOptionPage {
         OptionGroup.Builder group = OptionGroup.createBuilder();
 
         OptionImpl<?, Integer> labelWidthOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width", true)))
                 .setControl(option -> new SliderControl(option, 50, 150, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
                 .setBinding(
                         (option, value) -> option.hud.layout.labelWidth = value,
@@ -236,8 +236,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> labelLineSpacingOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing", true)))
                 .setControl(option -> new SliderControl(option, -5, 5, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
                 .setBinding(
                         (option, value) -> option.hud.layout.labelLineSpacing = value,
@@ -245,9 +245,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> hudScaleOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale", true)))
-                //.setControl(option -> new Con(option, .5f, 2.f, .1f, ControlValueFormatter.number()))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale", true)))
                 .setControl(option -> new SliderControl(option, 0, 8, 1, ControlValueFormatter.guiScale()))
                 .setBinding(
                         (option, value) -> option.hud.layout.hudScale = value,
@@ -255,8 +254,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> positionXOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x", true)))
                 .setControl(option -> new SliderControl(option, 0, 50, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
                 .setBinding(
                         (option, value) -> option.hud.layout.positionX = value,
@@ -264,8 +263,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> positionYOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y", true)))
                 .setControl(option -> new SliderControl(option, 0, 50, 1, ControlValueFormatter.translateVariable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"))))
                 .setBinding(
                         (option, value) -> option.hud.layout.positionY = value,
@@ -273,8 +272,8 @@ public class HudConfigOptionPage {
                 )
                 .build();
         OptionImpl<?, Integer> offsetOption = OptionImpl.createBuilder(int.class, storage)
-                .setName(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset")))
-                .setTooltip(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset", true)))
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset", true)))
                 .setControl(option -> new SliderControl(option, 0, 50, 1, ControlValueFormatter.number()))
                 .setBinding(
                         (option, value) -> option.hud.layout.offset = value,

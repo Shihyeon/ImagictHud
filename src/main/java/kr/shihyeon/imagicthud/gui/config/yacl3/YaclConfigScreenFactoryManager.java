@@ -7,8 +7,8 @@ import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.gui.config.yacl3.categories.HudConfigScreenFactory;
 import kr.shihyeon.imagicthud.gui.config.yacl3.categories.IndicatorConfigScreenFactory;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class YaclConfigScreenFactoryManager {
         categories.add(indicatorCategory);
 
         return YetAnotherConfigLib.createBuilder()
-                .title(Text.translatable(ImagictHud.MODID + ".config.title"))
+                .title(Component.translatable(ImagictHud.MODID + ".config.title"))
                 .categories(categories)
                 .save(CONFIG::save)
                 .build()

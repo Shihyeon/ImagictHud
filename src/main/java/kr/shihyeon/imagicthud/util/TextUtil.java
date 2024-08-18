@@ -1,11 +1,14 @@
 package kr.shihyeon.imagicthud.util;
 
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.biome.Biome;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +17,7 @@ import java.util.List;
 
 public class TextUtil {
 
-    public static List<String> getLabelTexts(MinecraftClient client, ImagictHudConfig config, PlayerListEntry playerListEntry) {
+    public static List<String> getLabelTexts(Minecraft client, ImagictHudConfig config, PlayerInfo playerListEntry) {
         List<String> textLines = new ArrayList<>();
         String nickname = "";
         if (client.player != null) {
@@ -39,20 +42,20 @@ public class TextUtil {
         }
 
         if (config.hud.display.enableCoordinatesLabel) {
-            final int playerPosX = MathHelper.floor(client.player.getX());
-            final int playerPosY = MathHelper.floor(client.player.getBoundingBox().minY);
-            final int playerPosZ = MathHelper.floor(client.player.getZ());
+            final int playerPosX = Mth.floor(client.player.getX());
+            final int playerPosY = Mth.floor(client.player.getBoundingBox().minY);
+            final int playerPosZ = Mth.floor(client.player.getZ());
             textLines.add(playerPosX + ", " + playerPosY + ", " + playerPosZ);
         }
 
         if (config.hud.display.enableBiomeLabel) {
-            BlockPos playerPos = client.player.getBlockPos();
-            if (client.world != null) {
-                var biomeEntry = client.world.getBiome(playerPos);
-                var biomeKey = biomeEntry.getKey().orElseThrow(() -> new IllegalStateException("Biome key not found"));
+            BlockPos playerPos = client.player.getOnPos();
+            if (client.level != null) {
+                Holder<Biome> biomeEntry = client.level.getBiome(playerPos);
+                ResourceKey<Biome> biomeKey = biomeEntry.unwrapKey().orElseThrow(() -> new IllegalStateException("Biome key not found"));
 
-                String biomeTranslationKey = "biome.minecraft." + biomeKey.getValue().getPath();
-                String biomeName = Text.translatable(biomeTranslationKey).getString();
+                String biomeTranslationKey = "biome.minecraft." + biomeKey.location().getPath();
+                String biomeName = Component.translatable(biomeTranslationKey).getString();
 
                 textLines.add(biomeName);
             } else {

@@ -7,7 +7,7 @@ import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.LocalDateTimeMode;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.awt.*;
 
@@ -16,8 +16,8 @@ public class HudConfigScreenFactory {
     public static ConfigCategory createHudCategory(ImagictHudConfig config) {
 
         ConfigCategory.Builder category = ConfigCategory.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setCategory("hud")))
-                .tooltip(Text.translatable(ConfigTranslationHelper.setCategory("hud", true)));
+                .name(Component.translatable(ConfigTranslationHelper.setCategory("hud")))
+                .tooltip(Component.translatable(ConfigTranslationHelper.setCategory("hud", true)));
 
         OptionGroup generalGroup = createGeneralGroup(config);
         OptionGroup displayGroup = createDisplayGroup(config);
@@ -39,12 +39,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createGeneralGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "general")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "general", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "general")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "general", true))));
 
         Option<Boolean> enableHudOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "enable_hud", true))))
                 .binding(
                         config.hud.general.enableHud,
                         () -> config.hud.general.enableHud,
@@ -61,12 +61,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createDisplayGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "display")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "display", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "display")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "display", true))));
 
         Option<Boolean> enableHeadOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_head", true))))
                 .binding(
                         config.hud.display.enableHead,
                         () -> config.hud.display.enableHead,
@@ -75,8 +75,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> enableLocalDateTimeLabelOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_local_date_time_label", true))))
                 .binding(
                         config.hud.display.enableLocalDateTimeLabel,
                         () -> config.hud.display.enableLocalDateTimeLabel,
@@ -85,8 +85,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> enableNicknameLabelOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_nickname_label", true))))
                 .binding(
                         config.hud.display.enableNicknameLabel,
                         () -> config.hud.display.enableNicknameLabel,
@@ -95,8 +95,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> enableCoordinatesLabelOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_coordinates_label", true))))
                 .binding(
                         config.hud.display.enableCoordinatesLabel,
                         () -> config.hud.display.enableCoordinatesLabel,
@@ -105,8 +105,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Boolean> enableBiomeLabelOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "display", "enable_biome_label", true))))
                 .binding(
                         config.hud.display.enableBiomeLabel,
                         () -> config.hud.display.enableBiomeLabel,
@@ -127,12 +127,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createHeadGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "head")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "head", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "head")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "head", true))));
 
         Option<HeadRenderMode> headRenderModeOption = Option.<HeadRenderMode>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "head", "render_mode", true))))
                 .binding(
                         config.hud.head.headRenderMode,
                         () -> config.hud.head.headRenderMode,
@@ -140,7 +140,7 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(HeadRenderMode.class)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "head", "render_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "head", "render_mode") + value.name().toLowerCase(), value)))
                 .build();
 
         group.option(headRenderModeOption);
@@ -151,12 +151,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createLabelGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "label")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "label", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "label")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "label", true))));
 
         Option<Boolean> enableLabelFrameOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "enable_frame", true))))
                 .binding(
                         config.hud.label.enableLabelFrame,
                         () -> config.hud.label.enableLabelFrame,
@@ -165,8 +165,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Color> labelFrameColorOption = Option.<Color>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "frame_color")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "frame_color", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "frame_color")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "frame_color", true))))
                 .binding(
                         config.hud.label.labelFrameColor,
                         () -> config.hud.label.labelFrameColor,
@@ -175,8 +175,8 @@ public class HudConfigScreenFactory {
                 .controller(ColorControllerBuilder::create)
                 .build();
         Option<Color> labelBackgroundColorOption = Option.<Color>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_color")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_color", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_color")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_color", true))))
                 .binding(
                         config.hud.label.labelBackgroundColor,
                         () -> config.hud.label.labelBackgroundColor,
@@ -185,8 +185,8 @@ public class HudConfigScreenFactory {
                 .controller(ColorControllerBuilder::create)
                 .build();
         Option<Integer> labelBackgoundOpacityOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "label", "background_opacity", true))))
                 .binding(
                         config.hud.label.labelBackgroundOpacity,
                         () -> config.hud.label.labelBackgroundOpacity,
@@ -195,7 +195,7 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 100)
                         .step(10)
-                        .formatValue(value -> Text.literal(String.format("%d%%", value)))
+                        .formatValue(value -> Component.literal(String.format("%d%%", value)))
                 )
                 .build();
         group.option(enableLabelFrameOption);
@@ -209,12 +209,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createTextGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "text")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "text", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "text")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "text", true))));
 
         Option<Color> textColorOption = Option.<Color>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "color")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "color", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "color")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "color", true))))
                 .binding(
                         config.hud.text.textColor,
                         () -> config.hud.text.textColor,
@@ -223,8 +223,8 @@ public class HudConfigScreenFactory {
                 .controller(ColorControllerBuilder::create)
                 .build();
         Option<Boolean> enableTextShadowsOption = Option.<Boolean>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "enable_shadows", true))))
                 .binding(
                         config.hud.text.enableTextShadows,
                         () -> config.hud.text.enableTextShadows,
@@ -233,8 +233,8 @@ public class HudConfigScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build();
         Option<Integer> textOpacityOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "opacity", true))))
                 .binding(
                         config.hud.text.textOpacity,
                         () -> config.hud.text.textOpacity,
@@ -243,12 +243,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 100)
                         .step(10)
-                        .formatValue(value -> Text.literal(String.format("%d%%", value)))
+                        .formatValue(value -> Component.literal(String.format("%d%%", value)))
                 )
                 .build();
         Option<TextAlignMode> textAlignModeOption = Option.<TextAlignMode>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "align_mode", true))))
                 .binding(
                         config.hud.text.textAlignMode,
                         () -> config.hud.text.textAlignMode,
@@ -256,11 +256,11 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(TextAlignMode.class)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "align_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "align_mode") + value.name().toLowerCase(), value)))
                 .build();
         Option<LocalDateTimeMode> localDateTimeModeOption = Option.<LocalDateTimeMode>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode", true))))
                 .binding(
                         config.hud.text.localDateTimeMode,
                         () -> config.hud.text.localDateTimeMode,
@@ -268,7 +268,7 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(LocalDateTimeMode.class)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "local_date_time_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "local_date_time_mode") + value.name().toLowerCase(), value)))
                 .build();
 
         group.option(textColorOption);
@@ -283,12 +283,12 @@ public class HudConfigScreenFactory {
     private static OptionGroup createLayoutGroup(ImagictHudConfig config) {
 
         OptionGroup.Builder group = OptionGroup.createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setGroup("hud", "layout")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setGroup("hud", "layout", true))));
+                .name(Component.translatable(ConfigTranslationHelper.setGroup("hud", "layout")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setGroup("hud", "layout", true))));
 
         Option<Integer> labelWidthOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_width", true))))
                 .binding(
                         config.hud.layout.labelWidth,
                         () -> config.hud.layout.labelWidth,
@@ -297,12 +297,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(50, 150)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
         Option<Integer> labelLineSpacingOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "label_line_spacing", true))))
                 .binding(
                         config.hud.layout.labelLineSpacing,
                         () -> config.hud.layout.labelLineSpacing,
@@ -311,12 +311,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(-5, 5)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
         Option<Integer> hudScaleOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "scale", true))))
                 .binding(
                         config.hud.layout.hudScale,
                         () -> config.hud.layout.hudScale,
@@ -325,12 +325,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 8)
                         .step(1)
-                        .formatValue(value -> Text.literal(String.format("%dx", value)))
+                        .formatValue(value -> Component.literal(String.format("%dx", value)))
                 )
                 .build();
         Option<Integer> positionXOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_x", true))))
                 .binding(
                         config.hud.layout.positionX,
                         () -> config.hud.layout.positionX,
@@ -339,12 +339,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 50)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
         Option<Integer> positionYOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "position_y", true))))
                 .binding(
                         config.hud.layout.positionY,
                         () -> config.hud.layout.positionY,
@@ -353,12 +353,12 @@ public class HudConfigScreenFactory {
                 .controller(option -> IntegerSliderControllerBuilder.create(option)
                         .range(0, 50)
                         .step(1)
-                        .formatValue(value -> Text.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
+                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setOptionFormatKey("int_pixels"), value))
                 )
                 .build();
         Option<Integer> offsetOption = Option.<Integer>createBuilder()
-                .name(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset")))
-                .description(OptionDescription.of(Text.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset", true))))
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "layout", "offset", true))))
                 .binding(
                         config.hud.layout.offset,
                         () -> config.hud.layout.offset,

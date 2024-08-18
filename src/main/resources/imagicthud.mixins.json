@@ -6,9 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "KeyboardMixin",
+    "KeyboardHandlerMixin",
     "LivingEntityMixin",
-    "gui.InGameHudMixin",
+    "gui.GuiMixin",
     "gui.LivingEntityRendererMixin",
     "gui.sodium.SodiumOptionsGUIMixin"
   ],
