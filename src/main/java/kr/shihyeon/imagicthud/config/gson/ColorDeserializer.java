@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 public class ColorDeserializer implements JsonDeserializer<Color> {
     @Override
     public Color deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-        return new Color(json.getAsInt());
+        String hexColor = json.getAsString();
+        return Color.decode(hexColor);
     }
 }
