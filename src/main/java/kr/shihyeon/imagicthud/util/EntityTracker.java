@@ -27,11 +27,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EntityTracker {
     private static final ConcurrentHashMap<UUID, Integer> UUIDS = new ConcurrentHashMap<>();
 
-    private static ImagictHudConfig config;
+    private static final ImagictHudConfig CONFIG;
+
+    private static final int TICK_COUNT = 20;
 
     static {
-        config = ImagictHudClient.CONFIG;
-        if (config == null) {
+        CONFIG = ImagictHudClient.CONFIG;
+        if (CONFIG == null) {
             throw new IllegalStateException("ImagictHudClient.CONFIG is not initialized");
         }
     }
@@ -47,16 +49,16 @@ public class EntityTracker {
     private static boolean hostileEntities;
 
     static {
-        if (config != null && config.indicator != null) {
-            attackingAt = config.indicator.display.attackingAt;
-            lookingAt = config.indicator.display.lookingAt;
-            damagedOnly = config.indicator.display.damagedOnly;
-            duration = config.indicator.display.duration;
-            reach = config.indicator.display.reach;
-            playerEntities = config.indicator.entities.playerEntities;
-            selfPlayerEntity = config.indicator.entities.selfPlayerEntity;
-            passiveEntities = config.indicator.entities.passiveEntities;
-            hostileEntities = config.indicator.entities.hostileEntities;
+        if (CONFIG != null && CONFIG.indicator != null) {
+            attackingAt = CONFIG.indicator.display.attackingAt;
+            lookingAt = CONFIG.indicator.display.lookingAt;
+            damagedOnly = CONFIG.indicator.display.damagedOnly;
+            duration = CONFIG.indicator.display.duration;
+            reach = CONFIG.indicator.display.reach;
+            playerEntities = CONFIG.indicator.entities.playerEntities;
+            selfPlayerEntity = CONFIG.indicator.entities.selfPlayerEntity;
+            passiveEntities = CONFIG.indicator.entities.passiveEntities;
+            hostileEntities = CONFIG.indicator.entities.hostileEntities;
         } else {
             attackingAt = true;
             lookingAt = true;
@@ -73,7 +75,7 @@ public class EntityTracker {
     public static void tick(Minecraft client){
         if (client.player == null || client.level == null) return;
 
-        if (config.indicator.general.enableIndicator) {
+        if (CONFIG.indicator.general.enableIndicator) {
             for (Entity entity: client.level.entitiesForRendering()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     drawBar(client.player, livingEntity);
@@ -89,40 +91,40 @@ public class EntityTracker {
     private static void init() {
         boolean configChanged = false;
 
-        if (config.indicator.display.attackingAt != attackingAt) {
-            attackingAt = config.indicator.display.attackingAt;
+        if (CONFIG.indicator.display.attackingAt != attackingAt) {
+            attackingAt = CONFIG.indicator.display.attackingAt;
             configChanged = true;
         }
-        if (config.indicator.display.lookingAt != lookingAt) {
-            lookingAt = config.indicator.display.lookingAt;
+        if (CONFIG.indicator.display.lookingAt != lookingAt) {
+            lookingAt = CONFIG.indicator.display.lookingAt;
             configChanged = true;
         }
-        if (config.indicator.display.damagedOnly != damagedOnly) {
-            damagedOnly = config.indicator.display.damagedOnly;
+        if (CONFIG.indicator.display.damagedOnly != damagedOnly) {
+            damagedOnly = CONFIG.indicator.display.damagedOnly;
             configChanged = true;
         }
-        if (config.indicator.display.duration != duration) {
-            duration = config.indicator.display.duration;
+        if (CONFIG.indicator.display.duration != duration) {
+            duration = CONFIG.indicator.display.duration;
             configChanged = true;
         }
-        if (config.indicator.display.reach != reach) {
-            reach = config.indicator.display.reach;
+        if (CONFIG.indicator.display.reach != reach) {
+            reach = CONFIG.indicator.display.reach;
             configChanged = true;
         }
-        if (config.indicator.entities.playerEntities != playerEntities) {
-            playerEntities = config.indicator.entities.playerEntities;
+        if (CONFIG.indicator.entities.playerEntities != playerEntities) {
+            playerEntities = CONFIG.indicator.entities.playerEntities;
             configChanged = true;
         }
-        if (config.indicator.entities.selfPlayerEntity != selfPlayerEntity) {
-            selfPlayerEntity = config.indicator.entities.selfPlayerEntity;
+        if (CONFIG.indicator.entities.selfPlayerEntity != selfPlayerEntity) {
+            selfPlayerEntity = CONFIG.indicator.entities.selfPlayerEntity;
             configChanged = true;
         }
-        if (config.indicator.entities.passiveEntities != passiveEntities) {
-            passiveEntities = config.indicator.entities.passiveEntities;
+        if (CONFIG.indicator.entities.passiveEntities != passiveEntities) {
+            passiveEntities = CONFIG.indicator.entities.passiveEntities;
             configChanged = true;
         }
-        if (config.indicator.entities.hostileEntities != hostileEntities) {
-            hostileEntities = config.indicator.entities.hostileEntities;
+        if (CONFIG.indicator.entities.hostileEntities != hostileEntities) {
+            hostileEntities = CONFIG.indicator.entities.hostileEntities;
             configChanged = true;
         }
 
@@ -137,7 +139,7 @@ public class EntityTracker {
 
     private static void drawBar(LocalPlayer player, LivingEntity livingEntity) {
         if (isSelf(livingEntity, player)) {
-            addToUUIDS(livingEntity, 86_400 * 20);
+            addToUUIDS(livingEntity, 86_400 * TICK_COUNT);
             return;
         }
 
@@ -147,43 +149,43 @@ public class EntityTracker {
 
         boolean isExistingEntity = UUIDS.containsKey(livingEntity.getUUID());
         boolean isDamaged = livingEntity.getHealth() != livingEntity.getMaxHealth();
-        boolean isLookingAt = config.indicator.display.lookingAt && isTargeted(livingEntity);
+        boolean isLookingAt = CONFIG.indicator.display.lookingAt && isTargeted(livingEntity);
 
         boolean shouldAddToUUIDS = false;
 
-        if (config.indicator.display.attackingAt) {
+        if (CONFIG.indicator.display.attackingAt) {
             if (isExistingEntity) {
-                if (config.indicator.display.damagedOnly) {
+                if (CONFIG.indicator.display.damagedOnly) {
                     if (isDamaged) {
-                        shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
+                        shouldAddToUUIDS = isLookingAt || !CONFIG.indicator.display.lookingAt;
                     }
                 } else {
-                    shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
+                    shouldAddToUUIDS = isLookingAt || !CONFIG.indicator.display.lookingAt;
                 }
             }
         } else {
-            if (config.indicator.display.damagedOnly) {
+            if (CONFIG.indicator.display.damagedOnly) {
                 if (isDamaged) {
-                    shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
+                    shouldAddToUUIDS = isLookingAt || !CONFIG.indicator.display.lookingAt;
                 }
             } else {
-                shouldAddToUUIDS = isLookingAt || !config.indicator.display.lookingAt;
+                shouldAddToUUIDS = isLookingAt || !CONFIG.indicator.display.lookingAt;
             }
         }
 
         if (shouldAddToUUIDS) {
-            addToUUIDS(livingEntity, config.indicator.display.duration * 20);
+            addToUUIDS(livingEntity, CONFIG.indicator.display.duration * TICK_COUNT);
         }
     }
 
     public static void onDamage(DamageSource damageSource, LivingEntity livingEntity) {
         if (damageSource.getEntity() instanceof Player) {
             assert Minecraft.getInstance().level != null;
-            if (config.indicator.display.attackingAt
+            if (CONFIG.indicator.display.attackingAt
                     && livingEntity instanceof LivingEntity
                     && EntityTracker.isEntityTypeAllowed(livingEntity, Minecraft.getInstance().player)) {
                 if (!addToUUIDS(livingEntity, 0)) {
-                    addToUUIDS(livingEntity, config.indicator.display.duration * 20);
+                    addToUUIDS(livingEntity, CONFIG.indicator.display.duration * TICK_COUNT);
                 }
             }
         }
@@ -202,7 +204,7 @@ public class EntityTracker {
         }
 
         // Remove invalid entities
-        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !config.indicator.general.enableIndicator);
+        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !CONFIG.indicator.general.enableIndicator);
 
         if (UUIDS.size() >= 1536) {
             UUIDS.clear();
@@ -232,13 +234,13 @@ public class EntityTracker {
     }
 
     private static boolean isEntityTypeAllowed(LivingEntity livingEntity, Player self){
-        if (!config.indicator.entities.passiveEntities && livingEntity instanceof AgeableMob) {
+        if (!CONFIG.indicator.entities.passiveEntities && livingEntity instanceof AgeableMob) {
             return false;
         }
-        if (!config.indicator.entities.hostileEntities && livingEntity instanceof Monster) {
+        if (!CONFIG.indicator.entities.hostileEntities && livingEntity instanceof Monster) {
             return false;
         }
-        if (!config.indicator.entities.playerEntities && livingEntity instanceof Player) {
+        if (!CONFIG.indicator.entities.playerEntities && livingEntity instanceof Player) {
             return false;
         }
         if (livingEntity == self) {
@@ -248,12 +250,12 @@ public class EntityTracker {
     }
 
     private static boolean isSelf(LivingEntity livingEntity, Player self) {
-        return config.indicator.entities.selfPlayerEntity && livingEntity == self;
+        return CONFIG.indicator.entities.selfPlayerEntity && livingEntity == self;
     }
 
     private static boolean isTargeted(LivingEntity livingEntity) {
         Entity camera = Minecraft.getInstance().cameraEntity;
-        double d = config.indicator.display.reach;
+        double d = CONFIG.indicator.display.reach;
         double e = Mth.square(d);
         Vec3 vec3d = camera.getEyePosition(0);
         HitResult hitResult = camera.pick(d, 0, false);
