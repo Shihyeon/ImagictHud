@@ -4,7 +4,8 @@ import com.google.common.collect.ImmutableList;
 import kr.shihyeon.imagicthud.gui.config.sodium.categoties.HudConfigOptionPage;
 import kr.shihyeon.imagicthud.gui.config.sodium.categoties.IndicatorConfigOptionPage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
-import me.jellysquid.mods.sodium.client.gui.options.*;
+import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
+import net.caffeinemc.mods.sodium.client.gui.options.OptionPage;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;

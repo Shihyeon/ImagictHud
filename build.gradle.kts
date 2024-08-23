@@ -7,7 +7,7 @@ object Constants {
     const val FABRIC_LOADER_VERSION: String = "0.15.11"
     const val FABRIC_API_VERSION: String = "0.100.8+1.21"
 
-    const val SODIUM_VERSION: String = "mc1.21-0.5.11"
+    const val SODIUM_VERSION: String = "mc1.21-0.6.0-beta.1"
     const val YACL_VERSION: String = "3.5.0+1.21"
     const val MODMENU_VERSION: String = "11.0.1"
 
@@ -18,8 +18,8 @@ object Constants {
 
 plugins {
     id("fabric-loom").version("1.7.+")
-    `java-library`
-    `maven-publish`
+    id("java")
+    id("maven-publish")
 }
 
 base {
@@ -73,7 +73,7 @@ dependencies {
     addEmbeddedFabricModule("fabric-lifecycle-events-v1")
     addEmbeddedFabricModule("fabric-resource-loader-v0")
 
-    modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}")
+    modCompileOnly("maven.modrinth:sodium:${Constants.SODIUM_VERSION}-fabric")
     modCompileOnly("dev.isxander:yet-another-config-lib:${Constants.YACL_VERSION}-fabric")
     modCompileOnly("com.terraformersmc:modmenu:${Constants.MODMENU_VERSION}")
 }
