@@ -179,11 +179,14 @@ public class EntityTracker {
     }
 
     public static void onDamage(DamageSource damageSource, LivingEntity livingEntity) {
-        if (damageSource.getEntity() instanceof Player) {
+        Player self = Minecraft.getInstance().player;
+
+        if (damageSource.getEntity() instanceof Player && damageSource.getEntity() == self) {
             assert Minecraft.getInstance().level != null;
+
             if (CONFIG.indicator.display.attackingAt
                     && livingEntity instanceof LivingEntity
-                    && EntityTracker.isEntityTypeAllowed(livingEntity, Minecraft.getInstance().player)) {
+                    && EntityTracker.isEntityTypeAllowed(livingEntity, self)) {
                 if (!addToUUIDS(livingEntity, 0)) {
                     addToUUIDS(livingEntity, CONFIG.indicator.display.duration * TICK_COUNT);
                 }
