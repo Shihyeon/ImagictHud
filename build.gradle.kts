@@ -17,7 +17,7 @@ object Constants {
 }
 
 plugins {
-    id("fabric-loom").version("1.7.+")
+    id("fabric-loom") version("1.7.+")
     id("java")
     id("maven-publish")
 }
