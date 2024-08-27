@@ -25,6 +25,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class EntityTracker {
+    private static final Minecraft client = Minecraft.getInstance();
+
     private static final ConcurrentHashMap<UUID, Integer> UUIDS = new ConcurrentHashMap<>();
 
     private static final ImagictHudConfig CONFIG;
@@ -179,10 +181,10 @@ public class EntityTracker {
     }
 
     public static void onDamage(DamageSource damageSource, LivingEntity livingEntity) {
-        Player self = Minecraft.getInstance().player;
+        Player self = client.player;
 
         if (damageSource.getEntity() instanceof Player && damageSource.getEntity() == self) {
-            assert Minecraft.getInstance().level != null;
+            assert client.level != null;
 
             if (CONFIG.indicator.display.attackingAt
                     && livingEntity instanceof LivingEntity
@@ -257,7 +259,7 @@ public class EntityTracker {
     }
 
     private static boolean isTargeted(LivingEntity livingEntity) {
-        Entity camera = Minecraft.getInstance().cameraEntity;
+        Entity camera = client.cameraEntity;
         double d = CONFIG.indicator.display.reach;
         double e = Mth.square(d);
         Vec3 vec3d = camera.getEyePosition(0);
@@ -270,8 +272,8 @@ public class EntityTracker {
         Vec3 vec3d2 = camera.getViewVector(0);
         Vec3 vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
         AABB box = camera.getBoundingBox().expandTowards(vec3d2.scale(d)).inflate(1.0, 1.0, 1.0);
-        assert Minecraft.getInstance().cameraEntity != null;
-        EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(Minecraft.getInstance().cameraEntity, vec3d, vec3d3, box, entity -> !entity.isSpectator() && entity.isPickable(), e);
+        assert client.cameraEntity != null;
+        EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(client.cameraEntity, vec3d, vec3d3, box, entity -> !entity.isSpectator() && entity.isPickable(), e);
 
         if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity livingEntity1) {
             return livingEntity1 == livingEntity;
@@ -285,9 +287,9 @@ public class EntityTracker {
                 || !entity.showVehicleHealth()
                 || entity.touchingUnloadedChunk()
                 || !(entity instanceof LivingEntity)
-                || Minecraft.getInstance().player == null
-                || Minecraft.getInstance().player.getVehicle() == entity
-                || entity.isInvisibleTo(Minecraft.getInstance().player));
+                || client.player == null
+                || client.player.getVehicle() == entity
+                || entity.isInvisibleTo(client.player));
     }
 
     private static Entity getEntityFromUUID(UUID uuid, ClientLevel world) {
