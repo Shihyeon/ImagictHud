@@ -167,10 +167,10 @@ public class Indicator {
 
         float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
         float scale = INDICATOR_SCALE / 3.f * configScale;
-        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_B ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + nameHeightOffset + configOffset;
-        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? -11.2f : 0;
+        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_B ? -11.2f : 0;
 
         float dx = Mth.sign(client.player.getX() - livingEntity.getX());
         float dy = Mth.sign(client.player.getY() - livingEntity.getY());
@@ -204,10 +204,10 @@ public class Indicator {
 
         float configScale = config.indicator.layout.nameScale == 0 ? 1.f : config.indicator.layout.nameScale / 2.f;
         float scale = INDICATOR_SCALE / 3.f * configScale;
-        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
+        float nameHeightOffset = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_B ? HEIGHT_OFFSET : HEIGHT_OFFSET + NAME_HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + nameHeightOffset + configOffset;
-        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_A ? -11.2f : 0;
+        float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_B ? -11.2f : 0;
 
         matrixStack.pushPose();
         vertexConsumer = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
