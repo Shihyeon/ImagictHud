@@ -11,15 +11,16 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
 public class ResourceRenderer {
 
-    protected static final Set<ResourceLocation> blendedHeadTextures = new HashSet<>();
+    protected static Optional<ResourceLocation> blendedHeadTexture = Optional.empty();
 
     public static ResourceLocation getBlendedLocation(ResourceLocation textureLocation) {
-        return ResourceLocation.fromNamespaceAndPath(ImagictHud.MODID, textureLocation.getPath());
+        return blendedHeadTexture
+                .map(location -> ResourceLocation.fromNamespaceAndPath(ImagictHud.MODID, textureLocation.getPath()))
+                .orElse(textureLocation);
     }
 
     public static void renderLabelFrame(GuiGraphics context, int x, int y, int width, int height, int color) {
@@ -47,7 +48,7 @@ public class ResourceRenderer {
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;
 
-        if (blendedHeadTextures.contains(skinLocation)) {
+        if (blendedHeadTexture.isPresent() && blendedHeadTexture.get().equals(skinLocation)) {
             RenderSystem.enableBlend();
             context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
             RenderSystem.disableBlend();
@@ -73,7 +74,7 @@ public class ResourceRenderer {
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;
 
-        if (blendedHeadTextures.contains(skinLocation)) {
+        if (blendedHeadTexture.isPresent() && blendedHeadTexture.get().equals(skinLocation)) {
             RenderSystem.enableBlend();
             context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
             RenderSystem.disableBlend();
