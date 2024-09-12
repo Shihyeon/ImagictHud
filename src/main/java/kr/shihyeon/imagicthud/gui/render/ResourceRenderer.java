@@ -48,10 +48,14 @@ public class ResourceRenderer {
         int textureSize = regionSize * 8;
 
         if (blendedHeadTextures.contains(skinLocation)) {
+            RenderSystem.enableBlend();
             context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            RenderSystem.disableBlend();
         } else {
+            RenderSystem.enableBlend();
             context.blit(skinLocation, x, y, initPosX, initPosY, u, v, regionSize, regionSize, textureSize, textureSize);
             context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            RenderSystem.disableBlend();
         }
     }
 
@@ -70,10 +74,14 @@ public class ResourceRenderer {
         int textureSize = regionSize * 8;
 
         if (blendedHeadTextures.contains(skinLocation)) {
+            RenderSystem.enableBlend();
             context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            RenderSystem.disableBlend();
         } else {
+            RenderSystem.enableBlend();
             context.blit(skinLocation, x + offset/2, y + offset/2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
             context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            RenderSystem.disableBlend();
         }
     }
 
