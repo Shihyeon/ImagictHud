@@ -19,7 +19,7 @@ public class ResourceRenderer {
 
     public static ResourceLocation getBlendedLocation(ResourceLocation textureLocation) {
         return blendedHeadTexture
-                .map(location -> ResourceLocation.fromNamespaceAndPath(ImagictHud.MODID, textureLocation.getPath()))
+                .map(location -> new ResourceLocation(ImagictHud.MODID, textureLocation.getPath()))
                 .orElse(textureLocation);
     }
 

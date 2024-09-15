@@ -1,19 +1,19 @@
 object Constants {
-    const val JAVA_VERSION: Int = 21
+    const val JAVA_VERSION: Int = 17
 
     // https://fabricmc.net/develop/
-    const val MINECRAFT_VERSION: String = "1.21"
-    const val YARN_MAPPINGS: String = "1.21+build.9"
+    const val MINECRAFT_VERSION: String = "1.20.4"
+    const val YARN_MAPPINGS: String = "1.20.4+build.1"
     const val FABRIC_LOADER_VERSION: String = "0.15.11"
-    const val FABRIC_API_VERSION: String = "0.100.8+1.21"
+    const val FABRIC_API_VERSION: String = "0.97.2+1.20.4"
 
-    const val SODIUM_VERSION: String = "mc1.21-0.6.0-beta.1"
-    const val YACL_VERSION: String = "3.5.0+1.21"
+    const val SODIUM_VERSION: String = "mc1.20.4-0.5.8"
+    const val YACL_VERSION: String = "3.5.0+1.20.4"
     const val MODMENU_VERSION: String = "11.0.1"
 
     // https://semver.org/
-    const val MOD_VERSION: String = "1.5.4"
-    const val MOD_TYPE: String = "release" // release/beta/alpha
+    const val MOD_VERSION: String = "1.6.0-beta"
+    const val MOD_TYPE: String = "beta" // release/beta/alpha
 }
 
 plugins {

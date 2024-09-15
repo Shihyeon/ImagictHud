@@ -26,12 +26,11 @@ public class TextUtil {
 
         if (config.hud.display.enableLocalDateTimeLabel) {
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
             switch (config.hud.text.localDateTimeMode) {
                 case DATE_AND_TIME -> formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
                 case DATE -> formatter = DateTimeFormatter.ofPattern("MM/dd");
                 case TIME -> formatter = DateTimeFormatter.ofPattern("HH:mm");
-                case null -> formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
             }
             String currentLocalDateTime = currentDateTime.format(formatter);
             textLines.add(currentLocalDateTime);

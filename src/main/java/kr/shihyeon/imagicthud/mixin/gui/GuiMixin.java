@@ -3,7 +3,6 @@ package kr.shihyeon.imagicthud.mixin.gui;
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import kr.shihyeon.imagicthud.gui.screen.Hud;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,7 +24,7 @@ public abstract class GuiMixin {
     private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
 
     @Inject(at = @At("HEAD"), method = "render")
-    public void render(GuiGraphics context, DeltaTracker tickCounter, CallbackInfo ci) {
+    public void render(GuiGraphics context, float tickCounter, CallbackInfo ci) {
         Hud.renderHud(context, minecraft, CONFIG);
     }
 }

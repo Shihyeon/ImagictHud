@@ -50,10 +50,10 @@ public class RenderUtil {
         }
 
         VertexConsumer vertexConsumer = context.bufferSource().getBuffer(RenderType.gui());
-        vertexConsumer.addVertex(matrix, x1, y1, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x1, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y1, 0f).setColor(color);
+        vertexConsumer.vertex(matrix, x1, y1, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x1, y2, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x2, y2, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x2, y1, 0f).color(color).endVertex();
         context.flush();
     }
 
@@ -71,9 +71,9 @@ public class RenderUtil {
             y2 = i;
         }
 
-        vertexConsumer.addVertex(matrix, x1, y1, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x1, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y1, 0f).setColor(color);
+        vertexConsumer.vertex(matrix, x1, y1, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x1, y2, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x2, y2, 0f).color(color).endVertex();
+        vertexConsumer.vertex(matrix, x2, y1, 0f).color(color).endVertex();
     }
 }

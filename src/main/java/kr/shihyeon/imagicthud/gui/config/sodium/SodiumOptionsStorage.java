@@ -2,7 +2,7 @@ package kr.shihyeon.imagicthud.gui.config.sodium;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
+import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
 
 public class SodiumOptionsStorage implements OptionStorage<ImagictHudConfig> {
 

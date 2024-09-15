@@ -34,10 +34,6 @@ public class Indicator {
                         renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                     }
                     case BAR -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                    case null -> {
-                        renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                        renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                    }
                 }
 
             }
@@ -54,10 +50,6 @@ public class Indicator {
                 renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
             }
             case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-            case null -> {
-                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-            }
         }
     }
 
@@ -75,7 +67,7 @@ public class Indicator {
                                         PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
                                         int light, Minecraft client, ImagictHudConfig config) {
         Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder vertexConsumer;
+        BufferBuilder vertexConsumer = tessellator.getBuilder();
 
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.isAlwaysTicking() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
@@ -91,24 +83,15 @@ public class Indicator {
         float entityHeight = livingEntity.getBbHeight() + barHeightOffset + configOffset;
 
         matrixStack.pushPose();
-        vertexConsumer = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        vertexConsumer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         matrixStack.translate(0, entityHeight, 0);
         matrixStack.mulPose(client.getEntityRenderDispatcher().cameraOrientation());
-        matrixStack.scale(scale, -scale, scale);
+        matrixStack.scale(scale, scale, scale);
         Matrix4f matrix4f = matrixStack.last().pose();
 
         ResourceRenderer.drawEntityBar(matrix4f, vertexConsumer, percentageHealthRed, percentageHealthYellow);
 
-        MeshData builtBuffer;
-        try {
-            builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
-                BufferUploader.drawWithShader(builtBuffer);
-                builtBuffer.close();
-            }
-        } catch (Exception e){
-            // Handle exception if needed
-        }
+        tessellator.end();
 
         RenderSystem.disableBlend();
         matrixStack.popPose();
@@ -141,7 +124,7 @@ public class Indicator {
         matrixStack.translate(xOffset, yOffset, zOffset); // bar-text offset
         matrixStack.translate(0, entityHeight, 0);
         matrixStack.mulPose(client.getEntityRenderDispatcher().cameraOrientation());
-        matrixStack.scale(scale, -scale, scale);
+        matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
 
@@ -184,7 +167,7 @@ public class Indicator {
         matrixStack.translate(xOffset, yOffset, zOffset); // name-text offset
         matrixStack.translate(0, entityHeight, 0);
         matrixStack.mulPose(client.getEntityRenderDispatcher().cameraOrientation());
-        matrixStack.scale(scale, -scale, scale);
+        matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
 
@@ -196,9 +179,8 @@ public class Indicator {
     private static void renderNameBackground(LivingEntity livingEntity, float yaw, float tickDelta,
                                    PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
                                    int light, Minecraft client, ImagictHudConfig config) {
-
         Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder vertexConsumer;
+        BufferBuilder vertexConsumer = tessellator.getBuilder();
 
         String name = livingEntity.getName().getString();
 
@@ -210,25 +192,16 @@ public class Indicator {
         float y = config.indicator.display.indicatorMode == IndicatorMode.BAR_AND_NAME_B ? -11.2f : 0;
 
         matrixStack.pushPose();
-        vertexConsumer = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        vertexConsumer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         matrixStack.translate(0, entityHeight, 0);
         matrixStack.mulPose(client.getEntityRenderDispatcher().cameraOrientation());
-        matrixStack.scale(scale, -scale, scale);
+        matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
 
         ResourceRenderer.drawEntityNameBackground(matrix4f, vertexConsumer, name, y, client);
 
-        MeshData builtBuffer;
-        try {
-            builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
-                BufferUploader.drawWithShader(builtBuffer);
-                builtBuffer.close();
-            }
-        } catch (Exception e){
-            // Handle exception if needed
-        }
+        tessellator.end();
 
         RenderSystem.disableBlend();
         matrixStack.popPose();

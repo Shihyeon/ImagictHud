@@ -1,8 +1,8 @@
 package kr.shihyeon.imagicthud.mixin.gui.sodium;
 
 import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionPages;
-import net.caffeinemc.mods.sodium.client.gui.SodiumOptionsGUI;
-import net.caffeinemc.mods.sodium.client.gui.options.OptionPage;
+import me.jellysquid.mods.sodium.client.gui.SodiumOptionsGUI;
+import me.jellysquid.mods.sodium.client.gui.options.OptionPage;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
