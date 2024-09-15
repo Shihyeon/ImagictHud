@@ -87,7 +87,9 @@ public class Indicator {
         matrixStack.translate(0, entityHeight, 0);
         matrixStack.mulPose(client.getEntityRenderDispatcher().cameraOrientation());
         matrixStack.scale(scale, scale, scale);
+
         Matrix4f matrix4f = matrixStack.last().pose();
+        matrix4f.scale(-1);
 
         ResourceRenderer.drawEntityBar(matrix4f, vertexConsumer, percentageHealthRed, percentageHealthYellow);
 
@@ -127,6 +129,7 @@ public class Indicator {
         matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
+        matrix4f.scale(-1);
 
         String formattedHealthRed = FormatUtil.formatHealthFloat(currentHealthRed);
         String formattedHealthYellow = FormatUtil.formatHealthFloat(currentHealthYellow);
@@ -170,6 +173,7 @@ public class Indicator {
         matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
+        matrix4f.scale(-1);
 
         TextRenderer.drawEntityName(client, matrix4f, vertexConsumerProvider, name, y, false);
 
@@ -198,6 +202,7 @@ public class Indicator {
         matrixStack.scale(scale, scale, scale);
 
         Matrix4f matrix4f = matrixStack.last().pose();
+        matrix4f.scale(-1);
 
         ResourceRenderer.drawEntityNameBackground(matrix4f, vertexConsumer, name, y, client);
 
