@@ -86,7 +86,7 @@ public class Indicator {
         float percentageHealthYellow = currentHealthYellow / totalMaxHealth;
 
         float scale = INDICATOR_SCALE;
-        float barHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float barHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + barHeightOffset + configOffset;
 
@@ -123,7 +123,7 @@ public class Indicator {
         float maxHealthRed = livingEntity.getMaxHealth();
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
-        float numberHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float numberHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + PLAYER_HEIGHT_OFFSET : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + numberHeightOffset + configOffset;
 
