@@ -9,7 +9,7 @@ object Constants {
 
     const val SODIUM_VERSION: String = "mc1.20.4-0.5.8"
     const val YACL_VERSION: String = "3.5.0+1.20.4"
-    const val MODMENU_VERSION: String = "11.0.1"
+    const val MODMENU_VERSION: String = "9.2.0-beta.2"
 
     // https://semver.org/
     const val MOD_VERSION: String = "1.6.0-beta"
