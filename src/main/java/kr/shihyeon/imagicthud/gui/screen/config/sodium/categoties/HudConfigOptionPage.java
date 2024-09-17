@@ -1,9 +1,9 @@
-package kr.shihyeon.imagicthud.gui.config.sodium.categoties;
+package kr.shihyeon.imagicthud.gui.screen.config.sodium.categoties;
 
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.HeadRenderMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.LocalDateTimeMode;
 import kr.shihyeon.imagicthud.config.categories.hud.groups.enums.TextAlignMode;
-import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionsStorage;
+import kr.shihyeon.imagicthud.gui.screen.config.sodium.SodiumOptionsStorage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpl;

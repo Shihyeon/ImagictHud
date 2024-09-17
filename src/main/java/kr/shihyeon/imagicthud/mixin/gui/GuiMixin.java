@@ -2,7 +2,7 @@ package kr.shihyeon.imagicthud.mixin.gui;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.gui.screen.Hud;
+import kr.shihyeon.imagicthud.gui.Hud;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

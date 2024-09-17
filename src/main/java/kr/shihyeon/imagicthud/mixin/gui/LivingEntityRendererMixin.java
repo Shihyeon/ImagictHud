@@ -3,7 +3,7 @@ package kr.shihyeon.imagicthud.mixin.gui;
 import com.mojang.blaze3d.vertex.PoseStack;
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.gui.screen.Indicator;
+import kr.shihyeon.imagicthud.gui.Indicator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;

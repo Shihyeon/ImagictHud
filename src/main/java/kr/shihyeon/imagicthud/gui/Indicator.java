@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.screen;
+package kr.shihyeon.imagicthud.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;

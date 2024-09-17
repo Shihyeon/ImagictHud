@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.config.yacl3.categories;
+package kr.shihyeon.imagicthud.gui.screen.config.yacl3.categories;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;

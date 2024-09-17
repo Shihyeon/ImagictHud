@@ -1,8 +1,8 @@
-package kr.shihyeon.imagicthud.gui.config.sodium;
+package kr.shihyeon.imagicthud.gui.screen.config.sodium;
 
 import com.google.common.collect.ImmutableList;
-import kr.shihyeon.imagicthud.gui.config.sodium.categoties.HudConfigOptionPage;
-import kr.shihyeon.imagicthud.gui.config.sodium.categoties.IndicatorConfigOptionPage;
+import kr.shihyeon.imagicthud.gui.screen.config.sodium.categoties.HudConfigOptionPage;
+import kr.shihyeon.imagicthud.gui.screen.config.sodium.categoties.IndicatorConfigOptionPage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionPage;

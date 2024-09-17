@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.config.sodium;
+package kr.shihyeon.imagicthud.gui.screen.config.sodium;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;

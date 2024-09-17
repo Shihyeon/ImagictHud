@@ -1,4 +1,4 @@
-package kr.shihyeon.imagicthud.gui.screen;
+package kr.shihyeon.imagicthud.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;

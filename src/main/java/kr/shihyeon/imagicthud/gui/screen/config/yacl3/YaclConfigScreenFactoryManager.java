@@ -1,12 +1,12 @@
-package kr.shihyeon.imagicthud.gui.config.yacl3;
+package kr.shihyeon.imagicthud.gui.screen.config.yacl3;
 
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import kr.shihyeon.imagicthud.ImagictHud;
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.gui.config.yacl3.categories.HudConfigScreenFactory;
-import kr.shihyeon.imagicthud.gui.config.yacl3.categories.IndicatorConfigScreenFactory;
+import kr.shihyeon.imagicthud.gui.screen.config.yacl3.categories.HudConfigScreenFactory;
+import kr.shihyeon.imagicthud.gui.screen.config.yacl3.categories.IndicatorConfigScreenFactory;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 

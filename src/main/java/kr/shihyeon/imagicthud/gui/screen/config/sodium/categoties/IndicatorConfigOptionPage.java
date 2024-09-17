@@ -1,8 +1,8 @@
-package kr.shihyeon.imagicthud.gui.config.sodium.categoties;
+package kr.shihyeon.imagicthud.gui.screen.config.sodium.categoties;
 
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorBarMode;
 import kr.shihyeon.imagicthud.config.categories.indicator.groups.enums.IndicatorMode;
-import kr.shihyeon.imagicthud.gui.config.sodium.SodiumOptionsStorage;
+import kr.shihyeon.imagicthud.gui.screen.config.sodium.SodiumOptionsStorage;
 import kr.shihyeon.imagicthud.util.ConfigTranslationHelper;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpl;
