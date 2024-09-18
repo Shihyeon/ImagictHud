@@ -3,6 +3,7 @@ package kr.shihyeon.imagicthud.gui.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import kr.shihyeon.imagicthud.ImagictHud;
+import kr.shihyeon.imagicthud.util.ColorHelper;
 import kr.shihyeon.imagicthud.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -125,12 +126,16 @@ public class ResourceRenderer {
         float healthYellow = width * percentageHealthYellow;
 
         // Health
-        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0, 0xffaa0000);
-        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, 0, -initPosX +healthRed, 1.f, 0xff880000);
+        int healthColor = 0xffaa0000;
+        int darkerHealthColor = ColorHelper.darkenColor(healthColor, 0.8f);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, -1.f, -initPosX +healthRed, 0, healthColor);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX, 0, -initPosX +healthRed, 1.f, darkerHealthColor);
 
         // Absorption
-        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, 0xffcfcf45);
-        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, 0xffbfbf40); //dede4a
+        int absorptionColor = 0xffcfcf45;
+        int darkerAbsorptionColor = ColorHelper.darkenColor(absorptionColor, 0.8f);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, -1.f, -initPosX +healthRed +healthYellow, 0, absorptionColor);
+        RenderUtil.fillMatrix(matrix, vertexConsumer, -initPosX +healthRed, 0, -initPosX +healthRed +healthYellow, 1.f, darkerAbsorptionColor);
     }
 
     public static void drawEntityNameBackground(Matrix4f matrix, VertexConsumer vertexConsumer, String name, float y, Minecraft client) {
