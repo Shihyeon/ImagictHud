@@ -4,9 +4,21 @@
 name: build-release
 
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+    inputs:
+      version-type:
+        required: true
+        type: choice
+        default: 'release'
+        options:
+          - release
+          - beta
+          - alpha
+        description: 'Publishing version type'
+      changelog-text:
+        required: false
+        type: string
+        description: 'Changelog: Input multiple lines, use `\\n`. (supports markdown)'
 
 jobs:
   build:
@@ -28,39 +40,115 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          cache-read-only: false
+          cache-read-only: true
 
-      - name: Extract version and Minecraft version from release title
-        id: extract_info
+      - name: Read properties from build.gradle.kts
         run: |
-          RELEASE_TITLE="${{ github.event.release.name }}"
-          MOD_VERSION=$(echo "${RELEASE_TITLE}" | grep -oP '[0-9]+\.[0-9][^ ]*' | sed -n 1p)
-          MC_VERSION=$(echo "${RELEASE_TITLE}" | grep -oP '[0-9]+\.[0-9][^ ]*' | sed -n 2p)
-          NAME="Imagict Hud ${MOD_VERSION}"
-          VERSION="mc${MC_VERSION}-${MOD_VERSION}"
-          echo "NAME=${NAME}" >> $GITHUB_ENV
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          MINECRAFT_VERSION=$(./gradlew -q printProperties | grep "MINECRAFT_VERSION" | cut -d'=' -f2)
+          MOD_VERSION=$(./gradlew -q printProperties | grep "MOD_VERSION" | cut -d'=' -f2)
+          echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
+          echo "MOD_VERSION=$MOD_VERSION" >> $GITHUB_ENV
+        id: properties
 
       - name: Run build with Gradle Wrapper
         run: ./gradlew build -Dbuild.release=true
 
       # https://github.com/Kir-Antipov/mc-publish
-      - name: Upload artifacts to Modrinth and GitHub
+      - name: Upload artifacts to Modrinth for NeoForge with changelog
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-          files: build/libs/!(*-@(dev|sources|all)).jar
-
-          name: ${{ env.NAME }}
-          version: ${{ env.VERSION }}
-
+          files: neoforge/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for NeoForge
+          version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-neoforge
           modrinth-id: uWeqs5CX
           modrinth-featured: false
-          version-type: release
-          loaders: fabric
+          version-type: ${{ inputs.version-type }}
+          changelog: ${{ inputs.changelog-text }}
+          loaders: neoforge
+          dependencies: |
+            sodium(optional){modrinth:AANobbMI}
+            yacl(optional){modrinth:1eAoo2KR}
+        if: ${{ inputs.changelog-text != '' }}
+
+      - name: Upload artifacts to Modrinth for Fabric & Quilt with changelog
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: fabric/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for Fabric
+          version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-fabric
+          modrinth-id: uWeqs5CX
+          modrinth-featured: false
+          version-type: ${{ inputs.version-type }}
+          changelog: ${{ inputs.changelog-text }}
+          loaders: fabric quilt
           dependencies: |
             sodium(optional){modrinth:AANobbMI}
             yacl(optional){modrinth:1eAoo2KR}
             modmenu(optional){modrinth:mOgUt4GM}
+        if: ${{ inputs.changelog-text != '' }}
+
+      - name: Upload artifacts to GitHub with changelog
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            fabric/build/libs/!(*-@(dev|sources|all)).jar
+            neoforge/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for Minecraft ${{ env.MINECRAFT_VERSION }}
+          version: ${{ env.MOD_VERSION }}+mc${{ env.MINECRAFT_VERSION }}
+          version-type: ${{ inputs.version-type }}
+          changelog: ${{ inputs.changelog-text }}
+          github-generate-changelog: true
+        if: ${{ inputs.changelog-text != '' }}
+
+      # with changelog-file
+      - name: Upload artifacts to Modrinth for NeoForge with changelog-file
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: neoforge/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for NeoForge
+          version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-neoforge
+          modrinth-id: uWeqs5CX
+          modrinth-featured: false
+          version-type: ${{ inputs.version-type }}
+          changelog-file: changelog.txt
+          loaders: neoforge
+          dependencies: |
+            sodium(optional){modrinth:AANobbMI}
+            yacl(optional){modrinth:1eAoo2KR}
+        if: ${{ inputs.changelog-text != '' }}
+
+      - name: Upload artifacts to Modrinth for Fabric & Quilt with changelog-file
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: fabric/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for Fabric
+          version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-fabric
+          modrinth-id: uWeqs5CX
+          modrinth-featured: false
+          version-type: ${{ inputs.version-type }}
+          changelog-file: changelog.txt
+          loaders: fabric quilt
+          dependencies: |
+            sodium(optional){modrinth:AANobbMI}
+            yacl(optional){modrinth:1eAoo2KR}
+            modmenu(optional){modrinth:mOgUt4GM}
+        if: ${{ inputs.changelog-text != '' }}
+
+      - name: Upload artifacts to GitHub with changelog-file
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            fabric/build/libs/!(*-@(dev|sources|all)).jar
+            neoforge/build/libs/!(*-@(dev|sources|all)).jar
+          name: Imagict Hud ${{ env.MOD_VERSION }} for Minecraft ${{ env.MINECRAFT_VERSION }}
+          version: ${{ env.MOD_VERSION }}+mc${{ env.MINECRAFT_VERSION }}
+          version-type: ${{ inputs.version-type }}
+          changelog-file: changelog.txt
+          github-generate-changelog: true
+        if: ${{ inputs.changelog-text != '' }}

@@ -21,7 +21,6 @@ val MODMENU_VERSION by extra { "11.0.2" }
 val MAVEN_GROUP by extra { "kr.shihyeon" }
 val ARCHIVE_NAME by extra { "imagicthud" }
 val MOD_VERSION by extra { "1.5.4" }
-val MOD_TYPE by extra { "release" } // release/beta/alpha
 
 allprojects {
     apply(plugin = "java")
@@ -40,32 +39,6 @@ subprojects {
     apply(plugin = "maven-publish")
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(JAVA_VERSION)
-
-    fun createVersionString(): String {
-        val builder = StringBuilder()
-
-        val isReleaseBuild = project.hasProperty("build.release")
-        val buildId = System.getenv("GITHUB_RUN_NUMBER")
-
-        if (isReleaseBuild) {
-            builder.append(MOD_VERSION)
-        } else {
-            builder.append(MOD_VERSION.substringBefore('-'))
-            builder.append("-snapshot")
-        }
-
-        builder.append("+mc").append(MINECRAFT_VERSION)
-
-        if (!isReleaseBuild) {
-            if (buildId != null) {
-                builder.append("-build.${buildId}")
-            } else {
-                builder.append("-local")
-            }
-        }
-
-        return builder.toString()
-    }
 
     tasks.processResources {
         val propertiesMap = mapOf(
@@ -92,5 +65,38 @@ subprojects {
 
     tasks.withType<GenerateModuleMetadata>().configureEach {
         enabled = false
+    }
+}
+
+fun createVersionString(): String {
+    val builder = StringBuilder()
+
+    val isReleaseBuild = project.hasProperty("build.release")
+    val buildId = System.getenv("GITHUB_RUN_NUMBER")
+
+    if (isReleaseBuild) {
+        builder.append(MOD_VERSION)
+    } else {
+        builder.append(MOD_VERSION.substringBefore('-'))
+        builder.append("-snapshot")
+    }
+
+    builder.append("+mc").append(MINECRAFT_VERSION)
+
+    if (!isReleaseBuild) {
+        if (buildId != null) {
+            builder.append("-build.${buildId}")
+        } else {
+            builder.append("-local")
+        }
+    }
+
+    return builder.toString()
+}
+
+tasks.register("printProperties") {
+    doLast {
+        println("MINECRAFT_VERSION=${MINECRAFT_VERSION}")
+        println("MOD_VERSION=${createVersionString()}")
     }
 }
