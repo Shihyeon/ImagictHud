@@ -47,7 +47,7 @@ val serviceJar: Jar by tasks.creating(Jar::class) {
 configurations {
     create("serviceConfig") {
         isCanBeConsumed = true
-        isCanBeResolved = true // false
+        isCanBeResolved = false
         outgoing {
             artifact(serviceJar)
         }
@@ -59,7 +59,7 @@ dependencies {
     jarJar(project(":neoforge", "serviceConfig"))
 
     compileOnly("maven.modrinth:sodium:${SODIUM_VERSION}-neoforge")
-    compileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-neoforge")
+    compileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-fabric")
 }
 
 tasks.jar {
