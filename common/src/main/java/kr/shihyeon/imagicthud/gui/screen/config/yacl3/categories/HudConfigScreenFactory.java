@@ -140,7 +140,7 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(HeadRenderMode.class)
-                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "head", "render_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> ConfigTranslationHelper.translatableEnum(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "head", "render_mode"), value)))
                 .build();
 
         group.option(headRenderModeOption);
@@ -256,7 +256,7 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(TextAlignMode.class)
-                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "align_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> ConfigTranslationHelper.translatableEnum(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "align_mode"), value)))
                 .build();
         Option<LocalDateTimeMode> localDateTimeModeOption = Option.<LocalDateTimeMode>createBuilder()
                 .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "text", "local_date_time_mode")))
@@ -268,7 +268,7 @@ public class HudConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(LocalDateTimeMode.class)
-                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "local_date_time_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> ConfigTranslationHelper.translatableEnum(ConfigTranslationHelper.setEnumOptionFormatKey("hud", "text", "local_date_time_mode"), value)))
                 .build();
 
         group.option(textColorOption);

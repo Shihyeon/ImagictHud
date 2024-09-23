@@ -1,6 +1,7 @@
 package kr.shihyeon.imagicthud.util;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
+import net.minecraft.network.chat.Component;
 
 public class ConfigTranslationHelper {
 
@@ -41,5 +42,10 @@ public class ConfigTranslationHelper {
 
     public static String setOptionFormatKey(String typeAndUnit) {
         return ImagictHudClient.MODID + ".config.format_key." + typeAndUnit;
+    }
+
+    public static Component translatableEnum(String baseKey, Enum<?> value) {
+        String translationKey = baseKey + value.name().toLowerCase();
+        return Component.translatable(translationKey);
     }
 }

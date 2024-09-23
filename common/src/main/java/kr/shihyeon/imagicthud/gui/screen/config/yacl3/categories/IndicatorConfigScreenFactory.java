@@ -101,7 +101,7 @@ public class IndicatorConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(IndicatorMode.class)
-                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> ConfigTranslationHelper.translatableEnum(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_mode"), value)))
                 .build();
         Option<IndicatorBarMode> indicatorBarModeOption = Option.<IndicatorBarMode>createBuilder()
                 .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "indicator_bar_mode")))
@@ -113,7 +113,7 @@ public class IndicatorConfigScreenFactory {
                 )
                 .controller(option -> EnumControllerBuilder.create(option)
                         .enumClass(IndicatorBarMode.class)
-                        .formatValue(value -> Component.translatable(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode") + value.name().toLowerCase(), value)))
+                        .formatValue(value -> ConfigTranslationHelper.translatableEnum(ConfigTranslationHelper.setEnumOptionFormatKey("indicator", "display", "indicator_bar_mode"), value)))
                 .build();
         Option<Integer> durationOption = Option.<Integer>createBuilder()
                 .name(Component.translatable(ConfigTranslationHelper.setOption("indicator", "display", "duration")))

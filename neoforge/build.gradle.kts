@@ -59,7 +59,7 @@ dependencies {
     jarJar(project(":neoforge", "serviceConfig"))
 
     compileOnly("maven.modrinth:sodium:${SODIUM_VERSION}-neoforge")
-    compileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-fabric")
+    compileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-neoforge")
 }
 
 tasks.jar {
