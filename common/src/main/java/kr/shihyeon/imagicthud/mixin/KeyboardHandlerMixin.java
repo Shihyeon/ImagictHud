@@ -7,6 +7,7 @@ import kr.shihyeon.imagicthud.platform.IPlatformHelpers;
 import kr.shihyeon.imagicthud.util.ModLogger;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -43,7 +44,10 @@ public abstract class KeyboardHandlerMixin {
             if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
                 minecraft.setScreen(YaclConfigScreenFactoryManager.createScreen(minecraft.screen));
             } else {
-                ModLogger.error("yacl3 is not installed.");
+                ModLogger.error("YACL3 is not installed. You need to YetAnotherConfigLib!");
+                if (minecraft.player != null) {
+                    minecraft.player.sendSystemMessage(Component.literal("You need to YetAnotherConfigLib!"));
+                }
             }
             ci.cancel();
         }
