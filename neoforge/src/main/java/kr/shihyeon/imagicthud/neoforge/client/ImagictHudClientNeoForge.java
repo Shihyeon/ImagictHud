@@ -2,6 +2,7 @@ package kr.shihyeon.imagicthud.neoforge.client;
 
 import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.gui.screen.config.yacl3.YaclConfigScreenFactoryManager;
+import kr.shihyeon.imagicthud.platform.IPlatformHelpers;
 import kr.shihyeon.imagicthud.util.EntityTracker;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -27,12 +28,18 @@ public class ImagictHudClientNeoForge {
 		ImagictHudClient.init();
 		bus.addListener(this::registerKeys);
 		registerEvents();
-		container.registerExtensionPoint(IConfigScreenFactory.class, (client, parent) -> YaclConfigScreenFactoryManager.createScreen(parent));
+		enableNeoConfigBotton(container);
 	}
 
 	public void registerKeys(RegisterKeyMappingsEvent event) {
 		KEYLIST.forEach(event::register);
 		KEYLIST.clear();
+	}
+
+	private void enableNeoConfigBotton(ModContainer container) {
+		if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+			container.registerExtensionPoint(IConfigScreenFactory.class, (client, parent) -> YaclConfigScreenFactoryManager.createScreen(parent));
+		}
 	}
 
 	private void registerEvents() {
