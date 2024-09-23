@@ -84,7 +84,7 @@ loom {
         accessWidenerPath.set(project(":common").file("src/main/resources/imagicthud.accesswidener"))
 
     @Suppress("UnstableApiUsage")
-    mixin { defaultRefmapName.set("imagicthud.refmap.json") }
+    mixin { defaultRefmapName.set("imagicthud.fabric.refmap.json") }
 
     runs {
         named("client") {
