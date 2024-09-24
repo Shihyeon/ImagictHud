@@ -12,23 +12,23 @@ import java.nio.file.Path;
 public class NeoForgeHelpers implements IPlatformHelpers {
 
     @Override
-	public boolean isModLoaded(String modId) {
-		return LoadingModList.get().getModFileById(modId) != null;
-	}
+    public boolean isModLoaded(String modId) {
+        return LoadingModList.get().getModFileById(modId) != null;
+    }
 
-	@Override
-	public String getVersion() {
-		return LoadingModList.get().getModFileById(ImagictHudClient.MODID).versionString();
-	}
+    @Override
+    public String getVersion() {
+        return LoadingModList.get().getModFileById(ImagictHudClient.MODID).versionString();
+    }
 
-	@Override
-	public Path getConfigDir() {
-		return FMLPaths.CONFIGDIR.get();
-	}
+    @Override
+    public Path getConfigDir() {
+        return FMLPaths.CONFIGDIR.get();
+    }
 
-	@Override
-	public KeyMapping registerKeyBinding(KeyMapping keyMapping) {
-		ImagictHudClientNeoForge.KEYLIST.add(keyMapping);
-		return keyMapping;
-	}
+    @Override
+    public KeyMapping registerKeyBinding(KeyMapping keyMapping) {
+        ImagictHudClientNeoForge.KEYLIST.add(keyMapping);
+        return keyMapping;
+    }
 }

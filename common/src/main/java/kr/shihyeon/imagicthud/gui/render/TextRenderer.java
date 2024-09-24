@@ -35,8 +35,8 @@ public class TextRenderer {
         if (client != null && client.font != null) {
             Component text = Component.literal(name);
             float width = client.font.width(text);
-            float x = - width / 2.f;
-            RenderUtil.drawTextMatrix(matrix, vertexConsumer, text, x, y -3.6f, 0xffffffff, shadow);
+            float x = -width / 2.f;
+            RenderUtil.drawTextMatrix(matrix, vertexConsumer, text, x, y - 3.6f, 0xffffffff, shadow);
         }
     }
 }

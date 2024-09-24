@@ -25,36 +25,36 @@ public class ImagictHudClientNeoForge {
     public static List<KeyMapping> KEYLIST = new ArrayList<>();
 
     public ImagictHudClientNeoForge(IEventBus bus, ModContainer container) {
-		ImagictHudClient.init();
-		bus.addListener(this::registerKeys);
-		registerEvents();
-		enableNeoConfigBotton(container);
-	}
-
-	public void registerKeys(RegisterKeyMappingsEvent event) {
-		KEYLIST.forEach(event::register);
-		KEYLIST.clear();
-	}
-
-	private void enableNeoConfigBotton(ModContainer container) {
-		if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
-			container.registerExtensionPoint(IConfigScreenFactory.class, (client, parent) -> YaclConfigScreenFactoryManager.createScreen(parent));
-		}
-	}
-
-	private void registerEvents() {
-		NeoForge.EVENT_BUS.addListener(this::onClientTick);
-		NeoForge.EVENT_BUS.addListener(this::onEntityUnload);
+        ImagictHudClient.init();
+        bus.addListener(this::registerKeys);
+        registerEvents();
+        enableNeoConfigBotton(container);
     }
 
-	@SubscribeEvent
+    public void registerKeys(RegisterKeyMappingsEvent event) {
+        KEYLIST.forEach(event::register);
+        KEYLIST.clear();
+    }
+
+    private void enableNeoConfigBotton(ModContainer container) {
+        if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+            container.registerExtensionPoint(IConfigScreenFactory.class, (client, parent) -> YaclConfigScreenFactoryManager.createScreen(parent));
+        }
+    }
+
+    private void registerEvents() {
+        NeoForge.EVENT_BUS.addListener(this::onClientTick);
+        NeoForge.EVENT_BUS.addListener(this::onEntityUnload);
+    }
+
+    @SubscribeEvent
     private void onClientTick(ClientTickEvent.Post event) {
-		Minecraft client = Minecraft.getInstance();
+        Minecraft client = Minecraft.getInstance();
         EntityTracker.tick(client);
     }
 
-	@SubscribeEvent
-	private void onEntityUnload(EntityJoinLevelEvent event) {
+    @SubscribeEvent
+    private void onEntityUnload(EntityJoinLevelEvent event) {
         if (event.getEntity() != null && event.getLevel().isClientSide) {
             EntityTracker.removeFromUUIDS(event.getEntity());
         }

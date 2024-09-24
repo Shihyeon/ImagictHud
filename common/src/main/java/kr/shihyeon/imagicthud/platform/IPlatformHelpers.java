@@ -9,15 +9,15 @@ public interface IPlatformHelpers {
 
     IPlatformHelpers INSTANCE = ServiceLoader.load(IPlatformHelpers.class).findFirst().get();
 
-	static IPlatformHelpers getInstance() {
-		return INSTANCE;
-	}
+    static IPlatformHelpers getInstance() {
+        return INSTANCE;
+    }
 
-	boolean isModLoaded(String modId);
+    boolean isModLoaded(String modId);
 
-	String getVersion();
+    String getVersion();
 
-	Path getConfigDir();
+    Path getConfigDir();
 
-	KeyMapping registerKeyBinding(KeyMapping keyMapping);
+    KeyMapping registerKeyBinding(KeyMapping keyMapping);
 }

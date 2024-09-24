@@ -74,11 +74,11 @@ public class EntityTracker {
         }
     }
 
-    public static void tick(Minecraft client){
+    public static void tick(Minecraft client) {
         if (client.player == null || client.level == null) return;
 
         if (CONFIG.indicator.general.enableIndicator) {
-            for (Entity entity: client.level.entitiesForRendering()) {
+            for (Entity entity : client.level.entitiesForRendering()) {
                 if (entity instanceof LivingEntity livingEntity) {
                     drawBar(client.player, livingEntity);
                 }
@@ -209,17 +209,18 @@ public class EntityTracker {
         }
 
         // Remove invalid entities
-        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world))|| !CONFIG.indicator.general.enableIndicator);
+        UUIDS.entrySet().removeIf(entry -> isInvalid(getEntityFromUUID(entry.getKey(), world)) || !CONFIG.indicator.general.enableIndicator);
 
         if (UUIDS.size() >= 1536) {
             UUIDS.clear();
         }
     }
 
-    public static void removeFromUUIDS(Entity entity){
+    public static void removeFromUUIDS(Entity entity) {
         UUIDS.remove(entity.getUUID());
     }
-    public static void removeFromUUIDS(UUID uuid){
+
+    public static void removeFromUUIDS(UUID uuid) {
         UUIDS.remove(uuid);
     }
 
@@ -234,11 +235,11 @@ public class EntityTracker {
         }
     }
 
-    public static boolean isInUUIDS(LivingEntity livingEntity){
+    public static boolean isInUUIDS(LivingEntity livingEntity) {
         return UUIDS.containsKey(livingEntity.getUUID());
     }
 
-    private static boolean isEntityTypeAllowed(LivingEntity livingEntity, Player self){
+    private static boolean isEntityTypeAllowed(LivingEntity livingEntity, Player self) {
         if (!CONFIG.indicator.entities.passiveEntities && livingEntity instanceof AgeableMob) {
             return false;
         }
@@ -281,7 +282,7 @@ public class EntityTracker {
         return false;
     }
 
-    public static boolean isInvalid(Entity entity){
+    public static boolean isInvalid(Entity entity) {
         return (entity == null
                 || !entity.isAlive()
                 || !entity.showVehicleHealth()

@@ -12,7 +12,7 @@ public final class ModLogger {
      * Prints a log message.
      *
      * @param message log format
-     * @param params other data
+     * @param params  other data
      */
     public static void log(final String message, final Object... params) {
         LOGGER.info(message, params);
@@ -22,7 +22,7 @@ public final class ModLogger {
      * Prints a error message.
      *
      * @param message log format
-     * @param params other data
+     * @param params  other data
      */
     public static void error(final String message, final Object... params) {
         LOGGER.error(message, params);
@@ -32,7 +32,7 @@ public final class ModLogger {
      * Prints a debug message.
      *
      * @param message log format
-     * @param params other data
+     * @param params  other data
      */
     public static void debug(final String message, final Object... params) {
         if (ImagictHudClient.DEBUG) {
