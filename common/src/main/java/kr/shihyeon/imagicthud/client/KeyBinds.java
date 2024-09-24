@@ -18,7 +18,7 @@ public class KeyBinds {
                 "key.categories.imagicthud"
         ));
         configKeyBinding = IPlatformHelpers.getInstance().registerKeyBinding(new KeyMapping(
-                "key.imagicthud.show_config",
+                "key.imagicthud.open_config",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_UNKNOWN,
                 "key.categories.imagicthud"

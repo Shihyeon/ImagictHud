@@ -1,7 +1,7 @@
 {
   "key.categories.imagicthud": "Imagict Hud",
   "key.imagicthud.toggle_hud": "Show / Hide Hud",
-  "key.imagicthud.show_config": "Show Config Screen (YACL required)",
+  "key.imagicthud.open_config": "Open Config Screen (YACL required)",
 
   "modmenu.descriptionTranslation.imagicthud": "Displays the player's head, nickname, coordinates, indicators, etc. on the in-game HUD.",
 

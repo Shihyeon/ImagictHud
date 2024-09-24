@@ -1,7 +1,7 @@
 {
   "key.categories.imagicthud": "Imagict Hud",
   "key.imagicthud.toggle_hud": "Hud 보이기 / 숨기기",
-  "key.imagicthud.show_config": "구성 화면 보이기 (YACL 필요)",
+  "key.imagicthud.open_config": "구성 화면 열기 (YACL 필요)",
 
   "modmenu.descriptionTranslation.imagicthud": "인게임 HUD에 플레이어 머리와 닉네임, 좌표, 인디케이터 등을 표시합니다.",
 

@@ -26,7 +26,7 @@ public abstract class KeyboardHandlerMixin {
     private void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (action != 1 && minecraft.screen == null) {
             toggleHud(keyCode, scanCode, ci);
-            showConfigScreen(keyCode, scanCode, ci);
+            openConfigScreen(keyCode, scanCode, ci);
         }
     }
 
@@ -39,7 +39,7 @@ public abstract class KeyboardHandlerMixin {
     }
 
     @Unique
-    private void showConfigScreen(int keyCode, int scanCode, CallbackInfo ci) {
+    private void openConfigScreen(int keyCode, int scanCode, CallbackInfo ci) {
         if (KeyBinds.getConfigKeyBinding().matches(keyCode, scanCode)) {
             if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
                 minecraft.setScreen(YaclConfigScreenFactoryManager.createScreen(minecraft.screen));
