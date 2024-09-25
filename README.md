@@ -11,14 +11,11 @@ The developer is Korean and not proficient in English. We would appreciate it if
 - [Imagict Hud (Modrinth)](https://modrinth.com/mod/imagict-hud)
 
     > **Dependencies:**
-    > 
-    > - Required
-    >   - [Fabric-API](https://modrinth.com/mod/fabric-api)
-    > 
+    >
     > - Optional
     >   - [Sodium](https://modrinth.com/mod/sodium) 
     >   - [YetAnotherConfigLib](https://modrinth.com/mod/yacl),
-    >   - [ModMenu](https://modrinth.com/mod/modmenu)
+    >   - [ModMenu (Fabric)](https://modrinth.com/mod/modmenu)
 
 ## Reporting Issues
 
@@ -64,6 +61,9 @@ Please contribute to the translation in one of two ways:
 > 
 > - [Sodium](https://modrinth.com/mod/sodium)
 >   - [Source](https://github.com/CaffeineMC/sodium-fabric)
+> 
+> - [Iris](https://modrinth.com/mod/iris)
+>   - [Source](https://github.com/IrisShaders/Iris)
 
 ## Screenshot
 
