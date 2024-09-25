@@ -14,6 +14,8 @@
   "imagicthud.config.hud.general.description": "Hud generals.",
   "imagicthud.config.hud.general.enable_hud.title": "Show Hud",
   "imagicthud.config.hud.general.enable_hud.description": "Enable/disable the Hud.",
+  "imagicthud.config.hud.general.hide_hud_on_debug.title": "Hide Hud On Debug",
+  "imagicthud.config.hud.general.hide_hud_on_debug.description": "Hide hud on debug screen.",
 
   "imagicthud.config.hud.display.title": "Display",
   "imagicthud.config.hud.display.description": "Hud displays.",

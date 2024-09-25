@@ -30,8 +30,18 @@ public class HudConfigOptionPage {
                         option -> option.hud.general.enableHud
                 )
                 .build();
+        OptionImpl<?, Boolean> hideHudOnDebugOption = OptionImpl.createBuilder(boolean.class, storage)
+                .setName(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "hide_hud_on_debug")))
+                .setTooltip(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "hide_hud_on_debug", true)))
+                .setControl(TickBoxControl::new)
+                .setBinding(
+                        (option, value) -> option.hud.general.hideHudOnDebug = value,
+                        option -> option.hud.general.hideHudOnDebug
+                )
+                .build();
 
         group.add(enableHudOption);
+        group.add(hideHudOnDebugOption);
 
         return group.build();
     }

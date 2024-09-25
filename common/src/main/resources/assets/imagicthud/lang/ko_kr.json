@@ -14,6 +14,8 @@
   "imagicthud.config.hud.general.description": "Hud 기본 설정입니다.",
   "imagicthud.config.hud.general.enable_hud.title": "Hud 활성화",
   "imagicthud.config.hud.general.enable_hud.description": "Hud를 활성화/비활성화합니다.",
+  "imagicthud.config.hud.general.hide_hud_on_debug.title": "Debug 켤 때 Hud 숨기기",
+  "imagicthud.config.hud.general.hide_hud_on_debug.description": "Debug 창을 켰을 때 Hud를 숨깁니다.",
 
   "imagicthud.config.hud.display.title": "디스플레이",
   "imagicthud.config.hud.display.description": "Hud 디스플레이를 설정합니다.",

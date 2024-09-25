@@ -52,8 +52,19 @@ public class HudConfigScreenFactory {
                 )
                 .controller(TickBoxControllerBuilder::create)
                 .build();
+        Option<Boolean> hideHudOnDebugOption = Option.<Boolean>createBuilder()
+                .name(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "hide_hud_on_debug")))
+                .description(OptionDescription.of(Component.translatable(ConfigTranslationHelper.setOption("hud", "general", "hide_hud_on_debug", true))))
+                .binding(
+                        config.hud.general.hideHudOnDebug,
+                        () -> config.hud.general.hideHudOnDebug,
+                        newValue -> config.hud.general.hideHudOnDebug = newValue
+                )
+                .controller(TickBoxControllerBuilder::create)
+                .build();
 
         group.option(enableHudOption);
+        group.option(hideHudOnDebugOption);
 
         return group.build();
     }

@@ -19,7 +19,8 @@ public class Hud {
     private static PlayerInfo playerListEntry;
 
     public static void renderHud(GuiGraphics context, Minecraft client, ImagictHudConfig config) {
-        if (!client.options.hideGui && config.hud.general.enableHud && client.player != null) {
+        if (!client.options.hideGui && config.hud.general.enableHud && client.player != null
+                && (!client.getDebugOverlay().showDebugScreen() || !config.hud.general.hideHudOnDebug)) {
             float scale = config.hud.layout.hudScale == 0 ? 1.f : (float) config.hud.layout.hudScale / 4.f;
 
             int posX = Mth.floor(LayoutUtil.getPosX(client) / scale);
