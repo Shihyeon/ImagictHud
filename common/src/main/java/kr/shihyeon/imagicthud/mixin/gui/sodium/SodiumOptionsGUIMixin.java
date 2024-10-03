@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(SodiumOptionsGUI.class)
-public class SodiumOptionsGUIMixin {
+public abstract class SodiumOptionsGUIMixin {
 
     @Shadow(remap = false)
     @Final
     private List<OptionPage> pages;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void imagicthud$init(CallbackInfo ci) {
         this.pages.add(SodiumOptionPages.renderHudPage());
         this.pages.add(SodiumOptionPages.renderIndicatorPage());
     }
