@@ -97,6 +97,6 @@ fun createVersionString(): String {
 tasks.register("printProperties") {
     doLast {
         println("MINECRAFT_VERSION=${MINECRAFT_VERSION}")
-        println("MOD_VERSION=${createVersionString()}")
+        println("MOD_VERSION=${MOD_VERSION}")
     }
 }

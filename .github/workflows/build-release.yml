@@ -44,14 +44,14 @@ jobs:
 
       - name: Read properties from build.gradle.kts
         run: |
-          MINECRAFT_VERSION=$(./gradlew -q printProperties | grep "MINECRAFT_VERSION" | cut -d'=' -f2)
-          MOD_VERSION=$(./gradlew -q printProperties | grep "MOD_VERSION" | cut -d'=' -f2)
+          MINECRAFT_VERSION=$(./gradlew -q printProperties -Pbuild.release=true | grep "MINECRAFT_VERSION" | cut -d'=' -f2)
+          MOD_VERSION=$(./gradlew -q printProperties -Pbuild.release=true | grep "MOD_VERSION" | cut -d'=' -f2)
           echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
           echo "MOD_VERSION=$MOD_VERSION" >> $GITHUB_ENV
         id: properties
 
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build -Dbuild.release=true
+        run: ./gradlew build -Pbuild.release=true
 
       # https://github.com/Kir-Antipov/mc-publish
       - name: Upload artifacts to Modrinth for NeoForge with changelog
@@ -119,7 +119,7 @@ jobs:
           dependencies: |
             sodium(optional){modrinth:AANobbMI}
             yacl(optional){modrinth:1eAoo2KR}
-        if: ${{ inputs.changelog-text != '' }}
+        if: ${{ inputs.changelog-text == '' }}
 
       - name: Upload artifacts to Modrinth for Fabric & Quilt with changelog-file
         uses: Kir-Antipov/mc-publish@v3.3
@@ -137,7 +137,7 @@ jobs:
             sodium(optional){modrinth:AANobbMI}
             yacl(optional){modrinth:1eAoo2KR}
             modmenu(optional){modrinth:mOgUt4GM}
-        if: ${{ inputs.changelog-text != '' }}
+        if: ${{ inputs.changelog-text == '' }}
 
       - name: Upload artifacts to GitHub with changelog-file
         uses: Kir-Antipov/mc-publish@v3.3
@@ -151,4 +151,4 @@ jobs:
           version-type: ${{ inputs.version-type }}
           changelog-file: changelog.txt
           github-generate-changelog: true
-        if: ${{ inputs.changelog-text != '' }}
+        if: ${{ inputs.changelog-text == '' }}
