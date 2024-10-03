@@ -20,7 +20,7 @@ val MODMENU_VERSION by extra { "11.0.2" }
 // https://semver.org/
 val MAVEN_GROUP by extra { "kr.shihyeon" }
 val ARCHIVE_NAME by extra { "imagicthud" }
-val MOD_VERSION by extra { "1.5.4" }
+val MOD_VERSION by extra { "1.6.0" }
 
 allprojects {
     apply(plugin = "java")

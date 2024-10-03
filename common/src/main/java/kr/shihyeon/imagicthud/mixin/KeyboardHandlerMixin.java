@@ -23,15 +23,15 @@ public abstract class KeyboardHandlerMixin {
     private Minecraft minecraft;
 
     @Inject(at = @At("HEAD"), method = "keyPress", cancellable = true)
-    private void onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
+    private void imagicthud$onKey(long window, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (action != 1 && minecraft.screen == null) {
-            toggleHud(keyCode, scanCode, ci);
-            openConfigScreen(keyCode, scanCode, ci);
+            imagicthud$toggleHud(keyCode, scanCode, ci);
+            imagicthud$openConfigScreen(keyCode, scanCode, ci);
         }
     }
 
     @Unique
-    private void toggleHud(int keyCode, int scanCode, CallbackInfo ci) {
+    private void imagicthud$toggleHud(int keyCode, int scanCode, CallbackInfo ci) {
         if (KeyBinds.getHudKeyBinding().matches(keyCode, scanCode)) {
             ImagictHudClientManager.toggleHud();
             ci.cancel();
@@ -39,7 +39,7 @@ public abstract class KeyboardHandlerMixin {
     }
 
     @Unique
-    private void openConfigScreen(int keyCode, int scanCode, CallbackInfo ci) {
+    private void imagicthud$openConfigScreen(int keyCode, int scanCode, CallbackInfo ci) {
         if (KeyBinds.getConfigKeyBinding().matches(keyCode, scanCode)) {
             if (IPlatformHelpers.getInstance().isModLoaded("yet_another_config_lib_v3")) {
                 minecraft.setScreen(YaclConfigScreenFactoryManager.createScreen(minecraft.screen));

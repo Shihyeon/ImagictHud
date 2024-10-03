@@ -25,7 +25,7 @@ public abstract class GuiMixin {
     private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
 
     @Inject(at = @At("HEAD"), method = "render")
-    public void render(GuiGraphics context, DeltaTracker tickCounter, CallbackInfo ci) {
+    private void imagicthud$render(GuiGraphics context, DeltaTracker tickCounter, CallbackInfo ci) {
         Hud.renderHud(context, minecraft, CONFIG);
     }
 }
