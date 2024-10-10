@@ -33,7 +33,8 @@ public class Indicator {
                         renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                         renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                     }
-                    case BAR -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case BAR ->
+                            renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                     case null -> {
                         renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                         renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
@@ -53,7 +54,8 @@ public class Indicator {
                 renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                 renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
             }
-            case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            case BAR ->
+                    renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
             case null -> {
                 renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
                 renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
@@ -80,13 +82,14 @@ public class Indicator {
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.isAlwaysTicking() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
         float maxHealthRed = livingEntity.getMaxHealth();
-        float maxHealthYellow = currentHealthYellow;
+        float maxHealthYellow = livingEntity.getMaxAbsorption();
         float totalMaxHealth = maxHealthRed + maxHealthYellow;
         float percentageHealthRed = currentHealthRed / totalMaxHealth;
         float percentageHealthYellow = currentHealthYellow / totalMaxHealth;
 
         float scale = INDICATOR_SCALE;
-        float barHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + NAME_TAG_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float selfHeightOffset = client.player == livingEntity ? -NAME_TAG_HEIGHT_OFFSET : NAME_TAG_HEIGHT_OFFSET;
+        float barHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + selfHeightOffset : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + barHeightOffset + configOffset;
 
@@ -102,11 +105,11 @@ public class Indicator {
         MeshData builtBuffer;
         try {
             builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
+            if (builtBuffer != null) {
                 BufferUploader.drawWithShader(builtBuffer);
                 builtBuffer.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             // Handle exception if needed
         }
 
@@ -123,7 +126,8 @@ public class Indicator {
         float maxHealthRed = livingEntity.getMaxHealth();
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
-        float numberHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + NAME_TAG_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float selfHeightOffset = client.player == livingEntity ? -NAME_TAG_HEIGHT_OFFSET : NAME_TAG_HEIGHT_OFFSET;
+        float numberHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + selfHeightOffset : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + numberHeightOffset + configOffset;
 
@@ -194,8 +198,8 @@ public class Indicator {
     }
 
     private static void renderNameBackground(LivingEntity livingEntity, float yaw, float tickDelta,
-                                   PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                   int light, Minecraft client, ImagictHudConfig config) {
+                                             PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
+                                             int light, Minecraft client, ImagictHudConfig config) {
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder vertexConsumer;
@@ -222,11 +226,11 @@ public class Indicator {
         MeshData builtBuffer;
         try {
             builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
+            if (builtBuffer != null) {
                 BufferUploader.drawWithShader(builtBuffer);
                 builtBuffer.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             // Handle exception if needed
         }
 
