@@ -28,7 +28,7 @@
             "kr.shihyeon.imagicthud.fabric.gui.screen.modmenu.ModMenuIntegration"
         ]
     },
-    "accessWidener": "imagicthud.accesswidener",
+    "accessWidener": "imagicthud.fabric.accesswidener",
     "mixins": [
         "imagicthud.mixins.json",
         "imagicthud.fabric.mixins.json"

@@ -1,50 +1,49 @@
 plugins {
-    id("java")
-    id("idea")
+    id("multiloader-base")
+    id("java-library")
+
     id("fabric-loom") version ("1.8.+")
 }
 
-val MINECRAFT_VERSION: String by rootProject.extra
-val PARCHMENT_VERSION: String? by rootProject.extra
-val FABRIC_LOADER_VERSION: String by rootProject.extra
-val FABRIC_API_VERSION: String by rootProject.extra
+base {
+    archivesName = "imagicthud-common"
+}
 
-val SODIUM_VERSION: String by rootProject.extra
-val YACL_VERSION: String by rootProject.extra
+sourceSets {
+    val main = getByName("main")
+    val api = create("api")
 
-repositories {
-    maven("https://maven.parchmentmc.org/")
-    maven {
-        name = "Xander Maven"
-        url = uri("https://maven.isxander.dev/releases")
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = uri("https://api.modrinth.com/maven")
-            }
+    api.apply {
+        java {
+            compileClasspath += main.compileClasspath
         }
-        filter {
-            includeGroup("maven.modrinth")
+    }
+
+    main.apply {
+        java {
+            compileClasspath += api.output
         }
     }
 }
 
 dependencies {
-    minecraft(group = "com.mojang", name = "minecraft", version = MINECRAFT_VERSION)
-    mappings(loom.layered() {
+    minecraft(group = "com.mojang", name = "minecraft", version = BuildConfig.MINECRAFT_VERSION)
+    mappings(loom.layered {
         officialMojangMappings()
-        if (PARCHMENT_VERSION != null) {
-            parchment("org.parchmentmc.data:parchment-${MINECRAFT_VERSION}:${PARCHMENT_VERSION}@zip")
+
+        if (BuildConfig.PARCHMENT_VERSION != null) {
+            parchment("org.parchmentmc.data:parchment-${BuildConfig.MINECRAFT_VERSION}:${BuildConfig.PARCHMENT_VERSION}@zip")
         }
     })
+
     compileOnly("io.github.llamalad7:mixinextras-common:0.3.5")
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5")
+
     compileOnly("net.fabricmc:sponge-mixin:0.13.2+mixin.0.8.5")
+    compileOnly("net.fabricmc:fabric-loader:${BuildConfig.FABRIC_LOADER_VERSION}")
 
     fun addDependentFabricModule(name: String) {
-        val module = fabricApi.module(name, FABRIC_API_VERSION)
+        val module = fabricApi.module(name, BuildConfig.FABRIC_API_VERSION)
         modCompileOnly(module)
     }
 
@@ -54,30 +53,55 @@ dependencies {
     addDependentFabricModule("fabric-resource-loader-v0")
     addDependentFabricModule("fabric-screen-api-v1")
 
-    modCompileOnly("maven.modrinth:sodium:${SODIUM_VERSION}-fabric")
-    modCompileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-fabric")
+    modCompileOnly("maven.modrinth:sodium:${BuildConfig.SODIUM_VERSION}-fabric")
+    modCompileOnly("dev.isxander:yet-another-config-lib:${BuildConfig.YACL_VERSION}-fabric")
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/imagicthud.common.accesswidener")
+
     mixin {
-        defaultRefmapName = "imagicthud.refmap.json"
-    }
-    accessWidenerPath = file("src/main/resources/imagicthud.accesswidener")
-
-    mods {
-        val main by creating { // to match the default mod generated for Forge
-            sourceSet("main")
-        }
+        useLegacyMixinAp = false
     }
 }
 
-tasks {
-    jar {
-        from(rootDir.resolve("LICENSE"))
+fun exportSourceSetJava(name: String, sourceSet: SourceSet) {
+    val configuration = configurations.create("${name}Java") {
+        isCanBeResolved = true
+        isCanBeConsumed = true
+    }
+
+    val compileTask = tasks.getByName<JavaCompile>(sourceSet.compileJavaTaskName)
+    artifacts.add(configuration.name, compileTask.destinationDirectory) {
+        builtBy(compileTask)
     }
 }
 
-// This trick hides common tasks in the IDEA list.
-tasks.configureEach {
-    group = null
+fun exportSourceSetResources(name: String, sourceSet: SourceSet) {
+    val configuration = configurations.create("${name}Resources") {
+        isCanBeResolved = true
+        isCanBeConsumed = true
+    }
+
+    val compileTask = tasks.getByName<ProcessResources>(sourceSet.processResourcesTaskName)
+    compileTask.apply {
+        //exclude("**/README.txt")
+        exclude("/*.accesswidener")
+    }
+
+    artifacts.add(configuration.name, compileTask.destinationDir) {
+        builtBy(compileTask)
+    }
 }
+
+// Exports the compiled output of the source set to the named configuration.
+fun exportSourceSet(name: String, sourceSet: SourceSet) {
+    exportSourceSetJava(name, sourceSet)
+    exportSourceSetResources(name, sourceSet)
+}
+
+exportSourceSet("commonMain", sourceSets["main"])
+exportSourceSet("commonApi", sourceSets["api"])
+
+tasks.jar { enabled = false }
+tasks.remapJar { enabled = false }

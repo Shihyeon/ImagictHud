@@ -42,5 +42,5 @@ jobs:
         with:
           name: imagicthud-artifacts
           path: |
-            fabric/build/libs/*.jar
-            neoforge/build/libs/*.jar
+            build/mods/fabric/*.jar
+            build/mods/neoforge/*.jar
