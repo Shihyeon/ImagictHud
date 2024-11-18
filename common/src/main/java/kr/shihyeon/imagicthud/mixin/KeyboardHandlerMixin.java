@@ -46,7 +46,7 @@ public abstract class KeyboardHandlerMixin {
             } else {
                 ModLogger.error("YACL3 is not installed. You need to YetAnotherConfigLib!");
                 if (minecraft.player != null) {
-                    minecraft.player.sendSystemMessage(Component.literal("You need to YetAnotherConfigLib!"));
+                    minecraft.player.displayClientMessage(Component.literal("You need to YetAnotherConfigLib!"), false);
                 }
             }
             ci.cancel();

@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("idea")
-    id("fabric-loom") version ("1.7.+")
+    id("fabric-loom") version ("1.8.+")
 }
 
 val MINECRAFT_VERSION: String by rootProject.extra

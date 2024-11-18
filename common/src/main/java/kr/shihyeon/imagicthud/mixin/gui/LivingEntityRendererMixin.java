@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -19,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntityRenderer.class)
-public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
+public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>> extends EntityRenderer<T, S> implements RenderLayerParent<S, M> {
 
     @Unique
     private final Minecraft minecraft = Minecraft.getInstance();
@@ -27,12 +28,20 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
     @Unique
     private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
 
+    @Unique
+    private LivingEntity currentLivingEntity;
+
     protected LivingEntityRendererMixin(EntityRendererProvider.Context context) {
         super(context);
     }
 
-    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V")
-    private void imagicthud$render(T livingEntity, float yaw, float tickDelta, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, CallbackInfo ci) {
-        Indicator.renderIndicator(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, minecraft, CONFIG);
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V", at = @At("TAIL"))
+    public void updateRenderState(T livingEntity, S livingEntityRenderState, float f, CallbackInfo ci){
+        currentLivingEntity = livingEntity;
+    }
+
+    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V")
+    private void imagicthud$render(S livingEntityRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, CallbackInfo ci) {
+        Indicator.renderIndicator(currentLivingEntity, poseStack, multiBufferSource, minecraft, CONFIG);
     }
 }
