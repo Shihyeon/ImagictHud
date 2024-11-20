@@ -25,7 +25,7 @@ public class RenderUtil {
     public static void drawTextContext(GuiGraphics context, FormattedCharSequence text, float x, float y) {
         Font textRenderer = client.font;
         Matrix4f matrix = context.pose().last().pose();
-        MultiBufferSource vertexConsumers = context.bufferSource();
+        MultiBufferSource vertexConsumers = context.bufferSource;
         textRenderer.drawInBatch(text, x, y, -1, false, matrix, vertexConsumers, Font.DisplayMode.NORMAL, 0, 15728880);
     }
 
@@ -49,7 +49,7 @@ public class RenderUtil {
             y2 = i;
         }
 
-        VertexConsumer vertexConsumer = context.bufferSource().getBuffer(RenderType.gui());
+        VertexConsumer vertexConsumer = context.bufferSource.getBuffer(RenderType.gui());
         vertexConsumer.addVertex(matrix, x1, y1, 0f).setColor(color);
         vertexConsumer.addVertex(matrix, x1, y2, 0f).setColor(color);
         vertexConsumer.addVertex(matrix, x2, y2, 0f).setColor(color);

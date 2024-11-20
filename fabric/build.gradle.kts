@@ -1,60 +1,52 @@
 plugins {
-    id("java")
-    id("idea")
-    id("fabric-loom") version ("1.7.+")
+    id("multiloader-platform")
+
+    id("fabric-loom") version ("1.8.+")
 }
-
-val MINECRAFT_VERSION: String by rootProject.extra
-val PARCHMENT_VERSION: String? by rootProject.extra
-val FABRIC_LOADER_VERSION: String by rootProject.extra
-val FABRIC_API_VERSION: String by rootProject.extra
-val MOD_VERSION: String by rootProject.extra
-
-val SODIUM_VERSION: String by rootProject.extra
-val YACL_VERSION: String by rootProject.extra
-val MODMENU_VERSION: String by rootProject.extra
 
 base {
     archivesName.set("imagicthud-fabric")
 }
 
-sourceSets {
-    main.get().apply {
-        compileClasspath += project(":common").sourceSets.main.get().output
-    }
+val configurationCommonModJava: Configuration = configurations.create("commonJava") {
+    isCanBeResolved = true
+}
+val configurationCommonModResources: Configuration = configurations.create("commonResources") {
+    isCanBeResolved = true
 }
 
 repositories {
     maven("https://maven.terraformersmc.com/releases/")
-    maven {
-        name = "Xander Maven"
-        url = uri("https://maven.isxander.dev/releases")
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = uri("https://api.modrinth.com/maven")
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
+}
+
+dependencies {
+    configurationCommonModJava(project(path = ":common", configuration = "commonMainJava"))
+    configurationCommonModJava(project(path = ":common", configuration = "commonApiJava"))
+
+    configurationCommonModResources(project(path = ":common", configuration = "commonMainResources"))
+    configurationCommonModResources(project(path = ":common", configuration = "commonApiResources"))
+}
+
+sourceSets.apply {
+    main {
+        compileClasspath += configurationCommonModJava
+        runtimeClasspath += configurationCommonModJava
     }
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${MINECRAFT_VERSION}")
+    minecraft("com.mojang:minecraft:${BuildConfig.MINECRAFT_VERSION}")
     mappings(loom.layered {
         officialMojangMappings()
-        if (PARCHMENT_VERSION != null) {
-            parchment("org.parchmentmc.data:parchment-${MINECRAFT_VERSION}:${PARCHMENT_VERSION}@zip")
+
+        if (BuildConfig.PARCHMENT_VERSION != null) {
+            parchment("org.parchmentmc.data:parchment-${BuildConfig.MINECRAFT_VERSION}:${BuildConfig.PARCHMENT_VERSION}@zip")
         }
     })
-    modImplementation("net.fabricmc:fabric-loader:$FABRIC_LOADER_VERSION")
+    modImplementation("net.fabricmc:fabric-loader:${BuildConfig.FABRIC_LOADER_VERSION}")
 
     fun addEmbeddedFabricModule(name: String) {
-        val module = fabricApi.module(name, FABRIC_API_VERSION)
+        val module = fabricApi.module(name, BuildConfig.FABRIC_API_VERSION)
         modImplementation(module)
         include(module)
     }
@@ -66,53 +58,39 @@ dependencies {
     addEmbeddedFabricModule("fabric-resource-loader-v0")
     addEmbeddedFabricModule("fabric-screen-api-v1")
 
-    modCompileOnly("com.terraformersmc:modmenu:${MODMENU_VERSION}")
-    modCompileOnly("maven.modrinth:sodium:${SODIUM_VERSION}-fabric")
-    modCompileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-fabric")
-}
-
-tasks.named("compileTestJava").configure {
-    enabled = false
-}
-
-tasks.named("test").configure {
-    enabled = false
+    modCompileOnly("com.terraformersmc:modmenu:${BuildConfig.MODMENU_VERSION}")
+    modCompileOnly("maven.modrinth:sodium:${BuildConfig.SODIUM_VERSION}-fabric")
+    modCompileOnly("dev.isxander:yet-another-config-lib:${BuildConfig.YACL_VERSION}-fabric")
 }
 
 loom {
-    if (project(":common").file("src/main/resources/imagicthud.accesswidener").exists())
-        accessWidenerPath.set(project(":common").file("src/main/resources/imagicthud.accesswidener"))
+    accessWidenerPath.set(file("src/main/resources/imagicthud.fabric.accesswidener"))
 
-    @Suppress("UnstableApiUsage")
-    mixin { defaultRefmapName.set("imagicthud.fabric.refmap.json") }
+    mixin {
+        useLegacyMixinAp = false
+    }
 
     runs {
         named("client") {
             client()
-            configName = "Fabric Client"
+            configName = "Fabric/Client"
+            appendProjectPathToConfigName = false
             ideConfigGenerated(true)
             runDir("run")
         }
     }
-
 }
 
 tasks {
-    withType<JavaCompile> {
-        source(project(":common").sourceSets.main.get().allSource)
+    jar {
+        from(configurationCommonModJava)
+    }
+
+    remapJar {
+        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods"))
     }
 
     processResources {
-        from(project.project(":common").sourceSets.main.get().resources)
-
-        inputs.property("version", project.version)
-
-        filesMatching("fabric.mod.json") {
-            expand(mapOf("version" to project.version))
-        }
-    }
-
-    jar {
-        from(rootDir.resolve("LICENSE"))
+        from(configurationCommonModResources)
     }
 }

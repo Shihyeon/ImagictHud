@@ -22,21 +22,22 @@ public class Indicator {
     private static final float NAME_HEIGHT_OFFSET = 0.14f;
     private static final float TEXT_OFFSET = 0.00001f;
 
-    public static void renderIndicator(LivingEntity livingEntity, float yaw, float tickDelta,
+    public static void renderIndicator(LivingEntity livingEntity,
                                        PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                       int light, Minecraft client, ImagictHudConfig config) {
+                                       Minecraft client, ImagictHudConfig config) {
 
         if (config.indicator.general.enableIndicator && !EntityTracker.isInvalid(livingEntity)) {
             if (EntityTracker.isInUUIDS(livingEntity)) {
                 switch (config.indicator.display.indicatorMode) {
                     case BAR_AND_NAME_A, BAR_AND_NAME_B -> {
-                        renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                        renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                        renderHealthBarAndNumber(livingEntity, matrixStack, vertexConsumerProvider, client, config);
+                        renderNameAndBackground(livingEntity, matrixStack, vertexConsumerProvider, client, config);
                     }
-                    case BAR -> renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                    case BAR ->
+                            renderHealthBarAndNumber(livingEntity, matrixStack, vertexConsumerProvider, client, config);
                     case null -> {
-                        renderHealthBarAndNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                        renderNameAndBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                        renderHealthBarAndNumber(livingEntity, matrixStack, vertexConsumerProvider, client, config);
+                        renderNameAndBackground(livingEntity, matrixStack, vertexConsumerProvider, client, config);
                     }
                 }
 
@@ -44,49 +45,50 @@ public class Indicator {
         }
     }
 
-    private static void renderHealthBarAndNumber(LivingEntity livingEntity, float yaw, float tickDelta,
+    private static void renderHealthBarAndNumber(LivingEntity livingEntity,
                                                  PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                                 int light, Minecraft client, ImagictHudConfig config) {
+                                                 Minecraft client, ImagictHudConfig config) {
 
         switch (config.indicator.display.indicatorBarMode) {
             case BAR_AND_NUMBER -> {
-                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                renderHealthBar(livingEntity, matrixStack, client, config);
+                renderHealthNumber(livingEntity, matrixStack, vertexConsumerProvider, client, config);
             }
-            case BAR -> renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            case BAR ->
+                    renderHealthBar(livingEntity, matrixStack, client, config);
             case null -> {
-                renderHealthBar(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-                renderHealthNumber(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+                renderHealthBar(livingEntity, matrixStack, client, config);
+                renderHealthNumber(livingEntity, matrixStack, vertexConsumerProvider, client, config);
             }
         }
     }
 
-    private static void renderNameAndBackground(LivingEntity livingEntity, float yaw, float tickDelta,
+    private static void renderNameAndBackground(LivingEntity livingEntity,
                                                 PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                                int light, Minecraft client, ImagictHudConfig config) {
+                                                Minecraft client, ImagictHudConfig config) {
 
         if (!livingEntity.isAlwaysTicking()) {
-            renderNameBackground(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
-            renderName(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light, client, config);
+            renderNameBackground(livingEntity, matrixStack, client, config);
+            renderName(livingEntity, matrixStack, vertexConsumerProvider, client, config);
         }
     }
 
-    private static void renderHealthBar(LivingEntity livingEntity, float yaw, float tickDelta,
-                                        PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                        int light, Minecraft client, ImagictHudConfig config) {
+    private static void renderHealthBar(LivingEntity livingEntity, PoseStack matrixStack,
+                                        Minecraft client, ImagictHudConfig config) {
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder vertexConsumer;
 
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.isAlwaysTicking() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
         float maxHealthRed = livingEntity.getMaxHealth();
-        float maxHealthYellow = currentHealthYellow;
+        float maxHealthYellow = livingEntity.getMaxAbsorption();
         float totalMaxHealth = maxHealthRed + maxHealthYellow;
         float percentageHealthRed = currentHealthRed / totalMaxHealth;
         float percentageHealthYellow = currentHealthYellow / totalMaxHealth;
 
         float scale = INDICATOR_SCALE;
-        float barHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + NAME_TAG_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float selfHeightOffset = client.player == livingEntity ? -NAME_TAG_HEIGHT_OFFSET : NAME_TAG_HEIGHT_OFFSET;
+        float barHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + selfHeightOffset : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + barHeightOffset + configOffset;
 
@@ -102,11 +104,11 @@ public class Indicator {
         MeshData builtBuffer;
         try {
             builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
+            if (builtBuffer != null) {
                 BufferUploader.drawWithShader(builtBuffer);
                 builtBuffer.close();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             // Handle exception if needed
         }
 
@@ -114,16 +116,16 @@ public class Indicator {
         matrixStack.popPose();
     }
 
-    private static void renderHealthNumber(LivingEntity livingEntity, float yaw, float tickDelta,
-                                           PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                           int light, Minecraft client, ImagictHudConfig config) {
+    private static void renderHealthNumber(LivingEntity livingEntity, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
+                                           Minecraft client, ImagictHudConfig config) {
 
         float currentHealthRed = livingEntity.getHealth();
         float currentHealthYellow = livingEntity.isAlwaysTicking() ? livingEntity.getAbsorptionAmount() : livingEntity.getMaxAbsorption();
         float maxHealthRed = livingEntity.getMaxHealth();
 
         float scale = INDICATOR_SCALE * 2.f / 7.f;
-        float numberHeightOffset = livingEntity.shouldShowName() ? HEIGHT_OFFSET + NAME_TAG_HEIGHT_OFFSET : HEIGHT_OFFSET;
+        float selfHeightOffset = client.player == livingEntity ? -NAME_TAG_HEIGHT_OFFSET : NAME_TAG_HEIGHT_OFFSET;
+        float numberHeightOffset = livingEntity.isAlwaysTicking() ? HEIGHT_OFFSET + selfHeightOffset : HEIGHT_OFFSET;
         float configOffset = (float) config.indicator.layout.positionY / 100.f;
         float entityHeight = livingEntity.getBbHeight() + numberHeightOffset + configOffset;
 
@@ -159,9 +161,8 @@ public class Indicator {
         matrixStack.popPose();
     }
 
-    private static void renderName(LivingEntity livingEntity, float yaw, float tickDelta,
-                                   PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                   int light, Minecraft client, ImagictHudConfig config) {
+    private static void renderName(LivingEntity livingEntity, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
+                                   Minecraft client, ImagictHudConfig config) {
 
         String name = livingEntity.getName().getString();
 
@@ -193,9 +194,8 @@ public class Indicator {
         matrixStack.popPose();
     }
 
-    private static void renderNameBackground(LivingEntity livingEntity, float yaw, float tickDelta,
-                                   PoseStack matrixStack, MultiBufferSource vertexConsumerProvider,
-                                   int light, Minecraft client, ImagictHudConfig config) {
+    private static void renderNameBackground(LivingEntity livingEntity, PoseStack matrixStack,
+                                             Minecraft client, ImagictHudConfig config) {
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder vertexConsumer;
@@ -222,12 +222,12 @@ public class Indicator {
         MeshData builtBuffer;
         try {
             builtBuffer = vertexConsumer.build();
-            if(builtBuffer != null){
+            if (builtBuffer != null) {
                 BufferUploader.drawWithShader(builtBuffer);
                 builtBuffer.close();
             }
-        } catch (Exception e){
-            // Handle exception if needed
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
         RenderSystem.disableBlend();

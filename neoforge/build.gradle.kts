@@ -1,123 +1,75 @@
 plugins {
-    id("idea")
-    id("net.neoforged.moddev") version "2.0.28-beta"
-    id("java-library")
+    id("multiloader-platform")
+
+    id("net.neoforged.moddev") version("2.0.42-beta")
 }
-
-val MINECRAFT_VERSION: String by rootProject.extra
-val PARCHMENT_VERSION: String? by rootProject.extra
-val NEOFORGE_VERSION: String by rootProject.extra
-val MOD_VERSION: String by rootProject.extra
-
-val SODIUM_VERSION: String by rootProject.extra
-val YACL_VERSION: String by rootProject.extra
 
 base {
     archivesName = "imagicthud-neoforge"
 }
 
-sourceSets {
-    main.get().apply {
-        compileClasspath += project(":common").sourceSets.main.get().output
-    }
+val configurationCommonModJava: Configuration = configurations.create("commonModJava") {
+    isCanBeResolved = true
+}
+val configurationCommonModResources: Configuration = configurations.create("commonModResources") {
+    isCanBeResolved = true
 }
 
 repositories {
-    maven {
-        name = "Xander Maven"
-        url = uri("https://maven.isxander.dev/releases")
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = uri("https://api.modrinth.com/maven")
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
-    }
-}
-
-val serviceJar: Jar by tasks.creating(Jar::class) {
-    from(rootDir.resolve("LICENSE"))
-}
-
-configurations {
-    create("serviceConfig") {
-        isCanBeConsumed = true
-        isCanBeResolved = false
-        outgoing {
-            artifact(serviceJar)
-        }
-    }
+    maven("https://maven.neoforged.net/releases/")
 }
 
 dependencies {
-    compileOnly(project(":common"))
-    jarJar(project(":neoforge", "serviceConfig"))
+    configurationCommonModJava(project(path = ":common", configuration = "commonMainJava"))
+    configurationCommonModJava(project(path = ":common", configuration = "commonApiJava"))
 
-    compileOnly("maven.modrinth:sodium:${SODIUM_VERSION}-neoforge")
-    compileOnly("dev.isxander:yet-another-config-lib:${YACL_VERSION}-neoforge")
+    configurationCommonModResources(project(path = ":common", configuration = "commonMainResources"))
+    configurationCommonModResources(project(path = ":common", configuration = "commonApiResources"))
+
+    compileOnly("maven.modrinth:sodium:${BuildConfig.SODIUM_VERSION}-neoforge")
+    compileOnly("dev.isxander:yet-another-config-lib:${BuildConfig.YACL_VERSION}-neoforge")
 }
 
-tasks.jar {
-    from(rootDir.resolve("LICENSE"))
-
-    filesMatching("neoforge.mods.toml") {
-        expand(mapOf("version" to MOD_VERSION))
+sourceSets {
+    main {
+        compileClasspath += configurationCommonModJava
+        runtimeClasspath += configurationCommonModJava
     }
 }
 
 neoForge {
-    // Specify the version of NeoForge to use.
-    version = NEOFORGE_VERSION
+    version = BuildConfig.NEOFORGE_VERSION
 
-    if (PARCHMENT_VERSION != null) {
+    if (BuildConfig.PARCHMENT_VERSION != null) {
         parchment {
-            minecraftVersion = MINECRAFT_VERSION
-            mappingsVersion = PARCHMENT_VERSION
+            minecraftVersion = BuildConfig.MINECRAFT_VERSION
+            mappingsVersion = BuildConfig.PARCHMENT_VERSION
         }
     }
 
     runs {
-        create("client") {
+        create("Client") {
             client()
+            ideName = "NeoForge/Client"
         }
     }
 
     mods {
         create("imagicthud") {
-            sourceSet(sourceSets.main.get())
-            sourceSet(project.project(":common").sourceSets.main.get())
+            sourceSet(sourceSets["main"])
+            sourceSet(project(":common").sourceSets["main"])
+            sourceSet(project(":common").sourceSets["api"])
         }
     }
 }
 
-fun includeDep(dependency: String, closure: Action<ExternalModuleDependency>) {
-    dependencies.implementation(dependency, closure)
-    dependencies.jarJar(dependency, closure)
+tasks {
+    jar {
+        from(configurationCommonModJava)
+        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods"))
+    }
+
+    processResources {
+        from(configurationCommonModResources)
+    }
 }
-
-fun includeDep(dependency: String) {
-    dependencies.implementation(dependency)
-    dependencies.jarJar(dependency)
-}
-
-// NeoGradle compiles the game, but we don't want to add our common code to the game's code
-val notNeoTask: (Task) -> Boolean = { it: Task -> !it.name.startsWith("neo") && !it.name.startsWith("compileService") }
-
-tasks.withType<JavaCompile>().matching(notNeoTask).configureEach {
-    source(project(":common").sourceSets.main.get().allSource)
-}
-
-tasks.withType<ProcessResources>().matching(notNeoTask).configureEach {
-    from(project(":common").sourceSets.main.get().resources)
-}
-
-tasks.named("compileTestJava").configure {
-    enabled = false
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)

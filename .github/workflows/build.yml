@@ -41,6 +41,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: imagicthud-artifacts
-          path: |
-            fabric/build/libs/*.jar
-            neoforge/build/libs/*.jar
+          path: build/mods/*.jar

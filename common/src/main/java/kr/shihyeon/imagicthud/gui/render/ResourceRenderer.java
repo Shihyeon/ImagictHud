@@ -8,11 +8,15 @@ import kr.shihyeon.imagicthud.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import org.joml.Matrix4f;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public class ResourceRenderer {
 
@@ -49,14 +53,17 @@ public class ResourceRenderer {
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;
 
+        float opacity = 1.0f;
+        int color = ARGB.white(opacity);
+
         if (blendedHeadTexture.isPresent() && blendedHeadTexture.get().equals(skinLocation)) {
             RenderSystem.enableBlend();
-            context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            context.blit(RenderType::guiTextured, getBlendedLocation(skinLocation), x, y, 0, 0, initPosX, initPosY, regionSize, regionSize, regionSize, regionSize, color);
             RenderSystem.disableBlend();
         } else {
             RenderSystem.enableBlend();
-            context.blit(skinLocation, x, y, initPosX, initPosY, u, v, regionSize, regionSize, textureSize, textureSize);
-            context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(RenderType::guiTextured, skinLocation, x, y, u, v, initPosX, initPosY, regionSize, regionSize, textureSize, textureSize, color);
+            context.blit(RenderType::guiTextured, skinLocation, x, y, uh, v, initPosX, initPosY, regionSize, regionSize, textureSize, textureSize, color);
             RenderSystem.disableBlend();
         }
     }
@@ -75,21 +82,24 @@ public class ResourceRenderer {
         int regionSize = offset * 8;
         int textureSize = regionSize * 8;
 
+        float opacity = 1.0f;
+        int color = ARGB.white(opacity);
+
         if (blendedHeadTexture.isPresent() && blendedHeadTexture.get().equals(skinLocation)) {
             RenderSystem.enableBlend();
-            context.blit(getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize);
+            context.blit(RenderType::guiTextured, getBlendedLocation(skinLocation), x, y, initPosX, initPosY, 0, 0, regionSize, regionSize, regionSize, regionSize, color);
             RenderSystem.disableBlend();
         } else {
             RenderSystem.enableBlend();
-            context.blit(skinLocation, x + offset / 2, y + offset / 2, initHeadPosX, initHeadPosY, u, v, regionSize, regionSize, textureSize, textureSize);
-            context.blit(skinLocation, x, y, initPosX, initPosY, uh, v, regionSize, regionSize, textureSize, textureSize);
+            context.blit(RenderType::guiTextured, skinLocation, x + offset / 2, y + offset / 2, u, v, initHeadPosX, initHeadPosY, regionSize, regionSize, textureSize, textureSize, color);
+            context.blit(RenderType::guiTextured, skinLocation, x, y, uh, v, initPosX, initPosY, regionSize, regionSize, textureSize, textureSize, color);
             RenderSystem.disableBlend();
         }
     }
 
     public static void drawEntityBar(Matrix4f matrix, VertexConsumer vertexConsumer, float percentageHealthRed, float percentageHealthYellow) {
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.enableDepthTest();
+        RenderSystem.setShader(CoreShaders.POSITION_COLOR);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -144,8 +154,8 @@ public class ResourceRenderer {
         float initPosX = width / 2.f;
         float initPosY = height / 2.f;
 
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.enableDepthTest();
+        RenderSystem.setShader(CoreShaders.POSITION_COLOR);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
