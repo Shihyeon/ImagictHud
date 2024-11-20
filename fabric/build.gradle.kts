@@ -87,7 +87,7 @@ tasks {
     }
 
     remapJar {
-        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods/fabric"))
+        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods"))
     }
 
     processResources {

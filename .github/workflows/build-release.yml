@@ -58,7 +58,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/mods/neoforge/*.jar
+          files: build/mods/*-neoforge-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for NeoForge
           version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-neoforge
           modrinth-id: uWeqs5CX
@@ -75,7 +75,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/mods/fabric/*.jar
+          files: build/mods/*-fabric-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for Fabric
           version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-fabric
           modrinth-id: uWeqs5CX
@@ -94,8 +94,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            build/mods/fabric/*.jar
-            build/mods/neoforge/*.jar
+            build/mods/*-fabric-*.jar
+            build/mods/*-neoforge-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for Minecraft ${{ env.MINECRAFT_VERSION }}
           version: ${{ env.MOD_VERSION }}+mc${{ env.MINECRAFT_VERSION }}
           version-type: ${{ inputs.version-type }}
@@ -108,7 +108,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/mods/neoforge/*.jar
+          files: build/mods/*-neoforge-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for NeoForge
           version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-neoforge
           modrinth-id: uWeqs5CX
@@ -125,7 +125,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files: build/mods/fabric/*.jar
+          files: build/mods/*-fabric-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for Fabric
           version: mc${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}-fabric
           modrinth-id: uWeqs5CX
@@ -144,8 +144,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            build/mods/fabric/*.jar
-            build/mods/neoforge/*.jar
+            build/mods/*-fabric-*.jar
+            build/mods/*-neoforge-*.jar
           name: Imagict Hud ${{ env.MOD_VERSION }} for Minecraft ${{ env.MINECRAFT_VERSION }}
           version: ${{ env.MOD_VERSION }}+mc${{ env.MINECRAFT_VERSION }}
           version-type: ${{ inputs.version-type }}

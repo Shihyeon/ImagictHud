@@ -66,7 +66,7 @@ neoForge {
 tasks {
     jar {
         from(configurationCommonModJava)
-        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods/neoforge"))
+        destinationDirectory.set(file(rootProject.layout.buildDirectory).resolve("mods"))
     }
 
     processResources {
