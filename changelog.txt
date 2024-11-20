@@ -1,19 +1,10 @@
 ### Requirements
 - Java 21
-- Minecraft 1.21.1
-- Fabric loader 0.16.5
-- NeoForge 21.1.23
+- Minecraft 1.21.3
+- Fabric loader 0.16.7
+- NeoForge 21.3.3-beta
 
-### NEW
-- First multiloader initial released!
-
-### Changes (1.5.4 -> 1.6.0)
-- Added config option of hiding hud on debug screen
-- Added config screen keybinding (yacl required)
-- Fixed health bar height offset for nametag
-- Fixed opacity issue in head renderer
-- Swapped bar nametag mode: A to B, B to A
-- Fixed self-player damage tracking
-- Supported sodium 0.6
-- Changed color format to hex in config
-- Removed fabric-api dependency
+### Changes (1.6.0 -> 1.7.0)
+- Bump version to 1.7.0
+- Update to 1.21.3
+- Fixed bar height
