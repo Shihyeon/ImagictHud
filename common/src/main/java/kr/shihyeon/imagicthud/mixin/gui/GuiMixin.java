@@ -33,7 +33,7 @@ public abstract class GuiMixin {
     @Unique
     private void init() {
         if (config == null) {
-             config = ImagictHudClient.CONFIG;
+             config = ImagictHudClient.getConfig();
         }
     }
 }

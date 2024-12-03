@@ -9,7 +9,7 @@ public class SodiumOptionsStorage implements OptionStorage<ImagictHudConfig> {
     private final ImagictHudConfig CONFIG;
 
     public SodiumOptionsStorage() {
-        CONFIG = ImagictHudClient.CONFIG;
+        CONFIG = ImagictHudClient.getConfig();
     }
 
     @Override

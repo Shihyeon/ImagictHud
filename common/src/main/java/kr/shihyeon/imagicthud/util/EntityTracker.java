@@ -34,7 +34,7 @@ public class EntityTracker {
     private static final int TICK_COUNT = 20;
 
     static {
-        CONFIG = ImagictHudClient.CONFIG;
+        CONFIG = ImagictHudClient.getConfig();
         if (CONFIG == null) {
             throw new IllegalStateException("ImagictHudClient.CONFIG is not initialized");
         }

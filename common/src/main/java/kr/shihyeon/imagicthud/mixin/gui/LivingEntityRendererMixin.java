@@ -26,7 +26,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     private final Minecraft minecraft = Minecraft.getInstance();
 
     @Unique
-    private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
+    private static final ImagictHudConfig CONFIG = ImagictHudClient.getConfig();
 
     @Unique
     private LivingEntity currentLivingEntity;
