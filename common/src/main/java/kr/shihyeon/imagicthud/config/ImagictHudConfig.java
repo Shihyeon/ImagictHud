@@ -59,7 +59,15 @@ public class ImagictHudConfig {
 
     private static final Object lock = new Object();
 
-    private static final ImagictHudConfig INSTANCE = new ImagictHudConfig(CONFIG_PATH.toFile());
+    private static final ImagictHudConfig INSTANCE;
+
+    static {
+        try {
+            INSTANCE = new ImagictHudConfig(CONFIG_PATH.toFile());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to initialize ImagictHudConfig", e);
+        }
+    }
 
     public static ImagictHudConfig getInstance() {
         return INSTANCE;

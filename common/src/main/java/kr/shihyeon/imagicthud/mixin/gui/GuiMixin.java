@@ -22,10 +22,18 @@ public abstract class GuiMixin {
     private Minecraft minecraft;
 
     @Unique
-    private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
+    private static ImagictHudConfig config;
 
     @Inject(at = @At("HEAD"), method = "render")
     private void imagicthud$render(GuiGraphics context, DeltaTracker tickCounter, CallbackInfo ci) {
-        Hud.renderHud(context, minecraft, CONFIG);
+        init();
+        Hud.renderHud(context, minecraft, config);
+    }
+
+    @Unique
+    private void init() {
+        if (config == null) {
+             config = ImagictHudClient.CONFIG;
+        }
     }
 }
