@@ -1,7 +1,6 @@
 package kr.shihyeon.imagicthud.client;
 
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
-import kr.shihyeon.imagicthud.config.LimitedConfigValue;
 import kr.shihyeon.imagicthud.platform.IPlatformHelpers;
 
 public class ImagictHudClient {
@@ -14,7 +13,6 @@ public class ImagictHudClient {
         if (IPlatformHelpers.getInstance().isModLoaded(MODID)) {
             config = ImagictHudConfig.getInstance();
             config.load();
-            LimitedConfigValue.setValueWithLimit(config);
             config.save();
 
             KeyBinds.register();
