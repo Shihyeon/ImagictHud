@@ -26,12 +26,24 @@ public class RenderUtil {
         Font textRenderer = client.font;
         Matrix4f matrix = context.pose().last().pose();
         MultiBufferSource vertexConsumers = context.bufferSource;
-        textRenderer.drawInBatch(text, x, y, -1, false, matrix, vertexConsumers, Font.DisplayMode.NORMAL, 0, 15728880);
+        textRenderer.drawInBatch(text, x, y, -1, false, matrix, vertexConsumers, Font.DisplayMode.NORMAL, 0, 15 << 4 | 15 << 20);
+    }
+
+    public static void drawTextMatrix(Matrix4f matrix, MultiBufferSource vertexConsumer, Component text, float x, float y) {
+        drawTextMatrix(matrix, vertexConsumer, text, x, y, true);
+    }
+    
+    public static void drawTextMatrix(Matrix4f matrix, MultiBufferSource vertexConsumer, Component text, float x, float y, boolean shadow) {
+        drawTextMatrix(matrix, vertexConsumer, text, x, y, -1, shadow);
     }
 
     public static void drawTextMatrix(Matrix4f matrix, MultiBufferSource vertexConsumer, Component text, float x, float y, int color, boolean shadow) {
+        drawTextMatrix(matrix, vertexConsumer, text, x, y, color, 15 << 4 | 15 << 20, shadow);
+    }
+
+    public static void drawTextMatrix(Matrix4f matrix, MultiBufferSource vertexConsumer, Component text, float x, float y, int color, int light, boolean shadow) {
         Font textRenderer = client.font;
-        textRenderer.drawInBatch(text, x, y, color, shadow, matrix, vertexConsumer, Font.DisplayMode.NORMAL, 0, 15728880);
+        textRenderer.drawInBatch(text, x, y, color, shadow, matrix, vertexConsumer, Font.DisplayMode.NORMAL, 0, light);
     }
 
     public static void fillContext(GuiGraphics context, float x1, float y1, float x2, float y2, int color) {
@@ -58,6 +70,10 @@ public class RenderUtil {
     }
 
     public static void fillMatrix(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float y1, float x2, float y2, int color) {
+        fillMatrix(matrix, vertexConsumer, x1, y1, x2, y2, color, 15 << 4 | 15 << 20);
+    }
+
+    public static void fillMatrix(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float y1, float x2, float y2, int color, int light) {
         float i;
         if (x1 < x2) {
             i = x1;
@@ -71,9 +87,9 @@ public class RenderUtil {
             y2 = i;
         }
 
-        vertexConsumer.addVertex(matrix, x1, y1, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x1, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y2, 0f).setColor(color);
-        vertexConsumer.addVertex(matrix, x2, y1, 0f).setColor(color);
+        vertexConsumer.addVertex(matrix, x1, y1, 0f).setColor(color).setLight(light);
+        vertexConsumer.addVertex(matrix, x1, y2, 0f).setColor(color).setLight(light);
+        vertexConsumer.addVertex(matrix, x2, y2, 0f).setColor(color).setLight(light);
+        vertexConsumer.addVertex(matrix, x2, y1, 0f).setColor(color).setLight(light);
     }
 }

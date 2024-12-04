@@ -5,7 +5,7 @@ import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 import net.minecraft.client.Minecraft;
 
 public class LayoutUtil {
-    private static ImagictHudConfig config = ImagictHudClient.CONFIG;
+    private static ImagictHudConfig config = ImagictHudClient.getConfig();
 
     public static int getPosX(Minecraft client) {
         double guiScale = client.getWindow().getGuiScale();

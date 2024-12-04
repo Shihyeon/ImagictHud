@@ -14,7 +14,7 @@ import java.util.List;
 
 public class YaclConfigScreenFactoryManager {
 
-    private static final ImagictHudConfig CONFIG = ImagictHudClient.CONFIG;
+    private static final ImagictHudConfig CONFIG = ImagictHudClient.getConfig();
 
     public static Screen createScreen(Screen parent) {
 

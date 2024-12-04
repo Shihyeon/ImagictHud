@@ -4,7 +4,7 @@ import kr.shihyeon.imagicthud.client.ImagictHudClient;
 import kr.shihyeon.imagicthud.config.ImagictHudConfig;
 
 public class ColorHelper {
-    private static ImagictHudConfig config = ImagictHudClient.CONFIG;
+    private static ImagictHudConfig config = ImagictHudClient.getConfig();
 
     public static int getLabelBackgroundColor() {
         int rgb = config.hud.label.labelBackgroundColor.getRGB() & 0xFFFFFF;
