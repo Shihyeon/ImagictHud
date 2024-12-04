@@ -12,9 +12,9 @@ object BuildConfig {
     // TODO: Re-add Parchment
     val PARCHMENT_VERSION: String? = null
 
-    val SODIUM_VERSION: String = "mc1.21.3-0.6.1"
+    val SODIUM_VERSION: String = "mc1.21.4-0.6.2"
     val YACL_VERSION: String = "3.6.1+1.21.2"
-    val MODMENU_VERSION: String = "12.0.0-beta.1"
+    val MODMENU_VERSION: String = "13.0.0-beta.1"
 
     // https://semver.org/
     var MOD_VERSION: String = "1.7.1"
