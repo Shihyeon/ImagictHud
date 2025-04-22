@@ -4,6 +4,5 @@
 - Fabric loader 0.16.9
 - NeoForge 21.3.3-beta
 
-### Changes (1.7.0)
-- Update to 1.21.4
-- Fixed config null issue for fabric
+### Changes (1.7.2)
+- Supported moded biome keys (by @22858)

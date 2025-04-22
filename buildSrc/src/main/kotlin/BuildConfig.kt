@@ -17,7 +17,7 @@ object BuildConfig {
     val MODMENU_VERSION: String = "13.0.0-beta.1"
 
     // https://semver.org/
-    var MOD_VERSION: String = "1.7.1"
+    var MOD_VERSION: String = "1.7.2"
 
     fun createVersionString(project: Project): String {
         val builder = StringBuilder()
