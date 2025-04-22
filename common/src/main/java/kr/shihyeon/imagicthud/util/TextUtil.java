@@ -54,7 +54,7 @@ public class TextUtil {
                 Holder<Biome> biomeEntry = client.level.getBiome(playerPos);
                 ResourceKey<Biome> biomeKey = biomeEntry.unwrapKey().orElseThrow(() -> new IllegalStateException("Biome key not found"));
 
-                String biomeTranslationKey = "biome.minecraft." + biomeKey.location().getPath();
+                String biomeTranslationKey = "biome." + biomeKey.location().getNamespace() + "." + biomeKey.location().getPath();
                 String biomeName = Component.translatable(biomeTranslationKey).getString();
 
                 textLines.add(biomeName);
